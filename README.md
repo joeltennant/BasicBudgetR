@@ -1,1 +1,6 @@
-# BasicBudgetR
+# Basic BudgetR
+
+## Introduction
+
+## Tech Used
+
