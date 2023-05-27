@@ -1,9 +1,9 @@
-using BasicBudgetR.Server.Data;
-using BasicBudgetR.Server.Models;
+using BasicBudgetR.Data;
+using BasicBudgetR.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
-namespace BasicBudgetR.Server;
+namespace BasicBudgetR;
 public class Program
 {
     public static void Main(string[] args)

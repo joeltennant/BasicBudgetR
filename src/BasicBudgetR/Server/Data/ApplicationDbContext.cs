@@ -1,10 +1,10 @@
-﻿using BasicBudgetR.Server.Models;
+﻿using BasicBudgetR.Models;
 using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace BasicBudgetR.Server.Data;
+namespace BasicBudgetR.Data;
 public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
 {
     public ApplicationDbContext(
