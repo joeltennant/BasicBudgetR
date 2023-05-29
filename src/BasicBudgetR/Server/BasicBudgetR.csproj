@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\BasicBudgetR.Core\BasicBudgetR.Core.csproj" />
+    <ProjectReference Include="..\..\Server\BasicBudgetR.Server.Infrastructure\BasicBudgetR.Server.Infrastructure.csproj" />
     <ProjectReference Include="..\Client\BasicBudgetR.Client.csproj" />
   </ItemGroup>
 

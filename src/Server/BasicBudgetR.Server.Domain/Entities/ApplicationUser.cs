@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-
-namespace BasicBudgetR.Models;
+namespace BasicBudgetR.Server.Domain.Entities;
 public class ApplicationUser : IdentityUser
 {
 }
