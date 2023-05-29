@@ -1,7 +1,6 @@
 ﻿using BasicBudgetR.Server.Domain.Entities;
 using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -13,4 +12,6 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<User>
         : base(options, operationalStoreOptions)
     {
     }
+
+    public DbSet<UserDetail> UserDetails { get; set; }
 }
