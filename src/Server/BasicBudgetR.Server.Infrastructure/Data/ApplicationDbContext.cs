@@ -1,11 +1,12 @@
 ﻿using BasicBudgetR.Server.Domain.Entities;
 using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace BasicBudgetR.Server.Infrastructure.Data;
-public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
+public class ApplicationDbContext : ApiAuthorizationDbContext<User>
 {
     public ApplicationDbContext(DbContextOptions options
                               , IOptions<OperationalStoreOptions> operationalStoreOptions)

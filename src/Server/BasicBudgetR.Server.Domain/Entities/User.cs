@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 namespace BasicBudgetR.Server.Domain.Entities;
-public class ApplicationUser : IdentityUser
+public class User : IdentityUser
 {
 }
