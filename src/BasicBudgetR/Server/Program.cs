@@ -10,6 +10,7 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddInfrastructure(builder.Configuration);
+        builder.Services.AddHttpContextAccessor();
 
         builder.Services.AddAuthentication()
             .AddIdentityServerJwt();
