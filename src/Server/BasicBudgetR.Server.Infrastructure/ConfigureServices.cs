@@ -1,6 +1,4 @@
-﻿using BasicBudgetR.Server.Domain.Entities;
-using BasicBudgetR.Server.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using BasicBudgetR.Server.Infrastructure.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +12,7 @@ public static class ConfigureServices
         services.AddDbContext<BbrDbContext>(options => options.UseSqlServer(connectionString));
         //services.AddDatabaseDeveloperPageExceptionFilter();
 
-        services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+        services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
             .AddEntityFrameworkStores<BbrDbContext>();
 
         services.AddIdentityServer()
