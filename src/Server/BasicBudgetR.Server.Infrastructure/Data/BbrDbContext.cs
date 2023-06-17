@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace BasicBudgetR.Server.Infrastructure.Data;
-public class ApplicationDbContext : ApiAuthorizationDbContext<User>
+public class BbrDbContext : ApiAuthorizationDbContext<User>
 {
-    public ApplicationDbContext(DbContextOptions options
+    public BbrDbContext(DbContextOptions options
                               , IOptions<OperationalStoreOptions> operationalStoreOptions)
         : base(options, operationalStoreOptions)
     {

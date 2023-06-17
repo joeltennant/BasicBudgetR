@@ -7,9 +7,9 @@ public class PreRequestBehavior<TRequest> : IRequestPreProcessor<TRequest>
 {
     private CurrentProcess _currentProcess;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly ApplicationDbContext _context;
+    private readonly BbrDbContext _context;
 
-    public PreRequestBehavior(CurrentProcess currentProcess, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
+    public PreRequestBehavior(CurrentProcess currentProcess, IHttpContextAccessor httpContextAccessor, BbrDbContext context)
     {
         _currentProcess = currentProcess;
         _httpContextAccessor = httpContextAccessor;

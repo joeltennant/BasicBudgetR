@@ -11,13 +11,13 @@ public static class ConfigureServices
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+        services.AddDbContext<BbrDbContext>(options => options.UseSqlServer(connectionString));
         //services.AddDatabaseDeveloperPageExceptionFilter();
 
         services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            .AddEntityFrameworkStores<BbrDbContext>();
 
         services.AddIdentityServer()
-            .AddApiAuthorization<User, ApplicationDbContext>();
+            .AddApiAuthorization<User, BbrDbContext>();
     }
 }
