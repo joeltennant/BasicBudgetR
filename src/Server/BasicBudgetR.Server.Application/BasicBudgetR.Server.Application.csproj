@@ -15,4 +15,8 @@
     <ProjectReference Include="..\BasicBudgetR.Server.Infrastructure\BasicBudgetR.Server.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handlers\Accounts\" />
+  </ItemGroup>
+
 </Project>

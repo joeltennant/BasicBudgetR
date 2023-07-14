@@ -7,12 +7,17 @@ public class PreRequestBehavior<TRequest> : IRequestPreProcessor<TRequest>
 {
     private CurrentProcess _currentProcess;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly BbrDbContext _context;
+    private readonly IdentityDbContext _identityContext;
+    private readonly BudgetRDbContext _context;
 
-    public PreRequestBehavior(CurrentProcess currentProcess, IHttpContextAccessor httpContextAccessor, BbrDbContext context)
+    public PreRequestBehavior(CurrentProcess currentProcess
+        , IHttpContextAccessor httpContextAccessor
+        , IdentityDbContext identityContext
+        , BudgetRDbContext context)
     {
         _currentProcess = currentProcess;
         _httpContextAccessor = httpContextAccessor;
+        _identityContext = identityContext;
         _context = context;
     }
 
@@ -45,19 +50,6 @@ public class PreRequestBehavior<TRequest> : IRequestPreProcessor<TRequest>
                 .Where(x => x.UserId == _currentProcess.CurrentUserId)
                 .Select(x => x.UserDetailId)
                 .FirstOrDefault();
-
-            if (userDetailId == 0)
-            {
-                var newUser = new UserDetail
-                {
-                    UserId = _currentProcess.CurrentUserId,
-                };
-
-                _context.UserDetails.Add(newUser);
-                _context.SaveChanges();
-                userDetailId = newUser.UserDetailId;
-            }
-
             return userDetailId;
         }
         else

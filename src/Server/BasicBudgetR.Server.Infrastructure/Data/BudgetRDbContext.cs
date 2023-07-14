@@ -1,19 +1,14 @@
-﻿using Duende.IdentityServer.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.Extensions.Options;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace BasicBudgetR.Server.Infrastructure.Data;
-public class BbrDbContext : ApiAuthorizationDbContext<User>
+public class BudgetRDbContext : DbContext
 {
-    public BbrDbContext(DbContextOptions options
-                              , IOptions<OperationalStoreOptions> operationalStoreOptions)
-        : base(options, operationalStoreOptions)
+    public BudgetRDbContext(DbContextOptions<BudgetRDbContext> options) : base(options)
     {
     }
 
-    public DbSet<User> Users { get; set; }
     public DbSet<UserDetail> UserDetails { get; set; }
+    public DbSet<Account> Accounts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

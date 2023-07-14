@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace BasicBudgetR.Server.Infrastructure.Data.Migrations;
+namespace BasicBudgetR.Server.Infrastructure.Data.Migrations.Identity;
 
 /// <inheritdoc />
-public partial class Initial : Migration
+public partial class InitialIdentity : Migration
 {
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
@@ -212,25 +212,6 @@ public partial class Initial : Migration
                     onDelete: ReferentialAction.Cascade);
             });
 
-        migrationBuilder.CreateTable(
-            name: "UserDetails",
-            columns: table => new
-            {
-                UserDetailId = table.Column<long>(type: "bigint", nullable: false)
-                    .Annotation("SqlServer:Identity", "1, 1"),
-                UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-            },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_UserDetails", x => x.UserDetailId);
-                table.ForeignKey(
-                    name: "FK_UserDetails_AspNetUsers_UserId",
-                    column: x => x.UserId,
-                    principalTable: "AspNetUsers",
-                    principalColumn: "Id",
-                    onDelete: ReferentialAction.Cascade);
-            });
-
         migrationBuilder.CreateIndex(
             name: "IX_AspNetRoleClaims_RoleId",
             table: "AspNetRoleClaims",
@@ -305,11 +286,6 @@ public partial class Initial : Migration
             name: "IX_PersistedGrants_SubjectId_SessionId_Type",
             table: "PersistedGrants",
             columns: new[] { "SubjectId", "SessionId", "Type" });
-
-        migrationBuilder.CreateIndex(
-            name: "IX_UserDetails_UserId",
-            table: "UserDetails",
-            column: "UserId");
     }
 
     /// <inheritdoc />
@@ -338,9 +314,6 @@ public partial class Initial : Migration
 
         migrationBuilder.DropTable(
             name: "PersistedGrants");
-
-        migrationBuilder.DropTable(
-            name: "UserDetails");
 
         migrationBuilder.DropTable(
             name: "AspNetRoles");

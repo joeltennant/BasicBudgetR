@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Application.User;
+﻿namespace BasicBudgetR.Server.Application.Handlers.User;
 
 public static class AccessFailedCount
 {
@@ -10,7 +10,7 @@ public static class AccessFailedCount
 
     public class Handler : BaseHandler, IRequestHandler<Request, Response>
     {
-        public Handler(BbrDbContext context, CurrentProcess currentProcess)
+        public Handler(IdentityDbContext context, CurrentProcess currentProcess)
             : base(context, currentProcess)
         {
         }
