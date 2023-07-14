@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BasicBudgetR.Core\BasicBudgetR.Core.csproj" />
     <ProjectReference Include="..\BasicBudgetR.Server.Domain\BasicBudgetR.Server.Domain.csproj" />
   </ItemGroup>
 

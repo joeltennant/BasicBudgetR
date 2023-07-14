@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using BasicBudgetR.Server.Domain.Entities.ReferenceEntities;
 
 namespace BasicBudgetR.Server.Domain.Entities;
 public class Account : BaseEntity
@@ -21,8 +20,11 @@ public class Account : BaseEntity
     public BalanceType BalanceType { get; set; }
 
     [Column(Order = 4)]
-    public AccountType AccountType { get; set; }
+    public long AccountTypeId { get; set; }
 
+    public AccountType? AccountType { get; set; }
+
+    [Column(Order = 5)]
     public long UserDetailId { get; set; }
     public UserDetail? UserDetail { get; set; }
 }

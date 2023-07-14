@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
+namespace BasicBudgetR.Server.Infrastructure.Data.Migrations.BudgetRDb
 {
     [DbContext(typeof(BudgetRDbContext))]
     partial class BudgetRDbContextModelSnapshot : ModelSnapshot
@@ -31,8 +31,8 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("AccountId"));
 
-                    b.Property<int>("AccountType")
-                        .HasColumnType("int")
+                    b.Property<long>("AccountTypeId")
+                        .HasColumnType("bigint")
                         .HasColumnOrder(4);
 
                     b.Property<decimal>("Balance")
@@ -54,18 +54,18 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("ModifiedAt");
 
-                    b.Property<long>("ModifiedBy")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Name")
                         .HasMaxLength(125)
                         .HasColumnType("nvarchar(125)")
                         .HasColumnOrder(1);
 
                     b.Property<long>("UserDetailId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(5);
 
                     b.HasKey("AccountId");
+
+                    b.HasIndex("AccountTypeId");
 
                     b.HasIndex("UserDetailId");
 
@@ -86,56 +86,55 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                             }));
                 });
 
-            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.User", b =>
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.ReferenceEntities.AccountType", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("AccountTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
 
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("AccountTypeId"));
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(1);
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("AccountTypeId");
 
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                    b.ToTable("AccountTypes", (string)null);
 
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User");
+                    b.HasData(
+                        new
+                        {
+                            AccountTypeId = 4L,
+                            Name = "Cash"
+                        },
+                        new
+                        {
+                            AccountTypeId = 1L,
+                            Name = "Checking"
+                        },
+                        new
+                        {
+                            AccountTypeId = 3L,
+                            Name = "Credit Card"
+                        },
+                        new
+                        {
+                            AccountTypeId = 5L,
+                            Name = "Investment"
+                        },
+                        new
+                        {
+                            AccountTypeId = 6L,
+                            Name = "Loan"
+                        },
+                        new
+                        {
+                            AccountTypeId = 7L,
+                            Name = "Other"
+                        });
                 });
 
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.UserDetail", b =>
@@ -159,12 +158,10 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(1);
 
                     b.HasKey("UserDetailId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("UserDetails", (string)null);
 
@@ -182,24 +179,21 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Account", b =>
                 {
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.ReferenceEntities.AccountType", "AccountType")
+                        .WithMany()
+                        .HasForeignKey("AccountTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("BasicBudgetR.Server.Domain.Entities.UserDetail", "UserDetail")
                         .WithMany()
                         .HasForeignKey("UserDetailId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("AccountType");
+
                     b.Navigation("UserDetail");
-                });
-
-            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.UserDetail", b =>
-                {
-                    b.HasOne("BasicBudgetR.Server.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

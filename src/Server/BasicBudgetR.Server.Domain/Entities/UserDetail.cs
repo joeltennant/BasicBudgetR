@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace BasicBudgetR.Server.Domain.Entities;
+﻿namespace BasicBudgetR.Server.Domain.Entities;
 public class UserDetail
 {
     [Key]
@@ -9,7 +7,4 @@ public class UserDetail
 
     [Column(Order = 1)]
     public string UserId { get; set; }
-
-    [Column(Order = 2)]
-    public User? User { get; set; }
 }
