@@ -44,6 +44,12 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations.BudgetRDb
                         .HasColumnType("int")
                         .HasColumnOrder(3);
 
+                    b.Property<long>("BusinessTransactionActivityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("BusinessTransactionActivityId1")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
@@ -67,6 +73,8 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations.BudgetRDb
 
                     b.HasIndex("AccountTypeId");
 
+                    b.HasIndex("BusinessTransactionActivityId1");
+
                     b.HasIndex("UserDetailId");
 
                     b.ToTable("Accounts", null, t =>
@@ -84,6 +92,31 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations.BudgetRDb
                                     .HasPeriodEnd("ModifiedAt")
                                     .HasColumnName("ModifiedAt");
                             }));
+                });
+
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", b =>
+                {
+                    b.Property<int>("BusinessTransactionActivityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BusinessTransactionActivityId"));
+
+                    b.Property<string>("ProcessName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(1);
+
+                    b.Property<long>("UserDetailId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(2);
+
+                    b.HasKey("BusinessTransactionActivityId");
+
+                    b.HasIndex("UserDetailId");
+
+                    b.ToTable("BusinessTransactionActivities");
                 });
 
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.ReferenceEntities.AccountType", b =>
@@ -185,6 +218,10 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations.BudgetRDb
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
+                        .WithMany()
+                        .HasForeignKey("BusinessTransactionActivityId1");
+
                     b.HasOne("BasicBudgetR.Server.Domain.Entities.UserDetail", "UserDetail")
                         .WithMany()
                         .HasForeignKey("UserDetailId")
@@ -192,6 +229,19 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations.BudgetRDb
                         .IsRequired();
 
                     b.Navigation("AccountType");
+
+                    b.Navigation("BusinessTransactionActivity");
+
+                    b.Navigation("UserDetail");
+                });
+
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", b =>
+                {
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.UserDetail", "UserDetail")
+                        .WithMany()
+                        .HasForeignKey("UserDetailId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("UserDetail");
                 });

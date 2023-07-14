@@ -22,4 +22,9 @@
     <ProjectReference Include="..\BasicBudgetR.Server.Domain\BasicBudgetR.Server.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Migrations\BudgetRDb\" />
+    <Folder Include="Data\Migrations\Identity\" />
+  </ItemGroup>
+
 </Project>
