@@ -20,7 +20,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        accountTypes = await httpClient.GetFromJsonAsync<IEnumerable<AccountType>>("AccountType");
+        accountTypes = await Http.GetFromJsonAsync<IEnumerable<AccountType>>("AccountType");
     }
 
     private class NewAccount

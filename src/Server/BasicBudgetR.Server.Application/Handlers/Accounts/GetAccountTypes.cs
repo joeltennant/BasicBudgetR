@@ -2,7 +2,7 @@
 public class GetAccountTypes
 {
     public record Query : IRequest<Result<IList<AccountType>>>;
-    public class Handler : BaseHandler, IRequestHandler<Query, Result<IList<AccountType>>>>
+    public class Handler : BaseHandler, IRequestHandler<Query, Result<IList<AccountType>>>
     {
         public Handler(BudgetRDbContext dbContext, CurrentProcess currentProcess) : base(dbContext, currentProcess)
         {
