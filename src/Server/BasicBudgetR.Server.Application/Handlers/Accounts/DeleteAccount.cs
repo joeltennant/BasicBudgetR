@@ -23,6 +23,8 @@
                 return Result<Response>.NotFound();
             }
 
+            accountToDelete.BusinessTransactionActivityId = await CreateBta();
+
             _context.Accounts.Remove(accountToDelete);
             await _context.SaveChangesAsync();
 
