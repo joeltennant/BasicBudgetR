@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Domain.Enums;
+﻿namespace BasicBudgetR.Core.Enums;
 public enum BalanceType
 {
     Debit,

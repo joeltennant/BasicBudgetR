@@ -1,4 +1,5 @@
-﻿using BasicBudgetR.Server.Domain.Entities.ReferenceEntities;
+﻿using BasicBudgetR.Core.Enums;
+using BasicBudgetR.Server.Domain.Entities.ReferenceEntities;
 
 namespace BasicBudgetR.Server.Domain.Entities;
 public class Account : BaseEntity

@@ -10,7 +10,7 @@ public static class AccessFailedCount
 
     public class Handler : BaseHandler, IRequestHandler<Request, Response>
     {
-        public Handler(IdentityDbContext context, CurrentProcess currentProcess)
+        public Handler(BudgetRDbContext context, CurrentProcess currentProcess)
             : base(context, currentProcess)
         {
         }

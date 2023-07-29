@@ -17,7 +17,7 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations.BudgetRDb
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0-preview.5.23280.1")
+                .HasAnnotation("ProductVersion", "8.0.0-preview.6.23329.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -47,9 +47,6 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations.BudgetRDb
                     b.Property<long>("BusinessTransactionActivityId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("BusinessTransactionActivityId1")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
@@ -73,7 +70,7 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations.BudgetRDb
 
                     b.HasIndex("AccountTypeId");
 
-                    b.HasIndex("BusinessTransactionActivityId1");
+                    b.HasIndex("BusinessTransactionActivityId");
 
                     b.HasIndex("UserDetailId");
 
@@ -96,12 +93,12 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations.BudgetRDb
 
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", b =>
                 {
-                    b.Property<int>("BusinessTransactionActivityId")
+                    b.Property<long>("BusinessTransactionActivityId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BusinessTransactionActivityId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("BusinessTransactionActivityId"));
 
                     b.Property<string>("ProcessName")
                         .IsRequired()
@@ -220,7 +217,9 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations.BudgetRDb
 
                     b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
                         .WithMany()
-                        .HasForeignKey("BusinessTransactionActivityId1");
+                        .HasForeignKey("BusinessTransactionActivityId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("BasicBudgetR.Server.Domain.Entities.UserDetail", "UserDetail")
                         .WithMany()

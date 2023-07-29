@@ -68,7 +68,7 @@ public partial class Initial : Migration
             name: "BusinessTransactionActivities",
             columns: table => new
             {
-                BusinessTransactionActivityId = table.Column<int>(type: "int", nullable: false)
+                BusinessTransactionActivityId = table.Column<long>(type: "bigint", nullable: false)
                     .Annotation("SqlServer:Identity", "1, 1"),
                 ProcessName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                 UserDetailId = table.Column<long>(type: "bigint", nullable: false)
@@ -142,12 +142,6 @@ public partial class Initial : Migration
                     .Annotation("SqlServer:TemporalHistoryTableName", "AccountHistory")
                     .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                     .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
-                    .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
-                BusinessTransactionActivityId1 = table.Column<int>(type: "int", nullable: true)
-                    .Annotation("SqlServer:IsTemporal", true)
-                    .Annotation("SqlServer:TemporalHistoryTableName", "AccountHistory")
-                    .Annotation("SqlServer:TemporalHistoryTableSchema", null)
-                    .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
                     .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt")
             },
             constraints: table =>
@@ -161,10 +155,11 @@ public partial class Initial : Migration
                     principalColumn: "AccountTypeId",
                     onDelete: ReferentialAction.Restrict);
                 table.ForeignKey(
-                    name: "FK_Accounts_BusinessTransactionActivities_BusinessTransactionActivityId1",
-                    column: x => x.BusinessTransactionActivityId1,
+                    name: "FK_Accounts_BusinessTransactionActivities_BusinessTransactionActivityId",
+                    column: x => x.BusinessTransactionActivityId,
                     principalTable: "BusinessTransactionActivities",
-                    principalColumn: "BusinessTransactionActivityId");
+                    principalColumn: "BusinessTransactionActivityId",
+                    onDelete: ReferentialAction.Restrict);
                 table.ForeignKey(
                     name: "FK_Accounts_UserDetails_UserDetailId",
                     column: x => x.UserDetailId,
@@ -197,9 +192,9 @@ public partial class Initial : Migration
             column: "AccountTypeId");
 
         migrationBuilder.CreateIndex(
-            name: "IX_Accounts_BusinessTransactionActivityId1",
+            name: "IX_Accounts_BusinessTransactionActivityId",
             table: "Accounts",
-            column: "BusinessTransactionActivityId1");
+            column: "BusinessTransactionActivityId");
 
         migrationBuilder.CreateIndex(
             name: "IX_Accounts_UserDetailId",

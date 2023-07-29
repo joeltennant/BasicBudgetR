@@ -3,11 +3,14 @@ public class BusinessTransactionActivity
 {
     [Key]
     [Column(Order = 0)]
-    public int BusinessTransactionActivityId { get; set; }
+    public long BusinessTransactionActivityId { get; set; }
     [Column(Order = 1)]
     public string ProcessName { get; set; }
 
     [Column(Order = 2)]
+    public DateTime CreatedAt { get; set; }
+
+    [Column(Order = 3)]
     public long UserDetailId { get; set; }
 
     public UserDetail? UserDetail { get; set; }

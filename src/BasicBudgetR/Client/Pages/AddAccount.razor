@@ -1,0 +1,40 @@
+﻿@page "/addaccount"
+@using BasicBudgetR.Core.Enums;
+@using BasicBudgetR.Core.Models;
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
+@inject HttpClient Http
+<h3>AddAccount</h3>
+
+<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+    <MudTextField T="string" Label="Account Name" Required="true" RequiredError="User name is required!" />
+    <MudTextField T="string" Label="Balance" Required="true" RequiredError="Email is required!" />
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto">Add Account</MudButton>
+</MudForm>
+
+@code {
+    bool success;
+    string[] errors = { };
+    MudForm form;
+    private IEnumerable<AccountType> accountTypes = new List<AccountType>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        accountTypes = await httpClient.GetFromJsonAsync<IEnumerable<AccountType>>("AccountType");
+    }
+
+    private class NewAccount
+    {
+        public string AccountName { get; set; }
+        public decimal Balance { get; set; }
+        public BalanceType BalanceType { get; set; }
+        public long AccountTypeId { get; set; }
+    }
+
+    private class AccountType
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+    }
+}
+

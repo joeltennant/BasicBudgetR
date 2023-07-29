@@ -8,11 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Ardalis.Result" Version="7.1.0" />
+    <PackageReference Include="Ardalis.Result.AspNetCore" Version="7.1.0" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\BasicBudgetR.Core\BasicBudgetR.Core.csproj" />
+    <ProjectReference Include="..\..\Server\BasicBudgetR.Server.Application\BasicBudgetR.Server.Application.csproj" />
     <ProjectReference Include="..\..\Server\BasicBudgetR.Server.Infrastructure\BasicBudgetR.Server.Infrastructure.csproj" />
     <ProjectReference Include="..\Client\BasicBudgetR.Client.csproj" />
   </ItemGroup>

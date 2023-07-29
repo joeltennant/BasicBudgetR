@@ -7,16 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Ardalis.Result" Version="7.1.0" />
+    <PackageReference Include="Ardalis.Result.FluentValidation" Version="7.1.0" />
+    <PackageReference Include="FluentValidation" Version="11.6.0" />
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0-preview.6.23329.7" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BasicBudgetR.Core\BasicBudgetR.Core.csproj" />
     <ProjectReference Include="..\BasicBudgetR.Server.Infrastructure\BasicBudgetR.Server.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Handlers\Accounts\" />
   </ItemGroup>
 
 </Project>
