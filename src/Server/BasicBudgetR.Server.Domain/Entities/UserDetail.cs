@@ -1,5 +1,5 @@
 ﻿namespace BasicBudgetR.Server.Domain.Entities;
-public class UserDetail
+public class UserDetail : BaseEntity
 {
     [Key]
     [Column(Order = 0)]

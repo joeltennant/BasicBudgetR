@@ -45,7 +45,9 @@ public class ModifyBalance
 
             long bta_id = await CreateBta();
 
-            await _context.Accounts.ExecuteUpdateAsync(a => a
+            await _context.Accounts
+                .Where(a => a.AccountId == request.AccountId)
+                .ExecuteUpdateAsync(a => a
                             .SetProperty(p => p.BusinessTransactionActivityId, bta_id)
                             .SetProperty(p => p.Balance, request.Amount));
 

@@ -29,14 +29,14 @@ public class AccountsController : BaseController
     }
 
     [TranslateResultToActionResult]
-    [HttpGet("AddAccount")]
+    [HttpPost("AddAccount")]
     public async Task<Result<AddAccount.Response>> AddAccount(AddAccount.Request request)
     {
         return await _mediatr.Send(request);
     }
 
     [TranslateResultToActionResult]
-    [HttpGet("ModifyBalance")]
+    [HttpPost("ModifyBalance")]
     public async Task<Result<ModifyBalance.Response>> ModifyBalance(ModifyBalance.Request request)
     {
         return await _mediatr.Send(request);

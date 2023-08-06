@@ -4,6 +4,7 @@ public class CurrentProcess
 {
     public long CurrentUserDetailId { get; set; }
     public string CurrentUserId { get; set; }
+    public long? HouseholdId { get; set; }
     public string? ProcessName { get; set; }
     public long? BtaId { get; set; }
 }

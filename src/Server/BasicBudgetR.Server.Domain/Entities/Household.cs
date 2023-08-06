@@ -6,4 +6,6 @@ public class Household : BaseEntity
     public long HouseholdId { get; set; }
     [Column(Order = 1)]
     public string? Name { get; set; }
+
+    public ICollection<UserDetail>? UserDetails { get; set; }
 }
