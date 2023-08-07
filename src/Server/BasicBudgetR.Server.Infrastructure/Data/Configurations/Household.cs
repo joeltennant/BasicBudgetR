@@ -13,6 +13,6 @@ public class HouseholdConfiguration : IEntityTypeConfiguration<Account>
                     a.UseHistoryTable("HouseholdHistory");
                     a.HasPeriodStart(DomainConstants.CreatedAt);
                     a.HasPeriodEnd(DomainConstants.ModifiedAt);
-                });
+                }));
     }
 }
