@@ -1,7 +1,5 @@
-﻿using BasicBudgetR.Core.Enums;
-using BasicBudgetR.Server.Domain.Entities.ReferenceEntities;
+﻿namespace BasicBudgetR.Server.Domain.Entities;
 
-namespace BasicBudgetR.Server.Domain.Entities;
 public class Account : BaseEntity
 {
     [Key]
@@ -27,5 +25,5 @@ public class Account : BaseEntity
 
     [Column(Order = 5)]
     public long UserDetailId { get; set; }
-    public UserDetail? UserDetail { get; set; }
+    public User? UserDetail { get; set; }
 }

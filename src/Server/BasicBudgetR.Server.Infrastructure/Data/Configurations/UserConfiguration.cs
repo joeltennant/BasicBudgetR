@@ -1,17 +1,17 @@
 ﻿using BasicBudgetR.Server.Domain;
 
 namespace BasicBudgetR.Server.Infrastructure.Data.Configurations;
-public class UserDetailConfiguration : IEntityTypeConfiguration<UserDetail>
+public class UserConfiguration : IEntityTypeConfiguration<User>
 {
-    public void Configure(EntityTypeBuilder<UserDetail> builder)
+    public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("UserDetails",
+        builder.ToTable("Users",
                         a => a.IsTemporal(
                                   a =>
                                   {
                                       a.HasPeriodStart(DomainConstants.CreatedAt);
                                       a.HasPeriodEnd(DomainConstants.ModifiedAt);
-                                      a.UseHistoryTable("UserDetailHistory");
+                                      a.UseHistoryTable("UserHistory");
                                   }));
     }
 }

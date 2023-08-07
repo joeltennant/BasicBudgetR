@@ -13,5 +13,5 @@ public class BusinessTransactionActivity
     [Column(Order = 3)]
     public long UserDetailId { get; set; }
 
-    public UserDetail? UserDetail { get; set; }
+    public User? UserDetail { get; set; }
 }

@@ -1,5 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
-namespace BasicBudgetR.Server.Domain.Entities;
-public class User : IdentityUser
+﻿namespace BasicBudgetR.Server.Domain.Entities;
+public class User : BaseEntity
 {
+    [Key]
+    [Column(Order = 0)]
+    public long UserId { get; set; }
+
+    [Column(Order = 1)]
+    public string? AuthId { get; set; }
+
+    [Column(Order = 4)]
+    public long HouseholdId { get; set; }
+
+    public Household? Household { get; set; }
 }

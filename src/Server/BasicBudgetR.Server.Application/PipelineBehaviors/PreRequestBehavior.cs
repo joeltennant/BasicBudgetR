@@ -11,7 +11,6 @@ public class PreRequestBehavior<TRequest> : IRequestPreProcessor<TRequest>
 
     public PreRequestBehavior(CurrentProcess currentProcess
         , IHttpContextAccessor httpContextAccessor
-        , IdentityDbContext identityDbContext
         , BudgetRDbContext context)
     {
         _currentProcess = currentProcess;
