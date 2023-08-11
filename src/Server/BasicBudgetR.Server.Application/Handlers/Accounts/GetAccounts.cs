@@ -1,6 +1,4 @@
-﻿
-
-namespace BasicBudgetR.Server.Application.Handlers.Accounts;
+﻿namespace BasicBudgetR.Server.Application.Handlers.Accounts;
 public class GetAccounts
 {
     public class Query : IRequest<Result<List<AccountModel>>>
