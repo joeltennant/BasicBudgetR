@@ -1,5 +1,5 @@
 ﻿namespace BasicBudgetR.Server.Application.Handlers.User;
-public class Login
+public static class Login
 {
     public record Request : IRequest<Result<NoValue>>
     {

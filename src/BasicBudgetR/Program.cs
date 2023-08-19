@@ -2,6 +2,9 @@ using BasicBudgetR.Data;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using MudBlazor.Services;
+using BasicBudgetR.Server.Application;
+using BasicBudgetR.Server.Infrastructure;
 
 namespace BasicBudgetR;
 public class Program
@@ -28,6 +31,10 @@ public class Program
         builder.Services.AddSingleton<WeatherForecastService>();
 
         builder.Services.AddHttpContextAccessor();
+        builder.Services.AddInfrastructure(builder.Configuration);
+
+
+        builder.Services.AddMudServices();
 
         var app = builder.Build();
 
