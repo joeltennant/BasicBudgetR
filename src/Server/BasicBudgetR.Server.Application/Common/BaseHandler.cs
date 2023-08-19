@@ -1,14 +1,16 @@
-﻿namespace BasicBudgetR.Server.Application.Common;
+﻿
+
+namespace BasicBudgetR.Server.Application.Common;
 public abstract class BaseHandler<T>
 {
     protected readonly BudgetRDbContext _context;
-    protected readonly CurrentProcess _currentProcess;
+    protected readonly StateContainer _stateContainer;
     protected Result<T> Result;
 
-    protected BaseHandler(BudgetRDbContext dbContext, CurrentProcess currentProcess)
+    protected BaseHandler(BudgetRDbContext dbContext, StateContainer stateContainer)
     {
         _context = dbContext;
-        _currentProcess = currentProcess;
+        _stateContainer =stateContainer;
         Result = new Result<T>();
     }
 
@@ -16,8 +18,8 @@ public abstract class BaseHandler<T>
     {
         var bta = new BusinessTransactionActivity
         {
-            ProcessName = _currentProcess.ProcessName,
-            UserDetailId = _currentProcess.CurrentUserDetailId,
+            ProcessName = _stateContainer.ProcessName,
+            UserId = _stateContainer.CurrentUserId.Value.Value,
             CreatedAt = DateTime.UtcNow
         };
 
@@ -26,7 +28,7 @@ public abstract class BaseHandler<T>
 
         if (addToContext)
         {
-            _currentProcess.BtaId = bta.BusinessTransactionActivityId;
+            _stateContainer.BtaId = bta.BusinessTransactionActivityId;
         }
 
         return bta.BusinessTransactionActivityId;

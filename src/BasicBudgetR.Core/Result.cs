@@ -1,4 +1,7 @@
-﻿namespace BasicBudgetR.Server.Application.Common;
+﻿using BasicBudgetR.Core.Enums;
+using FluentValidation.Results;
+
+namespace BasicBudgetR.Server.Application.Common;
 public class Result<T>
 {
     public T? Value { get; private set; }

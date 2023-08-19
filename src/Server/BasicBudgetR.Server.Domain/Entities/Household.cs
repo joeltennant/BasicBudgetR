@@ -7,5 +7,5 @@ public class Household : BaseEntity
     [Column(Order = 1)]
     public string? Name { get; set; }
 
-    public ICollection<User>? UserDetails { get; set; }
+    public ICollection<User>? Users { get; set; }
 }

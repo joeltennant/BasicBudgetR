@@ -5,7 +5,7 @@ public class GetAccountTypes
     public class Handler
         : BaseHandler<IList<AccountType>>, IRequestHandler<Query, Result<IList<AccountType>>>
     {
-        public Handler(BudgetRDbContext dbContext, CurrentProcess currentProcess) : base(dbContext, currentProcess)
+        public Handler(BudgetRDbContext dbContext, StateContainer stateContainer) : base(dbContext,stateContainer)
         {
         }
 

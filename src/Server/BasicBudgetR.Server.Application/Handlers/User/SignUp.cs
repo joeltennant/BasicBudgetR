@@ -7,8 +7,8 @@ public class SignUp
 
     public class Handler : BaseHandler<long>, IRequestHandler<Request, Result<long>>
     {
-        public Handler(BudgetRDbContext context, CurrentProcess currentProcess)
-            : base(context, currentProcess)
+        public Handler(BudgetRDbContext context, StateContainer stateContainer)
+            : base(context,stateContainer)
         {
         }
 

@@ -1,25 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
 namespace BasicBudgetR.Server.Application.PipelineBehaviors;
 
 public class PreRequestBehavior<TRequest> : IRequestPreProcessor<TRequest>
 {
-    private CurrentProcess _currentProcess;
+    private StateContainer _stateContainer;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public PreRequestBehavior(CurrentProcess currentProcess
+    public PreRequestBehavior(CurrentProcessstateContainer
         , IHttpContextAccessor httpContextAccessor)
     {
-        _currentProcess = currentProcess;
+        _stateContainer =stateContainer;
         _httpContextAccessor = httpContextAccessor;
 
     }
 
     public Task Process(TRequest request, CancellationToken cancellationToken)
     {
-        _currentProcess.ProcessName = GetHandlerName();
-        _currentProcess.CurrentUserId = GetUserId();
+        _stateContainer.ProcessName = GetHandlerName();
+        _stateContainer.CurrentUserId.Value = GetUserId();
         //GetUserDetailId();
 
         return Task.CompletedTask;

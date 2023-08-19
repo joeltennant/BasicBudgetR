@@ -7,8 +7,8 @@
 
     public class Handler : BaseHandler<NoValue>, IRequestHandler<Request, Result<NoValue>>
     {
-        public Handler(BudgetRDbContext context, CurrentProcess currentProcess)
-            : base(context, currentProcess)
+        public Handler(BudgetRDbContext context, StateContainer stateContainer)
+            : base(context,stateContainer)
         {
         }
 
