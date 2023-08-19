@@ -7,16 +7,13 @@ public class PreRequestBehavior<TRequest> : IRequestPreProcessor<TRequest>
 {
     private CurrentProcess _currentProcess;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly BudgetRDbContext _context;
 
     public PreRequestBehavior(CurrentProcess currentProcess
-        , IHttpContextAccessor httpContextAccessor
-        , BudgetRDbContext context)
+        , IHttpContextAccessor httpContextAccessor)
     {
         _currentProcess = currentProcess;
         _httpContextAccessor = httpContextAccessor;
 
-        _context = context;
     }
 
     public Task Process(TRequest request, CancellationToken cancellationToken)

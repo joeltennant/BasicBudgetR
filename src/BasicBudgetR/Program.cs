@@ -27,6 +27,8 @@ public class Program
             .AddMicrosoftIdentityConsentHandler();
         builder.Services.AddSingleton<WeatherForecastService>();
 
+        builder.Services.AddHttpContextAccessor();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
