@@ -4,13 +4,11 @@ namespace BasicBudgetR.Server.Application.Handlers.Household;
 
 public class ChangeName
 {
-    public record Request : IRequest<Result<Response>>
+    public record Request : IRequest<Result<NoValue>>
     {
         public long HouseholdId { get; set; }
         public string Name { get; set; }
     }
-
-    public record Response();
 
     public class Validator : AbstractValidator<Request>
     {
@@ -27,7 +25,7 @@ public class ChangeName
         }
     }
 
-    public class Handler : BaseHandler, IRequestHandler<Request, Result<Response>>
+    public class Handler : BaseHandler<NoValue>, IRequestHandler<Request, Result<NoValue>>
     {
         private readonly Validator _validator = new Validator();
 
@@ -36,12 +34,12 @@ public class ChangeName
         {
         }
 
-        public async Task<Result<Response>> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Result<NoValue>> Handle(Request request, CancellationToken cancellationToken)
         {
             var validation = await _validator.ValidateAsync(request);
             if (!validation.IsValid)
             {
-                return Result<Response>.Invalid(validation.AsErrors());
+                return Result.Error(validation.Errors);
             }
 
             long bta_id = await CreateBta();

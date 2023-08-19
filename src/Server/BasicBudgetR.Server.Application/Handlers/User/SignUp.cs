@@ -1,22 +1,20 @@
 ﻿namespace BasicBudgetR.Server.Application.Handlers.User;
 public class SignUp
 {
-    public record Request : IRequest<Response>
+    public record Request : IRequest<Result<long>>
     {
     }
 
-    public record Response(long AccountId);
-
-    public class Handler : BaseHandler, IRequestHandler<Request, Response>
+    public class Handler : BaseHandler<long>, IRequestHandler<Request, Result<long>>
     {
         public Handler(BudgetRDbContext context, CurrentProcess currentProcess)
             : base(context, currentProcess)
         {
         }
 
-        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Result<long>> Handle(Request request, CancellationToken cancellationToken)
         {
-            return new Response(1);
+            return new Result<long>(1);
         }
     }
 }
