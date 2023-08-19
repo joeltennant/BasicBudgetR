@@ -5,7 +5,7 @@ public class GetAccounts
     {
     }
 
-    public class Handler : BaseHandler, IRequestHandler<Query, Result<List<AccountModel>>>
+    public class Handler : BaseHandler<List<AccountModel>>, IRequestHandler<Query, Result<List<AccountModel>>>
     {
         public Handler(BudgetRDbContext dbContext, CurrentProcess currentProcess) : base(dbContext, currentProcess)
         {
@@ -28,7 +28,7 @@ public class GetAccounts
                 .ThenBy(x => x.AccountType.Name)
                 .ToListAsync();
 
-            return Result<List<AccountModel>>.Success(accounts.Select(x => new AccountModel
+            return Result.Success(accounts.Select(x => new AccountModel
             {
                 AccountId = x.AccountId,
                 Name = x.Name,

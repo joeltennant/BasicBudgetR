@@ -1,16 +1,13 @@
-﻿using Ardalis.Result.FluentValidation;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace BasicBudgetR.Server.Application.Handlers.Accounts;
 public class ModifyBalance
 {
-    public record Request : IRequest<Result<Response>>
+    public record Request : IRequest<Result<NoValue>>
     {
         public long AccountId { get; set; }
         public decimal Amount { get; set; }
     }
-
-    public record Response();
 
     public class Validator : AbstractValidator<Request>
     {
@@ -26,7 +23,7 @@ public class ModifyBalance
         }
     }
 
-    public class Handler : BaseHandler, IRequestHandler<Request, Result<Response>>
+    public class Handler : BaseHandler<NoValue>, IRequestHandler<Request, Result<NoValue>>
     {
         private readonly Validator _validator = new Validator();
 
@@ -35,12 +32,12 @@ public class ModifyBalance
         {
         }
 
-        public async Task<Result<Response>> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Result<NoValue>> Handle(Request request, CancellationToken cancellationToken)
         {
             var validation = await _validator.ValidateAsync(request);
             if (!validation.IsValid)
             {
-                return Result<Response>.Invalid(validation.AsErrors());
+                return Result.Error(validation.Errors);
             }
 
             long bta_id = await CreateBta();

@@ -1,26 +1,24 @@
 ﻿public static class DeleteAccount
 {
-    public record Request : IRequest<Result<Response>>
+    public record Request : IRequest<Result<NoValue>>
     {
         public long AccountId { get; set; }
     }
 
-    public record Response();
-
-    public class Handler : BaseHandler, IRequestHandler<Request, Result<Response>>
+    public class Handler : BaseHandler<NoValue>, IRequestHandler<Request, Result<NoValue>>
     {
         public Handler(BudgetRDbContext context, CurrentProcess currentProcess)
             : base(context, currentProcess)
         {
         }
 
-        public async Task<Result<Response>> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Result<NoValue>> Handle(Request request, CancellationToken cancellationToken)
         {
             Account accountToDelete = await _context.Accounts.FindAsync(request.AccountId);
 
             if (accountToDelete == null)
             {
-                return Result<Response>.NotFound();
+                return Result.NotFound();
             }
 
             accountToDelete.BusinessTransactionActivityId = await CreateBta();

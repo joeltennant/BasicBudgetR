@@ -1,19 +1,15 @@
-﻿using Ardalis.Result.FluentValidation;
-using BasicBudgetR.Core.Enums;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace BasicBudgetR.Server.Application.Handlers.Accounts;
 public class AddAccount
 {
-    public record Request : IRequest<Result<Response>>
+    public record Request : IRequest<Result<NoValue>>
     {
         public string? AccountName { get; set; }
         public decimal Balance { get; set; }
         public BalanceType BalanceType { get; set; }
         public long AccountTypeId { get; set; }
     }
-
-    public record Response();
 
     public class Validator : AbstractValidator<Request>
     {
@@ -36,7 +32,7 @@ public class AddAccount
         }
     }
 
-    public class Handler : BaseHandler, IRequestHandler<Request, Result<Response>>
+    public class Handler : BaseHandler<NoValue>, IRequestHandler<Request, Result<NoValue>>
     {
         private readonly Validator _validator = new Validator();
 
@@ -45,12 +41,12 @@ public class AddAccount
         {
         }
 
-        public async Task<Result<Response>> Handle(Request request, CancellationToken cancellationToken)
+        public async Task<Result<NoValue>> Handle(Request request, CancellationToken cancellationToken)
         {
             var validation = await _validator.ValidateAsync(request);
             if (!validation.IsValid)
             {
-                return Result<Response>.Invalid(validation.AsErrors());
+                return Result.Error(validation.Errors);
             }
 
             Account account = new Account

@@ -1,5 +1,4 @@
-﻿using Ardalis.Result.FluentValidation;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace BasicBudgetR.Server.Application.Handlers.Household;
 
