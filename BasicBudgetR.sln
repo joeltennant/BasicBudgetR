@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicBudgetR.Server.Domain"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicBudgetR.Server.Application", "src\Server\BasicBudgetR.Server.Application\BasicBudgetR.Server.Application.csproj", "{C44E9D21-ACBC-4A38-B32D-BDF6547EEC76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicBudgetR", "src\BasicBudgetR\BasicBudgetR.csproj", "{6DC0B67F-3BE9-4C9C-95B2-9AC825F7F233}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicBudgetR", "src\BasicBudgetR\BasicBudgetR.csproj", "{6DC0B67F-3BE9-4C9C-95B2-9AC825F7F233}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{6DA8985C-8ACD-45E7-A134-0F8374FD0179}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
