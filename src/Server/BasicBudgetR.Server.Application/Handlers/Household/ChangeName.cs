@@ -30,7 +30,7 @@ public class ChangeName
         private readonly Validator _validator = new Validator();
 
         public Handler(BudgetRDbContext context, StateContainer stateContainer)
-            : base(context,stateContainer)
+            : base(context, stateContainer)
         {
         }
 

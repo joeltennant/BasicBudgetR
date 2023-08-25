@@ -13,5 +13,17 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                                       a.HasPeriodEnd(DomainConstants.ModifiedAt);
                                       a.UseHistoryTable("UserHistory");
                                   }));
+
+        builder.HasData
+            (
+                new User//system user
+                {
+                    UserId = 1,
+                    AuthId = null,
+                    DisplayName = "System",
+                    HouseholdId = null,
+                    BtaId = 1
+                }
+            );
     }
 }

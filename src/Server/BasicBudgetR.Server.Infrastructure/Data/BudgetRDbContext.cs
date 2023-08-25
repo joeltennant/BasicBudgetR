@@ -8,11 +8,11 @@ public class BudgetRDbContext : DbContext
     {
     }
 
-    public DbSet<User> Users { get; set; }
-    public DbSet<Account> Accounts { get; set; }
-    public DbSet<AccountType> AccountTypes { get; set; }
-    public DbSet<BusinessTransactionActivity> BusinessTransactionActivities { get; set; }
     public DbSet<Household> Households { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<BusinessTransactionActivity> BusinessTransactionActivities { get; set; }
+    public DbSet<AccountType> AccountTypes { get; set; }
+    public DbSet<Account> Accounts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

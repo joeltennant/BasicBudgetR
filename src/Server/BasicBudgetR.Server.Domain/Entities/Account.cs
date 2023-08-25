@@ -24,6 +24,6 @@ public class Account : BaseEntity
     public AccountType? AccountType { get; set; }
 
     [Column(Order = 5)]
-    public long UserId { get; set; }
-    public User? User { get; set; }
+    public long HouseholdId { get; set; }
+    public Household? Household { get; set; }
 }

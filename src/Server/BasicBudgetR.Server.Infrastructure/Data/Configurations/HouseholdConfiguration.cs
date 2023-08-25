@@ -1,9 +1,9 @@
 ﻿using BasicBudgetR.Server.Domain;
 
 namespace BasicBudgetR.Server.Infrastructure.Data.Configurations;
-public class HouseholdConfiguration : IEntityTypeConfiguration<Account>
+public class HouseholdConfiguration : IEntityTypeConfiguration<Household>
 {
-    public void Configure(EntityTypeBuilder<Account> builder)
+    public void Configure(EntityTypeBuilder<Household> builder)
     {
         builder.ToTable("Households",
             a => a.IsTemporal

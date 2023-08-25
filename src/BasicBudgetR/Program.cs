@@ -1,5 +1,6 @@
 using BasicBudgetR.Core;
 using BasicBudgetR.Data;
+using BasicBudgetR.Server.Application;
 using BasicBudgetR.Server.Infrastructure;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
@@ -32,6 +33,7 @@ public class Program
 
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddInfrastructure(builder.Configuration);
+        builder.Services.AddApplication();
 
         builder.Services.AddScoped<StateContainer>();
 

@@ -7,14 +7,14 @@ public class GetAccounts
 
     public class Handler : BaseHandler<List<AccountModel>>, IRequestHandler<Query, Result<List<AccountModel>>>
     {
-        public Handler(BudgetRDbContext dbContext, StateContainer stateContainer) : base(dbContext,stateContainer)
+        public Handler(BudgetRDbContext dbContext, StateContainer stateContainer) : base(dbContext, stateContainer)
         {
         }
 
         public async Task<Result<List<AccountModel>>> Handle(Query request, CancellationToken cancellationToken)
         {
             var accounts = await _context.Accounts
-                .Where(x => x.UserId == _stateContainer.CurrentUserId.Value)
+                .Where(x => x.HouseholdId == _stateContainer.HouseholdId)
                 .Select(x => new Account
                 {
                     AccountId = x.AccountId,

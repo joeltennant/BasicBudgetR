@@ -1,6 +1,5 @@
-﻿namespace BasicBudgetR.Server.Application.Handlers.User;
-
-public static class AccessFailedCount
+﻿namespace BasicBudgetR.Server.Application.Handlers.Users;
+public class SignUp
 {
     public record Request : IRequest<Result<long>>
     {
@@ -9,7 +8,7 @@ public static class AccessFailedCount
     public class Handler : BaseHandler<long>, IRequestHandler<Request, Result<long>>
     {
         public Handler(BudgetRDbContext context, StateContainer stateContainer)
-            : base(context,stateContainer)
+            : base(context, stateContainer)
         {
         }
 

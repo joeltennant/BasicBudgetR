@@ -11,7 +11,5 @@ public class BusinessTransactionActivity
     public DateTime CreatedAt { get; set; }
 
     [Column(Order = 3)]
-    public long UserId { get; set; }
-
-    public User? User { get; set; }
+    public long? UserId { get; set; }
 }

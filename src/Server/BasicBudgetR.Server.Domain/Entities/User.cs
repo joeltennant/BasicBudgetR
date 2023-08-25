@@ -1,5 +1,5 @@
 ﻿namespace BasicBudgetR.Server.Domain.Entities;
-public class User : BaseEntity
+public class User
 {
     [Key]
     [Column(Order = 0)]
@@ -8,8 +8,13 @@ public class User : BaseEntity
     [Column(Order = 1)]
     public string? AuthId { get; set; }
 
+    [Column(Order = 2)]
+    public string? DisplayName { get; set; }
+
     [Column(Order = 4)]
-    public long HouseholdId { get; set; }
+    public long? HouseholdId { get; set; }
 
     public Household? Household { get; set; }
+
+    public long BtaId { get; set; }
 }

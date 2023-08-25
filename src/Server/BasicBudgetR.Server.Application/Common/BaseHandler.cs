@@ -1,6 +1,4 @@
-﻿
-
-namespace BasicBudgetR.Server.Application.Common;
+﻿namespace BasicBudgetR.Server.Application.Common;
 public abstract class BaseHandler<T>
 {
     protected readonly BudgetRDbContext _context;
@@ -10,7 +8,7 @@ public abstract class BaseHandler<T>
     protected BaseHandler(BudgetRDbContext dbContext, StateContainer stateContainer)
     {
         _context = dbContext;
-        _stateContainer =stateContainer;
+        _stateContainer = stateContainer;
         Result = new Result<T>();
     }
 
@@ -19,7 +17,7 @@ public abstract class BaseHandler<T>
         var bta = new BusinessTransactionActivity
         {
             ProcessName = _stateContainer.ProcessName,
-            UserId = _stateContainer.CurrentUserId.Value.Value,
+            UserId = _stateContainer.CurrentUserId.Value,
             CreatedAt = DateTime.UtcNow
         };
 

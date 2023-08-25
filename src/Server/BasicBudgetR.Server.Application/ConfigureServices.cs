@@ -8,6 +8,5 @@ public static class ConfigureServices
     public static void AddApplication(this IServiceCollection services)
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-        services.AddScoped<CurrentProcess>();
     }
 }

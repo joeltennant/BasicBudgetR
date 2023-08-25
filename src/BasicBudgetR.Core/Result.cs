@@ -1,7 +1,7 @@
 ﻿using BasicBudgetR.Core.Enums;
 using FluentValidation.Results;
 
-namespace BasicBudgetR.Server.Application.Common;
+namespace BasicBudgetR.Core;
 public class Result<T>
 {
     public T? Value { get; private set; }
@@ -29,14 +29,14 @@ public class Result<T>
     //Error Constructor
     public Result(IList<ValidationFailure> errors)
     {
-        this.Errors = errors;
-        this.ErrorType = ErrorType.Validation;
+        Errors = errors;
+        ErrorType = ErrorType.Validation;
     }
 
     //Error with type only
     public Result(ErrorType errorType)
     {
-        this.ErrorType = errorType;
+        ErrorType = errorType;
     }
 
     #endregion

@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using BasicBudgetR.Core;
 
 namespace BasicBudgetR.Server.Application.Handlers.Accounts;
 public class AddAccount
@@ -38,7 +37,7 @@ public class AddAccount
         private readonly Validator _validator = new Validator();
 
         public Handler(BudgetRDbContext context, StateContainer stateContainer)
-            : base(context,stateContainer)
+            : base(context, stateContainer)
         {
         }
 
@@ -56,7 +55,7 @@ public class AddAccount
                 Balance = request.Balance,
                 BalanceType = request.BalanceType,
                 AccountTypeId = request.AccountTypeId,
-                UserId = _stateContainer.CurrentUserId.Value,
+                HouseholdId = _stateContainer.HouseholdId.Value,
                 BusinessTransactionActivity = new BusinessTransactionActivity
                 {
                     ProcessName = _stateContainer.ProcessName,

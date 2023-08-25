@@ -243,3 +243,4 @@ database/scripts/
 /src/Website/BudgetR.Website/wwwroot/appsettings.json
 /src/BudgetR/Server/appsettings.Development.json
 /src/Website/Client/wwwroot/appsettings.json
+/src/Dev Tools and Testing/Tools.SeedSampleData/UserSettings.json
