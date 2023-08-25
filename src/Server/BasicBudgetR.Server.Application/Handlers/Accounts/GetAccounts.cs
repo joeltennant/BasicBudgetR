@@ -1,17 +1,17 @@
 ﻿namespace BasicBudgetR.Server.Application.Handlers.Accounts;
 public class GetAccounts
 {
-    public class Query : IRequest<Result<List<AccountModel>>>
+    public class Request : IRequest<Result<List<AccountModel>>>
     {
     }
 
-    public class Handler : BaseHandler<List<AccountModel>>, IRequestHandler<Query, Result<List<AccountModel>>>
+    public class Handler : BaseHandler<List<AccountModel>>, IRequestHandler<Request, Result<List<AccountModel>>>
     {
         public Handler(BudgetRDbContext dbContext, StateContainer stateContainer) : base(dbContext, stateContainer)
         {
         }
 
-        public async Task<Result<List<AccountModel>>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<Result<List<AccountModel>>> Handle(Request request, CancellationToken cancellationToken)
         {
             var accounts = await _context.Accounts
                 .Where(x => x.HouseholdId == _stateContainer.HouseholdId)

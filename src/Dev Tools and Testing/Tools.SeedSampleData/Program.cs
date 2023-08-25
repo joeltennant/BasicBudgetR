@@ -44,7 +44,7 @@ internal class Program
                 dbContext.Accounts.Add(new Account
                 {
 
-                    Name = account.Name,
+                    Name = account.AccountName,
                     AccountTypeId = account.AccountType,
                     Balance = account.Balance,
                     BalanceType = balanceType,

@@ -28,8 +28,4 @@
     <ProjectReference Include="..\Server\BasicBudgetR.Server.Infrastructure\BasicBudgetR.Server.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Accounts\Components\" />
-  </ItemGroup>
-
 </Project>
