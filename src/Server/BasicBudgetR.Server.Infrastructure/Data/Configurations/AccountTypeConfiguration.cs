@@ -1,5 +1,4 @@
 ﻿using BasicBudgetR.Core;
-using BasicBudgetR.Server.Domain;
 using BasicBudgetR.Server.Domain.Entities.ReferenceEntities;
 
 namespace BasicBudgetR.Server.Infrastructure.Data.Configurations;
