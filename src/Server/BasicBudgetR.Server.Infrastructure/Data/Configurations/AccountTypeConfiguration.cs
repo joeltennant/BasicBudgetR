@@ -1,4 +1,5 @@
 ﻿using BasicBudgetR.Core;
+using BasicBudgetR.Server.Domain;
 using BasicBudgetR.Server.Domain.Entities.ReferenceEntities;
 
 namespace BasicBudgetR.Server.Infrastructure.Data.Configurations;
@@ -6,7 +7,7 @@ public class AccountTypeConfiguration : IEntityTypeConfiguration<AccountType>
 {
     public void Configure(EntityTypeBuilder<AccountType> builder)
     {
-        builder.ToTable(nameof(AccountType) + "s");
+        builder.ToTable("AccountTypes");
 
         builder.HasData(
             new AccountType { AccountTypeId = AppConstants.AccountTypes.Cash, Name = "Cash" },

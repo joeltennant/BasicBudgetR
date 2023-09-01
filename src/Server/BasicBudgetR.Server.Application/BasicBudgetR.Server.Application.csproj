@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Handlers\Months\" />
+    <Folder Include="Handlers\MonthYears\" />
   </ItemGroup>
 
 </Project>
