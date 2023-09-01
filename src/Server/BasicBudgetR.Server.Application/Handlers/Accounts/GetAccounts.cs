@@ -15,28 +15,20 @@ public class GetAccounts
         {
             var accounts = await _context.Accounts
                 .Where(x => x.HouseholdId == _stateContainer.HouseholdId)
-                .Select(x => new Account
+                .Select(x => new AccountModel
                 {
                     AccountId = x.AccountId,
                     Name = x.Name,
                     Balance = x.Balance,
                     BalanceType = x.BalanceType,
                     AccountTypeId = x.AccountTypeId,
-                    AccountType = new AccountType { Name = x.AccountType.Name }
+                    AccountType = x.AccountType.Name
                 })
                 .OrderBy(x => x.BalanceType)
-                .ThenBy(x => x.AccountType.Name)
+                .ThenBy(x => x.AccountType)
                 .ToListAsync();
 
-            return Result.Success(accounts.Select(x => new AccountModel
-            {
-                AccountId = x.AccountId,
-                Name = x.Name,
-                Balance = x.Balance,
-                BalanceType = x.BalanceType,
-                AccountTypeId = x.AccountTypeId,
-                AccountType = x.AccountType.Name
-            }).ToList());
+            return Result.Success(accounts);
         }
     }
 }
