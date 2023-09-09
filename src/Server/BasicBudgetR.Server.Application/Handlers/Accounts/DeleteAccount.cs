@@ -1,9 +1,6 @@
 ﻿public static class DeleteAccount
 {
-    public record Request : IRequest<Result<NoValue>>
-    {
-        public long AccountId { get; set; }
-    }
+    public record Request(long AccountId) : IRequest<Result<NoValue>>;
 
     public class Handler : BaseHandler<NoValue>, IRequestHandler<Request, Result<NoValue>>
     {
@@ -14,17 +11,16 @@
 
         public async Task<Result<NoValue>> Handle(Request request, CancellationToken cancellationToken)
         {
-            Account accountToDelete = await _context.Accounts.FindAsync(request.AccountId);
+            int result = await _context.Accounts
+                .Where(a => a.AccountId == request.AccountId)
+                .ExecuteDeleteAsync();
 
-            if (accountToDelete == null)
+            await _context.SaveChangesAsync();
+
+            if (result == 0)
             {
                 return Result.NotFound();
             }
-
-            accountToDelete.BusinessTransactionActivityId = await CreateBta();
-
-            _context.Accounts.Remove(accountToDelete);
-            await _context.SaveChangesAsync();
 
             return Result.Success();
         }

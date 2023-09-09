@@ -1,8 +1,11 @@
 ﻿@page "/accounts"
 @using BasicBudgetR.Core.Enums;
 @using BasicBudgetR.Core.Models;
+@using BasicBudgetR.Pages.Accounts.Components;
 @using BasicBudgetR.Server.Application.Handlers.Accounts;
 @inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
 <PageTitle>Add Account</PageTitle>
 
 <MudGrid>
@@ -10,28 +13,46 @@
         <h2>My Accounts</h2>
 
         <p>Here is a list of your accounts.</p>
- 
+
         <MudSpacer />
         <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/accounts/add" Edge="Edge.End">Add Account</MudButton>
     </MudItem>
     <MudItem xs="4">&nbsp;</MudItem>
     <MudItem sm="12" lg="4">
-        <MudDataGrid Items="@DebitAccounts">
-            <Columns>
-                <PropertyColumn Property="x => x.Name" Title="Name" />
-                <PropertyColumn Property="x => x.AccountType" />
-                <PropertyColumn Property="x => x.Balance" />
-            </Columns>
-        </MudDataGrid>
+        <MudTable Items="@DebitAccounts" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+            <HeaderContent>
+                <MudTh>Name</MudTh>
+                <MudTh>Account Type</MudTh>
+                <MudTh>Balance</MudTh>
+                <MudTh>Actions</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Name">@context.Name</MudTd>
+                <MudTd DataLabel="AccountType">@context.AccountType</MudTd>
+                <MudTd DataLabel="Balance">@context.Balance</MudTd>
+                <MudTd DataLabel="Actions">
+                    <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="@((e) => DeleteAccount(@context.Name,@context.AccountId))">Delete</MudButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
     </MudItem>
     <MudItem sm="12" lg="4">
-        <MudDataGrid Items="@CreditAccounts">
-            <Columns>
-                <PropertyColumn Property="x => x.Name" Title="Name" />
-                <PropertyColumn Property="x => x.AccountType" />
-                <PropertyColumn Property="x => x.Balance" />
-            </Columns>
-        </MudDataGrid>
+        <MudTable Items="@CreditAccounts" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+            <HeaderContent>
+                <MudTh>Name</MudTh>
+                <MudTh>Account Type</MudTh>
+                <MudTh>Balance</MudTh>
+                <MudTh>Actions</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Name">@context.Name</MudTd>
+                <MudTd DataLabel="AccountType">@context.AccountType</MudTd>
+                <MudTd DataLabel="Balance">@context.Balance</MudTd>
+                <MudTd DataLabel="Actions">
+                    <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="@((e) => DeleteAccount(@context.Name,@context.AccountId))">Delete</MudButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
     </MudItem>
 </MudGrid>
 
@@ -52,5 +73,28 @@
         var accounts = result.Value;
         this.DebitAccounts = accounts.Where(x => x.BalanceType == BalanceType.Debit).ToList();
         this.CreditAccounts = accounts.Where(x => x.BalanceType == BalanceType.Credit).ToList();
+    }
+
+    protected async Task DeleteAccount(string name, long accountId)
+    {
+        var parameters = new DialogParameters<DeleteAccountDialog> { { x => x.AccountName, name } };
+
+        var dialog = await DialogService.ShowAsync<DeleteAccountDialog>("Delete Account", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            var deleteResult = await _mediator.Send(new DeleteAccount.Request(accountId));
+            if (deleteResult.IsSuccess)
+            {
+                Snackbar.Add($"Account {name} deleted.", Severity.Success);
+                await GetAccounts();
+            }
+            else
+            {
+                Snackbar.Add("Cannot delete account.", Severity.Error);
+            }
+        }
+
     }
 }
