@@ -6,7 +6,7 @@ public class Result<T>
 {
     public T? Value { get; private set; }
 
-    public bool? IsSuccess { get; }
+    public bool IsSuccess { get; }
     public ErrorType ErrorType { get; }
     public IList<ValidationFailure>? Errors { get; }
 

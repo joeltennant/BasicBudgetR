@@ -16,15 +16,9 @@ public class AccountModel
 
     public string AccountType { get; set; }
 
-    public decimal BalanceWithSign
+    public decimal BalanceWithSign => BalanceType switch
     {
-        get
-        {
-            return BalanceType switch
-            {
-                BalanceType.Debit => Balance,
-                BalanceType.Credit => -Balance,
-            };
-        }
-    }
+        BalanceType.Debit => Balance,
+        BalanceType.Credit => -Balance,
+    };
 }

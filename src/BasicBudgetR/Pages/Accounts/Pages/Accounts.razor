@@ -3,13 +3,18 @@
 @using BasicBudgetR.Core.Models;
 @using BasicBudgetR.Server.Application.Handlers.Accounts;
 @inject IDialogService DialogService
+<PageTitle>Add Account</PageTitle>
 
 <MudGrid>
-    <MudItem xs="12">
+    <MudItem xs="8">
         <h2>My Accounts</h2>
 
         <p>Here is a list of your accounts.</p>
+ 
+        <MudSpacer />
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/accounts/add" Edge="Edge.End">Add Account</MudButton>
     </MudItem>
+    <MudItem xs="4">&nbsp;</MudItem>
     <MudItem sm="12" lg="4">
         <MudDataGrid Items="@DebitAccounts">
             <Columns>
@@ -47,10 +52,5 @@
         var accounts = result.Value;
         this.DebitAccounts = accounts.Where(x => x.BalanceType == BalanceType.Debit).ToList();
         this.CreditAccounts = accounts.Where(x => x.BalanceType == BalanceType.Credit).ToList();
-    }
-
-    private async Task AddAccount()
-    {
-      
     }
 }

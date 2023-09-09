@@ -1,17 +1,23 @@
 ﻿namespace BasicBudgetR.Server.Application.Handlers.Accounts;
 public class GetAccountTypes
 {
-    public record Query : IRequest<Result<IList<AccountType>>>;
+    public record Request : IRequest<Result<IList<AccountTypeModel>>>;
+
     public class Handler
-        : BaseHandler<IList<AccountType>>, IRequestHandler<Query, Result<IList<AccountType>>>
+        : BaseHandler<IList<AccountTypeModel>>, IRequestHandler<Request, Result<IList<AccountTypeModel>>>
     {
         public Handler(BudgetRDbContext dbContext, StateContainer stateContainer) : base(dbContext, stateContainer)
         {
         }
 
-        public async Task<Result<IList<AccountType>>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<Result<IList<AccountTypeModel>>> Handle(Request request, CancellationToken cancellationToken)
         {
             var accountTypes = await _context.AccountTypes
+                .Select(x => new AccountTypeModel
+                {
+                    AccountTypeId = x.AccountTypeId,
+                    Name = x.Name
+                })
                 .OrderBy(x => x.Name)
                 .ToListAsync();
 

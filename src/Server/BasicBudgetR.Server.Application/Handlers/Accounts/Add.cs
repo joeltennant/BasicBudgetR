@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 
 namespace BasicBudgetR.Server.Application.Handlers.Accounts;
-public class AddAccount
+public class Add
 {
-    public record Request : IRequest<Result<NoValue>>
+    public class Request : IRequest<Result<NoValue>>
     {
         public string? AccountName { get; set; }
-        public decimal Balance { get; set; }
+        public decimal? Balance { get; set; }
         public BalanceType BalanceType { get; set; }
         public long AccountTypeId { get; set; }
     }
@@ -52,13 +52,13 @@ public class AddAccount
             Account account = new Account
             {
                 Name = request.AccountName,
-                Balance = request.Balance,
+                Balance = request.Balance.Value,
                 BalanceType = request.BalanceType,
                 AccountTypeId = request.AccountTypeId,
                 HouseholdId = _stateContainer.HouseholdId.Value,
                 BusinessTransactionActivity = new BusinessTransactionActivity
                 {
-                    ProcessName = _stateContainer.ProcessName,
+                    ProcessName = "Accounts.Add",
                     UserId = _stateContainer.CurrentUserId.Value,
                     CreatedAt = DateTime.UtcNow
                 }

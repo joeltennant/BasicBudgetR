@@ -5,21 +5,9 @@ public class BalanceSheetModel
 {
     public IList<AccountModel>? Accounts { get; set; }
 
-    public IList<AccountModel>? DebitAccounts
-    {
-        get
-        {
-            return Accounts?.Where(x => x.BalanceType == BalanceType.Debit).ToList();
-        }
-    }
+    public IList<AccountModel>? DebitAccounts => Accounts?.Where(x => x.BalanceType == BalanceType.Debit).ToList();
 
-    public IList<AccountModel>? CreditAccounts
-    {
-        get
-        {
-            return Accounts?.Where(x => x.BalanceType == BalanceType.Credit).ToList();
-        }
-    }
+    public IList<AccountModel>? CreditAccounts => Accounts?.Where(x => x.BalanceType == BalanceType.Credit).ToList();
 
     //Helpers
 
