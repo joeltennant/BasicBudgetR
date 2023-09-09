@@ -31,6 +31,7 @@
                 <MudTd DataLabel="AccountType">@context.AccountType</MudTd>
                 <MudTd DataLabel="Balance">@context.Balance</MudTd>
                 <MudTd DataLabel="Actions">
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@((e) => ModifyBalance(@context.Name,@context.AccountId,@context.Balance))">Modify</MudButton>
                     <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="@((e) => DeleteAccount(@context.Name,@context.AccountId))">Delete</MudButton>
                 </MudTd>
             </RowTemplate>
@@ -49,6 +50,7 @@
                 <MudTd DataLabel="AccountType">@context.AccountType</MudTd>
                 <MudTd DataLabel="Balance">@context.Balance</MudTd>
                 <MudTd DataLabel="Actions">
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@((e) => ModifyBalance(@context.Name,@context.AccountId,@context.Balance))">Modify</MudButton>
                     <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="@((e) => DeleteAccount(@context.Name,@context.AccountId))">Delete</MudButton>
                 </MudTd>
             </RowTemplate>
@@ -95,6 +97,23 @@
                 Snackbar.Add("Cannot delete account.", Severity.Error);
             }
         }
+    }
 
+    protected async Task ModifyBalance(string name, long accountId, decimal Balance)
+    {
+        var parameters = new DialogParameters<ModifyBalanceDialog>
+        {
+            { x => x.AccountName, name },
+            { x => x.AccountId, accountId },
+            { x => x.Balance, Balance}
+        };
+
+        var dialog = await DialogService.ShowAsync<ModifyBalanceDialog>("Modify Balance", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            await GetAccounts();
+        }
     }
 }

@@ -3,11 +3,7 @@
 namespace BasicBudgetR.Server.Application.Handlers.Accounts;
 public class ModifyBalance
 {
-    public record Request : IRequest<Result<NoValue>>
-    {
-        public long AccountId { get; set; }
-        public decimal Amount { get; set; }
-    }
+    public record Request(long AccountId, decimal Amount) : IRequest<Result<NoValue>>;
 
     public class Validator : AbstractValidator<Request>
     {
@@ -40,7 +36,7 @@ public class ModifyBalance
                 return Result.Error(validation.Errors);
             }
 
-            long bta_id = await CreateBta();
+            long bta_id = await CreateBta(true, "Accounts.ModifyBalance");
 
             await _context.Accounts
                 .Where(a => a.AccountId == request.AccountId)

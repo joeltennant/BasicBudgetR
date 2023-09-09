@@ -12,11 +12,11 @@ public abstract class BaseHandler<T>
         Result = new Result<T>();
     }
 
-    protected async Task<long> CreateBta(bool addToContext = false)
+    protected async Task<long> CreateBta(bool addToContext = false, string process = "")
     {
         var bta = new BusinessTransactionActivity
         {
-            ProcessName = _stateContainer.ProcessName,
+            ProcessName = process,
             UserId = _stateContainer.CurrentUserId.Value,
             CreatedAt = DateTime.UtcNow
         };
