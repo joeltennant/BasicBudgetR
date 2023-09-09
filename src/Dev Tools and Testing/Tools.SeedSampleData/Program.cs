@@ -57,7 +57,7 @@ internal class Program
         }
         catch (Exception ex)
         {
-            throw;
+            throw new Exception(ex.Message, ex);
         }
 
         Console.WriteLine("Seeding is complete. You may close this console.");
