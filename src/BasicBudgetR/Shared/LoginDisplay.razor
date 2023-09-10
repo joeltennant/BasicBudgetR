@@ -1,7 +1,11 @@
 ﻿<AuthorizeView>
     <Authorized>
         Hello, @context.User.Identity?.Name!
-        <a href="MicrosoftIdentity/Account/SignOut">Log out</a>
+        <MudIconButton Icon="@Icons.Material.Filled.Logout" aria-label="logout"
+                       href="MicrosoftIdentity/Account/SignOut"
+                       Size="Size.Small"
+                       class="ml-5"
+                       Style="@($"color:{Colors.Shades.White};")"></MudIconButton>
     </Authorized>
     <NotAuthorized>
         <a href="MicrosoftIdentity/Account/SignIn">Log in</a>
