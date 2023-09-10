@@ -9,16 +9,15 @@
 <PageTitle>Add Account</PageTitle>
 
 <MudGrid>
-    <MudItem xs="8">
-        <h2>My Accounts</h2>
-
-        <p>Here is a list of your accounts.</p>
-
-        <MudSpacer />
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/accounts/add" Edge="Edge.End">Add Account</MudButton>
+    <MudItem xs="5">
+        <MudText Typo="Typo.h5" Class="pr-3">My Accounts</MudText>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/accounts/add" Edge="Edge.End" Size="Size.Small">Add Account</MudButton>
     </MudItem>
-    <MudItem xs="4">&nbsp;</MudItem>
+    <MudItem xs="12">
+        <p>Here is a list of your accounts.</p>
+    </MudItem>
     <MudItem sm="12" lg="4">
+        <MudPaper Class="d-flex justify-center" Elevation="0"><h3>Debit Accounts</h3></MudPaper>
         <MudTable Items="@DebitAccounts" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
             <HeaderContent>
                 <MudTh>Name</MudTh>
@@ -38,6 +37,7 @@
         </MudTable>
     </MudItem>
     <MudItem sm="12" lg="4">
+        <MudPaper Class="d-flex justify-center" Elevation="0"><h3>Credit Accounts</h3></MudPaper>
         <MudTable Items="@CreditAccounts" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
             <HeaderContent>
                 <MudTh>Name</MudTh>
