@@ -23,7 +23,7 @@ public static class Login
 
             if (user == null)
             {
-                return Result.NotAuthorized();
+                return Result.NotFound();
             }
 
             _stateContainer.CurrentUserId = user.UserId;

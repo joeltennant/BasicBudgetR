@@ -8,4 +8,16 @@ public class MonthBudget : BaseEntity
     [Column(Order = 1)]
     public long MonthYearId { get; set; }
     public MonthYear? MonthYear { get; set; }
+
+    [Column(Order = 2)]
+    [Precision(19, 2)]
+    public decimal IncomeTotal { get; set; }
+
+    [Column(Order = 3)]
+    [Precision(19, 2)]
+    public decimal ExpenseTotal { get; set; }
+
+    [Column(Order = 4)]
+    public long HouseholdId { get; set; }
+    public Household? Household { get; set; }
 }

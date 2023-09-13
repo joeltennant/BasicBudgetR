@@ -17,12 +17,7 @@
 
             await _context.SaveChangesAsync();
 
-            if (result == 0)
-            {
-                return Result.NotFound();
-            }
-
-            return Result.Success();
+            return result == 0 ? Result.NotFound() : Result.Success();
         }
     }
 }

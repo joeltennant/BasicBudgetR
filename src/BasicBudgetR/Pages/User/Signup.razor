@@ -1,0 +1,44 @@
+﻿@using BasicBudgetR.Server.Application.Handlers.Users;
+@inject NavigationManager NavigationManager
+@inject ISnackbar Snackbar
+
+<MudPaper>
+    <MudGrid Class="pa-3">
+        <MudItem xs="12">
+            <h3>Sign up</h3>
+        </MudItem>
+        <MudItem xs="12">
+            Welcome to the BudgetR App.  Please pick a name for your holdhold and a display name to get started.
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField Label="Household Name" @bind-Value="householdName" Variant="Variant.Filled" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField Label="Display Name" @bind-Value="displayName" Variant="Variant.Filled" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="@(()=>Submit())">Submit</MudButton>
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+@code {
+    private string householdName = "";
+    private string displayName = "";
+
+    protected async Task Submit()
+    {
+        var result = await _mediator.Send(new SignUp.Request(householdName, displayName));
+
+        if (result.IsSuccess)
+        {
+            Snackbar.Add("Your account has been successfully setup.", Severity.Success);
+            NavigationManager.NavigateTo("/accounts");
+        }
+        else
+        {
+            string errors = string.Join(", ", result.Errors.Select(e => e.ErrorMessage).ToArray());
+            Snackbar.Add($"Your account could not be setup because: {errors}", Severity.Error);
+        }
+    }
+}
