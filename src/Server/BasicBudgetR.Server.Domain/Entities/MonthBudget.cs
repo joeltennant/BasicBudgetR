@@ -17,6 +17,10 @@ public class MonthBudget : BaseEntity
     [Precision(19, 2)]
     public decimal ExpenseTotal { get; set; }
 
+    public IList<Expense> Expenses { get; set; }
+
+    public IList<Income> Incomes { get; set; }
+
     [Column(Order = 4)]
     public long HouseholdId { get; set; }
     public Household? Household { get; set; }
