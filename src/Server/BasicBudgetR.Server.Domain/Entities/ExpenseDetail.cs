@@ -11,5 +11,5 @@ public class ExpenseDetail
 
     [Column(Order = 2)]
     public long MonthBudgetId { get; set; }
-    public MonthBudget MonthBudget { get; set; }
+    public MonthBudget? MonthBudget { get; set; }
 }

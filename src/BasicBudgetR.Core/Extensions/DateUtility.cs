@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BasicBudgetR.Core.Extensions;
+﻿namespace BasicBudgetR.Core.Extensions;
 public static class DateUtility
 {
     public static DateOnly LastDayFromParts(int Month, int Year, int Day = 1)
