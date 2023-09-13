@@ -1,0 +1,53 @@
+﻿@using BasicBudgetR.Core.Models;
+@using BasicBudgetR.Server.Application.Handlers.Expenses;
+@inject ISnackbar Snackbar
+@page "/expenses"
+
+<MudGrid>
+    <MudItem xs="12">
+        <MudToolBar>
+            <MudText Typo="Typo.h5" Class="pr-3">Expenses</MudText>
+            <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Class="mr-5" />
+            @* <MudIconButton Icon="@Icons.Material.Outlined.Edit" /> *@
+            @* <MudIconButton Icon="@Icons.Material.Outlined.Remove" Color="Color.Inherit" /> *@
+            <MudSpacer />
+            <MudIconButton Icon="@Icons.Material.Outlined.Add" />
+        </MudToolBar>
+    </MudItem>
+    <MudItem xs="12">
+        <MudTable Items="@Expenses" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+            <HeaderContent>
+                <MudTh>Name</MudTh>
+                <MudTh>Amount</MudTh>
+                <MudTh>IsActive</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Name">@context.Name</MudTd>
+                <MudTd DataLabel="Amount">@context.Amount</MudTd>
+                <MudTd DataLabel="IsActive">@context.IsActive</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudItem>
+</MudGrid>
+
+@code {
+    private bool _hidePosition;
+    private bool _loading;
+    public IEnumerable<ExpenseModel> Expenses = new List<ExpenseModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _loading = true;
+        var result = await _mediator.Send(new All.Request());
+
+        if (result.IsSuccess)
+        {
+            Expenses = result.Value;
+        }
+        else
+        {
+            Snackbar.Add("Your expenses cannot be loaded at this time.", Severity.Error);
+        }
+        _loading = false;
+    }
+}

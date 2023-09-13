@@ -1,0 +1,12 @@
+﻿@page "/expenses/expense/{expenseId:long}"
+
+<MudGrid>
+    <MudItem xs="12">
+        <MudText Typo="Typo.h5" Class="pr-3">Expense</MudText>
+    </MudItem>
+</MudGrid>
+
+@code {
+    [Parameter]
+    public long ExpenseId { get; set; }
+}
