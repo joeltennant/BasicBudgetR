@@ -1,5 +1,7 @@
-﻿@using BasicBudgetR.Server.Application.Handlers.Users;
+﻿@using BasicBudgetR.Core.Enums;
+@using BasicBudgetR.Server.Application.Handlers.Users;
 @inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
 
 <MudThemeProvider />
 <MudDialogProvider />
@@ -37,7 +39,11 @@
     {
         if (_state.CurrentUserId.IsNullOrZero())
         {
-            await _mediator.Send(new Login.Request());
+            var result = await _mediator.Send(new Login.Request());
+            if (!result.IsSuccess && result.ErrorType == ErrorType.NotFound)
+            {
+                NavigationManager.NavigateTo("/signup");
+            }
         }
     }
 }

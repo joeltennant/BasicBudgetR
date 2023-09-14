@@ -1,26 +1,30 @@
 ﻿@using BasicBudgetR.Server.Application.Handlers.Users;
 @inject NavigationManager NavigationManager
 @inject ISnackbar Snackbar
+@page "/signup"
 
-<MudPaper>
-    <MudGrid Class="pa-3">
-        <MudItem xs="12">
-            <h3>Sign up</h3>
-        </MudItem>
-        <MudItem xs="12">
-            Welcome to the BudgetR App.  Please pick a name for your holdhold and a display name to get started.
-        </MudItem>
-        <MudItem xs="12">
-            <MudTextField Label="Household Name" @bind-Value="householdName" Variant="Variant.Filled" />
-        </MudItem>
-        <MudItem xs="12">
-            <MudTextField Label="Display Name" @bind-Value="displayName" Variant="Variant.Filled" />
-        </MudItem>
-        <MudItem xs="12">
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="@(()=>Submit())">Submit</MudButton>
-        </MudItem>
-    </MudGrid>
-</MudPaper>
+<MudGrid Class="mt-4">
+    <MudItem xs="4" Class="pa-0">
+        <MudPaper Class="pa-3" Elevation="2">
+            <MudItem xs="12" Class="pt-0">
+                <h3>Sign up</h3>
+            </MudItem>
+            <MudItem xs="12">
+                Welcome to the BudgetR App.  Please pick a name for your holdhold and a display name to get started.
+            </MudItem>
+            <MudItem xs="12">
+                <MudTextField Label="Household Name" @bind-Value="householdName" Variant="Variant.Filled" />
+            </MudItem>
+            <MudItem xs="12">
+                <MudTextField Label="Display Name" @bind-Value="displayName" Variant="Variant.Filled" />
+            </MudItem>
+            <MudItem xs="12">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="@(()=>Submit())"
+                    Class="mt-2">Submit</MudButton>
+            </MudItem>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
 
 @code {
     private string householdName = "";
@@ -33,7 +37,7 @@
         if (result.IsSuccess)
         {
             Snackbar.Add("Your account has been successfully setup.", Severity.Success);
-            NavigationManager.NavigateTo("/accounts");
+            NavigationManager.NavigateTo("/");
         }
         else
         {

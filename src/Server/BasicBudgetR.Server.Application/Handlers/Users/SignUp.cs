@@ -38,6 +38,9 @@ public class SignUp
             await _context.Households.AddAsync(household);
             await _context.SaveChangesAsync();
 
+            _stateContainer.CurrentUserId = user.UserId;
+            _stateContainer.HouseholdId = user.HouseholdId;
+
             await _context.AddRangeAsync(BuildMonthBudgetList(household.HouseholdId));
             await _context.SaveChangesAsync();
 

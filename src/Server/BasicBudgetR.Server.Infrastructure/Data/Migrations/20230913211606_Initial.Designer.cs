@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(BudgetRDbContext))]
-    [Migration("20230826000321_Initial")]
+    [Migration("20230913211606_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -124,10 +124,120 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         new
                         {
                             BusinessTransactionActivityId = 1L,
-                            CreatedAt = new DateTime(2023, 8, 26, 0, 3, 21, 388, DateTimeKind.Utc).AddTicks(973),
+                            CreatedAt = new DateTime(2023, 9, 13, 21, 16, 6, 775, DateTimeKind.Utc).AddTicks(7679),
                             ProcessName = "Initial Seeding",
                             UserId = 1L
                         });
+                });
+
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Expense", b =>
+                {
+                    b.Property<long>("ExpenseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ExpenseId"));
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(19, 2)
+                        .HasColumnType("decimal(19,2)")
+                        .HasColumnOrder(2);
+
+                    b.Property<long?>("BusinessTransactionActivityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedAt");
+
+                    b.Property<long>("HouseholdId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(4);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(3);
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ModifiedAt");
+
+                    b.Property<long?>("MonthBudgetBudgetMonthId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(125)
+                        .HasColumnType("nvarchar(125)")
+                        .HasColumnOrder(1);
+
+                    b.HasKey("ExpenseId");
+
+                    b.HasIndex("BusinessTransactionActivityId");
+
+                    b.HasIndex("MonthBudgetBudgetMonthId");
+
+                    b.ToTable("Expenses", (string)null);
+
+                    b.ToTable(tb => tb.IsTemporal(ttb =>
+                            {
+                                ttb.UseHistoryTable("ExpenseHistory");
+                                ttb
+                                    .HasPeriodStart("CreatedAt")
+                                    .HasColumnName("CreatedAt");
+                                ttb
+                                    .HasPeriodEnd("ModifiedAt")
+                                    .HasColumnName("ModifiedAt");
+                            }));
+                });
+
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.ExpenseDetail", b =>
+                {
+                    b.Property<long>("ExpenseDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ExpenseDetailId"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedAt");
+
+                    b.Property<long>("ExpenseId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(1);
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ModifiedAt");
+
+                    b.Property<long>("MonthBudgetId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(2);
+
+                    b.HasKey("ExpenseDetailId");
+
+                    b.HasIndex("ExpenseId");
+
+                    b.HasIndex("MonthBudgetId");
+
+                    b.ToTable("ExpenseDetails", (string)null);
+
+                    b.ToTable(tb => tb.IsTemporal(ttb =>
+                            {
+                                ttb.UseHistoryTable("ExpenseDetailHistory");
+                                ttb
+                                    .HasPeriodStart("CreatedAt")
+                                    .HasColumnName("CreatedAt");
+                                ttb
+                                    .HasPeriodEnd("ModifiedAt")
+                                    .HasColumnName("ModifiedAt");
+                            }));
                 });
 
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Household", b =>
@@ -174,6 +284,30 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                             }));
                 });
 
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Income", b =>
+                {
+                    b.Property<long>("IncomeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IncomeId"));
+
+                    b.Property<long?>("BusinessTransactionActivityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("MonthBudgetBudgetMonthId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("IncomeId");
+
+                    b.HasIndex("BusinessTransactionActivityId");
+
+                    b.HasIndex("MonthBudgetBudgetMonthId");
+
+                    b.ToTable("Incomes");
+                });
+
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.MonthBudget", b =>
                 {
                     b.Property<long>("BudgetMonthId")
@@ -191,6 +325,20 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("CreatedAt");
 
+                    b.Property<decimal>("ExpenseTotal")
+                        .HasPrecision(19, 2)
+                        .HasColumnType("decimal(19,2)")
+                        .HasColumnOrder(3);
+
+                    b.Property<long>("HouseholdId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(4);
+
+                    b.Property<decimal>("IncomeTotal")
+                        .HasPrecision(19, 2)
+                        .HasColumnType("decimal(19,2)")
+                        .HasColumnOrder(2);
+
                     b.Property<DateTime>("ModifiedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
@@ -203,6 +351,8 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                     b.HasKey("BudgetMonthId");
 
                     b.HasIndex("BusinessTransactionActivityId");
+
+                    b.HasIndex("HouseholdId");
 
                     b.HasIndex("MonthYearId");
 
@@ -218,608 +368,6 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                                     .HasPeriodEnd("ModifiedAt")
                                     .HasColumnName("ModifiedAt");
                             }));
-
-                    b.HasData(
-                        new
-                        {
-                            BudgetMonthId = 1L,
-                            MonthYearId = 1L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 2L,
-                            MonthYearId = 2L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 3L,
-                            MonthYearId = 3L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 4L,
-                            MonthYearId = 4L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 5L,
-                            MonthYearId = 5L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 6L,
-                            MonthYearId = 6L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 7L,
-                            MonthYearId = 7L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 8L,
-                            MonthYearId = 8L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 9L,
-                            MonthYearId = 9L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 10L,
-                            MonthYearId = 10L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 11L,
-                            MonthYearId = 11L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 12L,
-                            MonthYearId = 12L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 13L,
-                            MonthYearId = 13L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 14L,
-                            MonthYearId = 14L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 15L,
-                            MonthYearId = 15L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 16L,
-                            MonthYearId = 16L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 17L,
-                            MonthYearId = 17L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 18L,
-                            MonthYearId = 18L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 19L,
-                            MonthYearId = 19L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 20L,
-                            MonthYearId = 20L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 21L,
-                            MonthYearId = 21L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 22L,
-                            MonthYearId = 22L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 23L,
-                            MonthYearId = 23L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 24L,
-                            MonthYearId = 24L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 25L,
-                            MonthYearId = 25L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 26L,
-                            MonthYearId = 26L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 27L,
-                            MonthYearId = 27L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 28L,
-                            MonthYearId = 28L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 29L,
-                            MonthYearId = 29L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 30L,
-                            MonthYearId = 30L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 31L,
-                            MonthYearId = 31L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 32L,
-                            MonthYearId = 32L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 33L,
-                            MonthYearId = 33L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 34L,
-                            MonthYearId = 34L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 35L,
-                            MonthYearId = 35L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 36L,
-                            MonthYearId = 36L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 37L,
-                            MonthYearId = 37L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 38L,
-                            MonthYearId = 38L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 39L,
-                            MonthYearId = 39L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 40L,
-                            MonthYearId = 40L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 41L,
-                            MonthYearId = 41L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 42L,
-                            MonthYearId = 42L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 43L,
-                            MonthYearId = 43L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 44L,
-                            MonthYearId = 44L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 45L,
-                            MonthYearId = 45L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 46L,
-                            MonthYearId = 46L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 47L,
-                            MonthYearId = 47L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 48L,
-                            MonthYearId = 48L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 49L,
-                            MonthYearId = 49L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 50L,
-                            MonthYearId = 50L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 51L,
-                            MonthYearId = 51L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 52L,
-                            MonthYearId = 52L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 53L,
-                            MonthYearId = 53L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 54L,
-                            MonthYearId = 54L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 55L,
-                            MonthYearId = 55L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 56L,
-                            MonthYearId = 56L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 57L,
-                            MonthYearId = 57L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 58L,
-                            MonthYearId = 58L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 59L,
-                            MonthYearId = 59L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 60L,
-                            MonthYearId = 60L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 61L,
-                            MonthYearId = 61L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 62L,
-                            MonthYearId = 62L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 63L,
-                            MonthYearId = 63L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 64L,
-                            MonthYearId = 64L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 65L,
-                            MonthYearId = 65L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 66L,
-                            MonthYearId = 66L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 67L,
-                            MonthYearId = 67L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 68L,
-                            MonthYearId = 68L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 69L,
-                            MonthYearId = 69L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 70L,
-                            MonthYearId = 70L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 71L,
-                            MonthYearId = 71L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 72L,
-                            MonthYearId = 72L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 73L,
-                            MonthYearId = 73L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 74L,
-                            MonthYearId = 74L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 75L,
-                            MonthYearId = 75L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 76L,
-                            MonthYearId = 76L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 77L,
-                            MonthYearId = 77L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 78L,
-                            MonthYearId = 78L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 79L,
-                            MonthYearId = 79L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 80L,
-                            MonthYearId = 80L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 81L,
-                            MonthYearId = 81L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 82L,
-                            MonthYearId = 82L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 83L,
-                            MonthYearId = 83L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 84L,
-                            MonthYearId = 84L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 85L,
-                            MonthYearId = 85L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 86L,
-                            MonthYearId = 86L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 87L,
-                            MonthYearId = 87L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 88L,
-                            MonthYearId = 88L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 89L,
-                            MonthYearId = 89L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 90L,
-                            MonthYearId = 90L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 91L,
-                            MonthYearId = 91L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 92L,
-                            MonthYearId = 92L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 93L,
-                            MonthYearId = 93L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 94L,
-                            MonthYearId = 94L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 95L,
-                            MonthYearId = 95L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 96L,
-                            MonthYearId = 96L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 97L,
-                            MonthYearId = 97L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 98L,
-                            MonthYearId = 98L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 99L,
-                            MonthYearId = 99L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 100L,
-                            MonthYearId = 100L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 101L,
-                            MonthYearId = 101L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 102L,
-                            MonthYearId = 102L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 103L,
-                            MonthYearId = 103L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 104L,
-                            MonthYearId = 104L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 105L,
-                            MonthYearId = 105L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 106L,
-                            MonthYearId = 106L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 107L,
-                            MonthYearId = 107L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 108L,
-                            MonthYearId = 108L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 109L,
-                            MonthYearId = 109L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 110L,
-                            MonthYearId = 110L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 111L,
-                            MonthYearId = 111L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 112L,
-                            MonthYearId = 112L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 113L,
-                            MonthYearId = 113L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 114L,
-                            MonthYearId = 114L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 115L,
-                            MonthYearId = 115L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 116L,
-                            MonthYearId = 116L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 117L,
-                            MonthYearId = 117L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 118L,
-                            MonthYearId = 118L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 119L,
-                            MonthYearId = 119L
-                        },
-                        new
-                        {
-                            BudgetMonthId = 120L,
-                            MonthYearId = 120L
-                        });
                 });
 
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.MonthYear", b =>
@@ -1955,11 +1503,54 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                     b.Navigation("Household");
                 });
 
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Expense", b =>
+                {
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
+                        .WithMany()
+                        .HasForeignKey("BusinessTransactionActivityId");
+
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.MonthBudget", null)
+                        .WithMany("Expenses")
+                        .HasForeignKey("MonthBudgetBudgetMonthId");
+
+                    b.Navigation("BusinessTransactionActivity");
+                });
+
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.ExpenseDetail", b =>
+                {
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.Expense", null)
+                        .WithMany("ExpenseDetails")
+                        .HasForeignKey("ExpenseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.MonthBudget", "MonthBudget")
+                        .WithMany()
+                        .HasForeignKey("MonthBudgetId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("MonthBudget");
+                });
+
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Household", b =>
                 {
                     b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
                         .WithMany()
                         .HasForeignKey("BusinessTransactionActivityId");
+
+                    b.Navigation("BusinessTransactionActivity");
+                });
+
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Income", b =>
+                {
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
+                        .WithMany()
+                        .HasForeignKey("BusinessTransactionActivityId");
+
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.MonthBudget", null)
+                        .WithMany("Incomes")
+                        .HasForeignKey("MonthBudgetBudgetMonthId");
 
                     b.Navigation("BusinessTransactionActivity");
                 });
@@ -1970,6 +1561,12 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         .WithMany()
                         .HasForeignKey("BusinessTransactionActivityId");
 
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.Household", "Household")
+                        .WithMany()
+                        .HasForeignKey("HouseholdId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("BasicBudgetR.Server.Domain.Entities.MonthYear", "MonthYear")
                         .WithMany()
                         .HasForeignKey("MonthYearId")
@@ -1977,6 +1574,8 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("BusinessTransactionActivity");
+
+                    b.Navigation("Household");
 
                     b.Navigation("MonthYear");
                 });
@@ -1990,9 +1589,21 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                     b.Navigation("Household");
                 });
 
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Expense", b =>
+                {
+                    b.Navigation("ExpenseDetails");
+                });
+
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Household", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.MonthBudget", b =>
+                {
+                    b.Navigation("Expenses");
+
+                    b.Navigation("Incomes");
                 });
 #pragma warning restore 612, 618
         }
