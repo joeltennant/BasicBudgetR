@@ -7,4 +7,6 @@ public class ExpenseModel
 
     public decimal Amount { get; set; }
     public bool IsActive { get; set; }
+
+    public IEnumerable<ExpenseDetailModel> ExpenseDetails { get; set; }
 }

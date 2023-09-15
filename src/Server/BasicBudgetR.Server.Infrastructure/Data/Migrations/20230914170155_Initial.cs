@@ -374,6 +374,12 @@ public partial class Initial : Migration
                     .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                     .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
                     .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                BudgetMonthId = table.Column<long>(type: "bigint", nullable: true)
+                    .Annotation("SqlServer:IsTemporal", true)
+                    .Annotation("SqlServer:TemporalHistoryTableName", "ExpenseHistory")
+                    .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                    .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                    .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
                 CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                     .Annotation("SqlServer:IsTemporal", true)
                     .Annotation("SqlServer:TemporalHistoryTableName", "ExpenseHistory")
@@ -381,12 +387,6 @@ public partial class Initial : Migration
                     .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
                     .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
                 ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                    .Annotation("SqlServer:IsTemporal", true)
-                    .Annotation("SqlServer:TemporalHistoryTableName", "ExpenseHistory")
-                    .Annotation("SqlServer:TemporalHistoryTableSchema", null)
-                    .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
-                    .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
-                MonthBudgetBudgetMonthId = table.Column<long>(type: "bigint", nullable: true)
                     .Annotation("SqlServer:IsTemporal", true)
                     .Annotation("SqlServer:TemporalHistoryTableName", "ExpenseHistory")
                     .Annotation("SqlServer:TemporalHistoryTableSchema", null)
@@ -408,8 +408,8 @@ public partial class Initial : Migration
                     principalTable: "BusinessTransactionActivities",
                     principalColumn: "BusinessTransactionActivityId");
                 table.ForeignKey(
-                    name: "FK_Expenses_MonthBudgets_MonthBudgetBudgetMonthId",
-                    column: x => x.MonthBudgetBudgetMonthId,
+                    name: "FK_Expenses_MonthBudgets_BudgetMonthId",
+                    column: x => x.BudgetMonthId,
                     principalTable: "MonthBudgets",
                     principalColumn: "BudgetMonthId");
             })
@@ -425,7 +425,7 @@ public partial class Initial : Migration
             {
                 IncomeId = table.Column<long>(type: "bigint", nullable: false)
                     .Annotation("SqlServer:Identity", "1, 1"),
-                MonthBudgetBudgetMonthId = table.Column<long>(type: "bigint", nullable: true),
+                BudgetMonthId = table.Column<long>(type: "bigint", nullable: true),
                 BusinessTransactionActivityId = table.Column<long>(type: "bigint", nullable: true)
             },
             constraints: table =>
@@ -437,8 +437,8 @@ public partial class Initial : Migration
                     principalTable: "BusinessTransactionActivities",
                     principalColumn: "BusinessTransactionActivityId");
                 table.ForeignKey(
-                    name: "FK_Incomes_MonthBudgets_MonthBudgetBudgetMonthId",
-                    column: x => x.MonthBudgetBudgetMonthId,
+                    name: "FK_Incomes_MonthBudgets_BudgetMonthId",
+                    column: x => x.BudgetMonthId,
                     principalTable: "MonthBudgets",
                     principalColumn: "BudgetMonthId");
             });
@@ -460,7 +460,7 @@ public partial class Initial : Migration
                     .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                     .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
                     .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
-                MonthBudgetId = table.Column<long>(type: "bigint", nullable: false)
+                BudgetMonthId = table.Column<long>(type: "bigint", nullable: false)
                     .Annotation("SqlServer:IsTemporal", true)
                     .Annotation("SqlServer:TemporalHistoryTableName", "ExpenseDetailHistory")
                     .Annotation("SqlServer:TemporalHistoryTableSchema", null)
@@ -477,11 +477,22 @@ public partial class Initial : Migration
                     .Annotation("SqlServer:TemporalHistoryTableName", "ExpenseDetailHistory")
                     .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                     .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                    .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                BusinessTransactionActivityId = table.Column<long>(type: "bigint", nullable: true)
+                    .Annotation("SqlServer:IsTemporal", true)
+                    .Annotation("SqlServer:TemporalHistoryTableName", "ExpenseDetailHistory")
+                    .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                    .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
                     .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt")
             },
             constraints: table =>
             {
                 table.PrimaryKey("PK_ExpenseDetails", x => x.ExpenseDetailId);
+                table.ForeignKey(
+                    name: "FK_ExpenseDetails_BusinessTransactionActivities_BusinessTransactionActivityId",
+                    column: x => x.BusinessTransactionActivityId,
+                    principalTable: "BusinessTransactionActivities",
+                    principalColumn: "BusinessTransactionActivityId");
                 table.ForeignKey(
                     name: "FK_ExpenseDetails_Expenses_ExpenseId",
                     column: x => x.ExpenseId,
@@ -489,8 +500,8 @@ public partial class Initial : Migration
                     principalColumn: "ExpenseId",
                     onDelete: ReferentialAction.Restrict);
                 table.ForeignKey(
-                    name: "FK_ExpenseDetails_MonthBudgets_MonthBudgetId",
-                    column: x => x.MonthBudgetId,
+                    name: "FK_ExpenseDetails_MonthBudgets_BudgetMonthId",
+                    column: x => x.BudgetMonthId,
                     principalTable: "MonthBudgets",
                     principalColumn: "BudgetMonthId",
                     onDelete: ReferentialAction.Restrict);
@@ -518,7 +529,7 @@ public partial class Initial : Migration
         migrationBuilder.InsertData(
             table: "BusinessTransactionActivities",
             columns: new[] { "BusinessTransactionActivityId", "CreatedAt", "ProcessName", "UserId" },
-            values: new object[] { 1L, new DateTime(2023, 9, 13, 21, 16, 6, 775, DateTimeKind.Utc).AddTicks(7679), "Initial Seeding", 1L });
+            values: new object[] { 1L, new DateTime(2023, 9, 14, 17, 1, 55, 98, DateTimeKind.Utc).AddTicks(3992), "Initial Seeding", 1L });
 
         migrationBuilder.InsertData(
             table: "MonthYears",
@@ -668,14 +679,24 @@ public partial class Initial : Migration
             column: "HouseholdId");
 
         migrationBuilder.CreateIndex(
+            name: "IX_ExpenseDetails_BudgetMonthId",
+            table: "ExpenseDetails",
+            column: "BudgetMonthId");
+
+        migrationBuilder.CreateIndex(
+            name: "IX_ExpenseDetails_BusinessTransactionActivityId",
+            table: "ExpenseDetails",
+            column: "BusinessTransactionActivityId");
+
+        migrationBuilder.CreateIndex(
             name: "IX_ExpenseDetails_ExpenseId",
             table: "ExpenseDetails",
             column: "ExpenseId");
 
         migrationBuilder.CreateIndex(
-            name: "IX_ExpenseDetails_MonthBudgetId",
-            table: "ExpenseDetails",
-            column: "MonthBudgetId");
+            name: "IX_Expenses_BudgetMonthId",
+            table: "Expenses",
+            column: "BudgetMonthId");
 
         migrationBuilder.CreateIndex(
             name: "IX_Expenses_BusinessTransactionActivityId",
@@ -683,24 +704,19 @@ public partial class Initial : Migration
             column: "BusinessTransactionActivityId");
 
         migrationBuilder.CreateIndex(
-            name: "IX_Expenses_MonthBudgetBudgetMonthId",
-            table: "Expenses",
-            column: "MonthBudgetBudgetMonthId");
-
-        migrationBuilder.CreateIndex(
             name: "IX_Households_BusinessTransactionActivityId",
             table: "Households",
             column: "BusinessTransactionActivityId");
 
         migrationBuilder.CreateIndex(
+            name: "IX_Incomes_BudgetMonthId",
+            table: "Incomes",
+            column: "BudgetMonthId");
+
+        migrationBuilder.CreateIndex(
             name: "IX_Incomes_BusinessTransactionActivityId",
             table: "Incomes",
             column: "BusinessTransactionActivityId");
-
-        migrationBuilder.CreateIndex(
-            name: "IX_Incomes_MonthBudgetBudgetMonthId",
-            table: "Incomes",
-            column: "MonthBudgetBudgetMonthId");
 
         migrationBuilder.CreateIndex(
             name: "IX_MonthBudgets_BusinessTransactionActivityId",

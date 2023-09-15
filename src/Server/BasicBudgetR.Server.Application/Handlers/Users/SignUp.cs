@@ -47,7 +47,7 @@ public class SignUp
             return Result.Success();
         }
 
-        private List<MonthBudget> BuildMonthBudgetList(long HouseholdId)
+        private List<BudgetMonth> BuildMonthBudgetList(long HouseholdId)
         {
             var today = DateOnly.FromDateTime(DateTime.Now);
 
@@ -56,11 +56,11 @@ public class SignUp
                 .OrderBy(m => m.MonthYearId)
                 .ToList();
 
-            List<MonthBudget> monthBudgets = new();
+            List<BudgetMonth> monthBudgets = new();
 
             foreach (var monthYear in monthYears)
             {
-                monthBudgets.Add(new MonthBudget
+                monthBudgets.Add(new BudgetMonth
                 {
                     MonthYearId = monthYear.MonthYearId,
                     HouseholdId = HouseholdId,

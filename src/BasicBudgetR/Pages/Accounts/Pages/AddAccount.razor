@@ -51,7 +51,7 @@
 @code {
     public string? AccountName { get; set; }
     public decimal Balance { get; set; } = 0.00m;
-    public BalanceType BalanceType { get; set; }
+    public BalanceType BalanceType { get; set; } = BalanceType.Debit;
     public long AccountTypeId { get; set; } = 1;
     public IList<AccountTypeModel> AccountTypeModels { get; set; } = new List<AccountTypeModel>();
 

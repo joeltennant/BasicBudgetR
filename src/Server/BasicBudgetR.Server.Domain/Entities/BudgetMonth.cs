@@ -1,5 +1,5 @@
 ﻿namespace BasicBudgetR.Server.Domain.Entities;
-public class MonthBudget : BaseEntity
+public class BudgetMonth : BaseEntity
 {
     [Key]
     [Column(Order = 0)]

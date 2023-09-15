@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(BudgetRDbContext))]
-    [Migration("20230913211606_Initial")]
+    [Migration("20230914170155_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -94,6 +94,68 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                             }));
                 });
 
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.BudgetMonth", b =>
+                {
+                    b.Property<long>("BudgetMonthId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("BudgetMonthId"));
+
+                    b.Property<long?>("BusinessTransactionActivityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedAt");
+
+                    b.Property<decimal>("ExpenseTotal")
+                        .HasPrecision(19, 2)
+                        .HasColumnType("decimal(19,2)")
+                        .HasColumnOrder(3);
+
+                    b.Property<long>("HouseholdId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(4);
+
+                    b.Property<decimal>("IncomeTotal")
+                        .HasPrecision(19, 2)
+                        .HasColumnType("decimal(19,2)")
+                        .HasColumnOrder(2);
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("ModifiedAt");
+
+                    b.Property<long>("MonthYearId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(1);
+
+                    b.HasKey("BudgetMonthId");
+
+                    b.HasIndex("BusinessTransactionActivityId");
+
+                    b.HasIndex("HouseholdId");
+
+                    b.HasIndex("MonthYearId");
+
+                    b.ToTable("MonthBudgets", (string)null);
+
+                    b.ToTable(tb => tb.IsTemporal(ttb =>
+                            {
+                                ttb.UseHistoryTable("MonthBudgetHistory");
+                                ttb
+                                    .HasPeriodStart("CreatedAt")
+                                    .HasColumnName("CreatedAt");
+                                ttb
+                                    .HasPeriodEnd("ModifiedAt")
+                                    .HasColumnName("ModifiedAt");
+                            }));
+                });
+
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", b =>
                 {
                     b.Property<long>("BusinessTransactionActivityId")
@@ -124,7 +186,7 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         new
                         {
                             BusinessTransactionActivityId = 1L,
-                            CreatedAt = new DateTime(2023, 9, 13, 21, 16, 6, 775, DateTimeKind.Utc).AddTicks(7679),
+                            CreatedAt = new DateTime(2023, 9, 14, 17, 1, 55, 98, DateTimeKind.Utc).AddTicks(3992),
                             ProcessName = "Initial Seeding",
                             UserId = 1L
                         });
@@ -143,6 +205,9 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         .HasPrecision(19, 2)
                         .HasColumnType("decimal(19,2)")
                         .HasColumnOrder(2);
+
+                    b.Property<long?>("BudgetMonthId")
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("BusinessTransactionActivityId")
                         .HasColumnType("bigint");
@@ -165,9 +230,6 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("ModifiedAt");
 
-                    b.Property<long?>("MonthBudgetBudgetMonthId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Name")
                         .HasMaxLength(125)
                         .HasColumnType("nvarchar(125)")
@@ -175,9 +237,9 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
 
                     b.HasKey("ExpenseId");
 
-                    b.HasIndex("BusinessTransactionActivityId");
+                    b.HasIndex("BudgetMonthId");
 
-                    b.HasIndex("MonthBudgetBudgetMonthId");
+                    b.HasIndex("BusinessTransactionActivityId");
 
                     b.ToTable("Expenses", (string)null);
 
@@ -202,6 +264,13 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ExpenseDetailId"));
 
+                    b.Property<long>("BudgetMonthId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(2);
+
+                    b.Property<long?>("BusinessTransactionActivityId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2")
@@ -216,15 +285,13 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("ModifiedAt");
 
-                    b.Property<long>("MonthBudgetId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(2);
-
                     b.HasKey("ExpenseDetailId");
 
-                    b.HasIndex("ExpenseId");
+                    b.HasIndex("BudgetMonthId");
 
-                    b.HasIndex("MonthBudgetId");
+                    b.HasIndex("BusinessTransactionActivityId");
+
+                    b.HasIndex("ExpenseId");
 
                     b.ToTable("ExpenseDetails", (string)null);
 
@@ -293,81 +360,19 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IncomeId"));
 
-                    b.Property<long?>("BusinessTransactionActivityId")
+                    b.Property<long?>("BudgetMonthId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("MonthBudgetBudgetMonthId")
+                    b.Property<long?>("BusinessTransactionActivityId")
                         .HasColumnType("bigint");
 
                     b.HasKey("IncomeId");
 
-                    b.HasIndex("BusinessTransactionActivityId");
+                    b.HasIndex("BudgetMonthId");
 
-                    b.HasIndex("MonthBudgetBudgetMonthId");
+                    b.HasIndex("BusinessTransactionActivityId");
 
                     b.ToTable("Incomes");
-                });
-
-            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.MonthBudget", b =>
-                {
-                    b.Property<long>("BudgetMonthId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("BudgetMonthId"));
-
-                    b.Property<long?>("BusinessTransactionActivityId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreatedAt");
-
-                    b.Property<decimal>("ExpenseTotal")
-                        .HasPrecision(19, 2)
-                        .HasColumnType("decimal(19,2)")
-                        .HasColumnOrder(3);
-
-                    b.Property<long>("HouseholdId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(4);
-
-                    b.Property<decimal>("IncomeTotal")
-                        .HasPrecision(19, 2)
-                        .HasColumnType("decimal(19,2)")
-                        .HasColumnOrder(2);
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("ModifiedAt");
-
-                    b.Property<long>("MonthYearId")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(1);
-
-                    b.HasKey("BudgetMonthId");
-
-                    b.HasIndex("BusinessTransactionActivityId");
-
-                    b.HasIndex("HouseholdId");
-
-                    b.HasIndex("MonthYearId");
-
-                    b.ToTable("MonthBudgets", (string)null);
-
-                    b.ToTable(tb => tb.IsTemporal(ttb =>
-                            {
-                                ttb.UseHistoryTable("MonthBudgetHistory");
-                                ttb
-                                    .HasPeriodStart("CreatedAt")
-                                    .HasColumnName("CreatedAt");
-                                ttb
-                                    .HasPeriodEnd("ModifiedAt")
-                                    .HasColumnName("ModifiedAt");
-                            }));
                 });
 
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.MonthYear", b =>
@@ -1503,59 +1508,7 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                     b.Navigation("Household");
                 });
 
-            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Expense", b =>
-                {
-                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
-                        .WithMany()
-                        .HasForeignKey("BusinessTransactionActivityId");
-
-                    b.HasOne("BasicBudgetR.Server.Domain.Entities.MonthBudget", null)
-                        .WithMany("Expenses")
-                        .HasForeignKey("MonthBudgetBudgetMonthId");
-
-                    b.Navigation("BusinessTransactionActivity");
-                });
-
-            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.ExpenseDetail", b =>
-                {
-                    b.HasOne("BasicBudgetR.Server.Domain.Entities.Expense", null)
-                        .WithMany("ExpenseDetails")
-                        .HasForeignKey("ExpenseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BasicBudgetR.Server.Domain.Entities.MonthBudget", "MonthBudget")
-                        .WithMany()
-                        .HasForeignKey("MonthBudgetId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("MonthBudget");
-                });
-
-            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Household", b =>
-                {
-                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
-                        .WithMany()
-                        .HasForeignKey("BusinessTransactionActivityId");
-
-                    b.Navigation("BusinessTransactionActivity");
-                });
-
-            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Income", b =>
-                {
-                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
-                        .WithMany()
-                        .HasForeignKey("BusinessTransactionActivityId");
-
-                    b.HasOne("BasicBudgetR.Server.Domain.Entities.MonthBudget", null)
-                        .WithMany("Incomes")
-                        .HasForeignKey("MonthBudgetBudgetMonthId");
-
-                    b.Navigation("BusinessTransactionActivity");
-                });
-
-            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.MonthBudget", b =>
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.BudgetMonth", b =>
                 {
                     b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
                         .WithMany()
@@ -1580,6 +1533,64 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                     b.Navigation("MonthYear");
                 });
 
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Expense", b =>
+                {
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BudgetMonth", null)
+                        .WithMany("Expenses")
+                        .HasForeignKey("BudgetMonthId");
+
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
+                        .WithMany()
+                        .HasForeignKey("BusinessTransactionActivityId");
+
+                    b.Navigation("BusinessTransactionActivity");
+                });
+
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.ExpenseDetail", b =>
+                {
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BudgetMonth", "BudgetMonth")
+                        .WithMany()
+                        .HasForeignKey("BudgetMonthId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
+                        .WithMany()
+                        .HasForeignKey("BusinessTransactionActivityId");
+
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.Expense", null)
+                        .WithMany("ExpenseDetails")
+                        .HasForeignKey("ExpenseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("BudgetMonth");
+
+                    b.Navigation("BusinessTransactionActivity");
+                });
+
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Household", b =>
+                {
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
+                        .WithMany()
+                        .HasForeignKey("BusinessTransactionActivityId");
+
+                    b.Navigation("BusinessTransactionActivity");
+                });
+
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Income", b =>
+                {
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BudgetMonth", null)
+                        .WithMany("Incomes")
+                        .HasForeignKey("BudgetMonthId");
+
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
+                        .WithMany()
+                        .HasForeignKey("BusinessTransactionActivityId");
+
+                    b.Navigation("BusinessTransactionActivity");
+                });
+
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.User", b =>
                 {
                     b.HasOne("BasicBudgetR.Server.Domain.Entities.Household", "Household")
@@ -1587,6 +1598,13 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         .HasForeignKey("HouseholdId");
 
                     b.Navigation("Household");
+                });
+
+            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.BudgetMonth", b =>
+                {
+                    b.Navigation("Expenses");
+
+                    b.Navigation("Incomes");
                 });
 
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Expense", b =>
@@ -1597,13 +1615,6 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Household", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.MonthBudget", b =>
-                {
-                    b.Navigation("Expenses");
-
-                    b.Navigation("Incomes");
                 });
 #pragma warning restore 612, 618
         }

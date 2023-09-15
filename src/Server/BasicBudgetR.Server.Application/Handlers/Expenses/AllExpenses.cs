@@ -1,5 +1,5 @@
 ﻿namespace BasicBudgetR.Server.Application.Handlers.Expenses;
-public class All
+public class AllExpenses
 {
     public record Request : IRequest<Result<List<ExpenseModel>>>;
 

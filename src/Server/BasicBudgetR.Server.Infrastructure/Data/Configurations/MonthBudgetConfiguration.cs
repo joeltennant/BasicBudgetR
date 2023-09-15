@@ -1,9 +1,9 @@
 ﻿using BasicBudgetR.Server.Domain;
 
 namespace BasicBudgetR.Server.Infrastructure.Data.Configurations;
-public class MonthBudgetConfiguration : IEntityTypeConfiguration<MonthBudget>
+public class MonthBudgetConfiguration : IEntityTypeConfiguration<BudgetMonth>
 {
-    public void Configure(EntityTypeBuilder<MonthBudget> builder)
+    public void Configure(EntityTypeBuilder<BudgetMonth> builder)
     {
         builder.ToTable("MonthBudgets",
                        a => a.IsTemporal

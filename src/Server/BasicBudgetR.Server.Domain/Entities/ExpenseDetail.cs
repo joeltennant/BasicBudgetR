@@ -1,6 +1,6 @@
 ﻿namespace BasicBudgetR.Server.Domain.Entities;
 
-public class ExpenseDetail
+public class ExpenseDetail : BaseEntity
 {
     [Key]
     [Column(Order = 0)]
@@ -8,8 +8,9 @@ public class ExpenseDetail
 
     [Column(Order = 1)]
     public long ExpenseId { get; set; }
+    public Expense? Expense { get; set; }
 
     [Column(Order = 2)]
-    public long MonthBudgetId { get; set; }
-    public MonthBudget? MonthBudget { get; set; }
+    public long BudgetMonthId { get; set; }
+    public BudgetMonth? BudgetMonth { get; set; }
 }

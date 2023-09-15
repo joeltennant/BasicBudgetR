@@ -23,8 +23,7 @@ public class Add
                 .NotNull()
                 .GreaterThanOrEqualTo(0);
             RuleFor(x => x.BalanceType)
-                .NotNull()
-                .NotEmpty();
+                .NotNull();
             RuleFor(x => x.AccountTypeId)
                 .NotNull()
                 .NotEmpty()
