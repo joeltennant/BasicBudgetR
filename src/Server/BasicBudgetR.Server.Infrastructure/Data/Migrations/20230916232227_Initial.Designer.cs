@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(BudgetRDbContext))]
-    [Migration("20230914170155_Initial")]
+    [Migration("20230916232227_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -142,11 +142,11 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
 
                     b.HasIndex("MonthYearId");
 
-                    b.ToTable("MonthBudgets", (string)null);
+                    b.ToTable("BudgetMonths", (string)null);
 
                     b.ToTable(tb => tb.IsTemporal(ttb =>
                             {
-                                ttb.UseHistoryTable("MonthBudgetHistory");
+                                ttb.UseHistoryTable("BudgetMonthHistory");
                                 ttb
                                     .HasPeriodStart("CreatedAt")
                                     .HasColumnName("CreatedAt");
@@ -186,7 +186,7 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         new
                         {
                             BusinessTransactionActivityId = 1L,
-                            CreatedAt = new DateTime(2023, 9, 14, 17, 1, 55, 98, DateTimeKind.Utc).AddTicks(3992),
+                            CreatedAt = new DateTime(2023, 9, 16, 23, 22, 27, 286, DateTimeKind.Utc).AddTicks(8344),
                             ProcessName = "Initial Seeding",
                             UserId = 1L
                         });
@@ -1558,7 +1558,7 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         .WithMany()
                         .HasForeignKey("BusinessTransactionActivityId");
 
-                    b.HasOne("BasicBudgetR.Server.Domain.Entities.Expense", null)
+                    b.HasOne("BasicBudgetR.Server.Domain.Entities.Expense", "Expense")
                         .WithMany("ExpenseDetails")
                         .HasForeignKey("ExpenseId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1567,6 +1567,8 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                     b.Navigation("BudgetMonth");
 
                     b.Navigation("BusinessTransactionActivity");
+
+                    b.Navigation("Expense");
                 });
 
             modelBuilder.Entity("BasicBudgetR.Server.Domain.Entities.Household", b =>
