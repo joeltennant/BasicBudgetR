@@ -22,7 +22,7 @@ internal class Program
 
             using var dbContext = new BudgetRDbContext(dbOptions.Options);
 
-            User user = new User
+            User user = new()
             {
                 AuthId = userSetting.AuthId,
                 DisplayName = userSetting.DisplayName,

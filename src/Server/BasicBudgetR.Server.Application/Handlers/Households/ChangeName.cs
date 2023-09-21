@@ -27,7 +27,7 @@ public class ChangeName
 
     public class Handler : BaseHandler<NoValue>, IRequestHandler<Request, Result<NoValue>>
     {
-        private readonly Validator _validator = new Validator();
+        private readonly Validator _validator = new();
 
         public Handler(BudgetRDbContext context, StateContainer stateContainer)
             : base(context, stateContainer)

@@ -33,7 +33,7 @@ public class Add
 
     public class Handler : BaseHandler<NoValue>, IRequestHandler<Request, Result<NoValue>>
     {
-        private readonly Validator _validator = new Validator();
+        private readonly Validator _validator = new();
 
         public Handler(BudgetRDbContext context, StateContainer stateContainer)
             : base(context, stateContainer)
@@ -48,7 +48,7 @@ public class Add
                 return Result.Error(validation.Errors);
             }
 
-            Account account = new Account
+            Account account = new()
             {
                 Name = request.AccountName,
                 Balance = request.Balance.Value,
