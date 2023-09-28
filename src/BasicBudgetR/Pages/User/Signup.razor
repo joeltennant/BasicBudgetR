@@ -2,8 +2,9 @@
 @inject NavigationManager NavigationManager
 @inject ISnackbar Snackbar
 @page "/signup"
+@layout SignUpLayout
 
-<MudGrid Class="mt-4">
+<MudGrid Class="ma-8">
     <MudItem xs="4" Class="pa-0">
         <MudPaper Class="pa-3" Elevation="2">
             <MudItem xs="12" Class="pt-0">
@@ -20,7 +21,7 @@
             </MudItem>
             <MudItem xs="12">
                 <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="@(()=>Submit())"
-                    Class="mt-2">Submit</MudButton>
+                           Class="mt-2">Submit</MudButton>
             </MudItem>
         </MudPaper>
     </MudItem>
