@@ -183,7 +183,7 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         new
                         {
                             BusinessTransactionActivityId = 1L,
-                            CreatedAt = new DateTime(2023, 9, 16, 23, 22, 27, 286, DateTimeKind.Utc).AddTicks(8344),
+                            CreatedAt = new DateTime(2023, 9, 28, 0, 54, 53, 753, DateTimeKind.Utc).AddTicks(1877),
                             ProcessName = "Initial Seeding",
                             UserId = 1L
                         });
