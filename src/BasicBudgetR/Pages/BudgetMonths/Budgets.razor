@@ -1,21 +1,18 @@
 ﻿@page "/budgets"
 @using BasicBudgetR.Core.Models;
 @using BasicBudgetR.Server.Application.Handlers.BudgetMonths;
+@using BasicBudgetR.Shared.ComponentTemplates
 @inject ISnackbar Snackbar
+@inject NavigationManager NavigationManager
 
-<MudGrid>
-    <MudItem xs="12">
-        <MudPaper Elevation="25" Style="@($"color:{Colors.Shades.White};background-color:{Colors.Purple.Darken4}")">
-            <MudToolBar>
-                <MudText Typo="Typo.h5" Class="pr-3">Budgets</MudText>
-                @* <MudIconButton Icon="@Icons.Material.Outlined.Edit" /> *@
-                @* <MudIconButton Icon="@Icons.Material.Outlined.Remove" Color="Color.Inherit" /> *@
-                <MudSpacer />
-            </MudToolBar>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="6">
-        <MudTable Items="@BudgetMonthModels" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+<ToolBarPageTemplate BodyColums="6">
+    <ToolBarTitle>Budgets</ToolBarTitle>
+    <ToolBarLeftSide></ToolBarLeftSide>
+    <ToolBarRightSide></ToolBarRightSide>
+    @* This is the body of the page *@
+    <Body>
+        <MudTable Items="@BudgetMonthModels" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
+                  Dense="true" Striped="true" OnRowClick="RowClickEvent" T="BudgetMonthModel">
             <HeaderContent>
                 <MudTh>Month</MudTh>
                 <MudTh>Year</MudTh>
@@ -29,8 +26,8 @@
                 <MudTd DataLabel="Expense Total">@context.ExpenseTotal</MudTd>
             </RowTemplate>
         </MudTable>
-    </MudItem>
-</MudGrid>
+    </Body>
+</ToolBarPageTemplate>
 
 @code {
     private IEnumerable<BudgetMonthModel> BudgetMonthModels = new List<BudgetMonthModel>();
@@ -56,5 +53,10 @@
             Snackbar.Add("Your budgets cannot be loaded at this time.", Severity.Error);
         }
         _loading = false;
+    }
+
+    private void RowClickEvent(TableRowClickEventArgs<BudgetMonthModel> tableRowClickEventArgs)
+    {
+
     }
 }
