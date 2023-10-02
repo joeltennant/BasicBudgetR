@@ -9,5 +9,7 @@ public class BudgetMonthModel
     public decimal IncomeTotal { get; set; }
     public decimal ExpenseTotal { get; set; }
 
+    public bool IsActive { get; set; }
+
     public string MonthName => new DateTime(Year, Month, 1).ToString("MMMM");
 }

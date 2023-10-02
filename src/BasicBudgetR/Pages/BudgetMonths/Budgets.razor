@@ -8,7 +8,9 @@
 <ToolBarPageTemplate BodyColums="6">
     <ToolBarTitle>Budgets</ToolBarTitle>
     <ToolBarLeftSide></ToolBarLeftSide>
-    <ToolBarRightSide></ToolBarRightSide>
+    <ToolBarRightSide>
+        <MudSwitch @bind-Checked="@ShowActive" Label="Show Active Only"></MudSwitch>
+    </ToolBarRightSide>
     @* This is the body of the page *@
     <Body>
         <MudTable Items="@BudgetMonthModels" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
@@ -32,6 +34,7 @@
 @code {
     private IEnumerable<BudgetMonthModel> BudgetMonthModels = new List<BudgetMonthModel>();
     private bool _loading;
+    private bool ShowActive = true;
 
 
     protected override async Task OnInitializedAsync()
@@ -55,8 +58,31 @@
         _loading = false;
     }
 
-    private void RowClickEvent(TableRowClickEventArgs<BudgetMonthModel> tableRowClickEventArgs)
+    private void RowClickEvent(TableRowClickEventArgs<BudgetMonthModel> arg)
     {
+        NavigationManager.NavigateTo($"/budgets/{arg.Item.BudgetMonthId}");
+        // NavigationManager.NavigateTo("/accounts");
+    }
 
+
+    private bool FilterFunc1(BudgetMonthModel budget) => FilterFunc(budget, ShowActive);
+
+    private bool FilterFunc(BudgetMonthModel budget, bool ShowActive)
+    {
+        if (!ShowActive)
+        {
+            return true;
+        }
+        if (ShowActive && budget.IsActive)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private class BudgetSearchParams
+    {
+        public int Year { get; set; }
+        public bool ShowActive { get; set; }
     }
 }
