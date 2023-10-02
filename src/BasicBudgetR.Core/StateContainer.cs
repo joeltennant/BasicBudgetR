@@ -1,17 +1,30 @@
-﻿namespace BasicBudgetR.Core;
+﻿using BasicBudgetR.Core.Enums;
+
+namespace BasicBudgetR.Core;
 public class StateContainer
 {
     private long? _currentUserId;
+    private UserType? _userType;
     private long? _householdId;
     private string? _processName;
     private long? _btaId;
 
-    public long? CurrentUserId
+    public long? UserId
     {
         get => _currentUserId;
         set
         {
             _currentUserId = value;
+            OnChange?.Invoke();
+        }
+    }
+
+    public UserType? UserType
+    {
+        get => _userType;
+        set
+        {
+            _userType = value;
             OnChange?.Invoke();
         }
     }

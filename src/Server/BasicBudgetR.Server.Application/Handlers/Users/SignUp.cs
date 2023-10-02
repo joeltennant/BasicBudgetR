@@ -25,6 +25,7 @@ public class SignUp
             {
                 AuthId = authId,
                 DisplayName = request.DisplayName,
+                UserType = UserType.User,
                 BtaId = BtaId,
             };
 
@@ -38,7 +39,7 @@ public class SignUp
             await _context.Households.AddAsync(household);
             await _context.SaveChangesAsync();
 
-            _stateContainer.CurrentUserId = user.UserId;
+            _stateContainer.UserId = user.UserId;
             _stateContainer.HouseholdId = user.HouseholdId;
 
             await _context.AddRangeAsync(BuildMonthBudgetList(household.HouseholdId));

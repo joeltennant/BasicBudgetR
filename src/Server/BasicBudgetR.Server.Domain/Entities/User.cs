@@ -16,5 +16,8 @@ public class User
 
     public Household? Household { get; set; }
 
+    [Column(Order = 5)]
+    public UserType UserType { get; set; }
+
     public long BtaId { get; set; }
 }

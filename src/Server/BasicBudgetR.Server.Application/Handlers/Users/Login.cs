@@ -19,15 +19,24 @@ public static class Login
         {
             string authId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            User? user = _context.Users.Where(x => x.AuthId == authId).FirstOrDefault();
+            User? user = _context.Users
+                .Where(x => x.AuthId == authId)
+                .Select(u => new User
+                {
+                    UserId = u.UserId,
+                    HouseholdId = u.HouseholdId,
+                    UserType = u.UserType,
+                })
+                .FirstOrDefault();
 
             if (user == null)
             {
                 return Result.NotFound();
             }
 
-            _stateContainer.CurrentUserId = user.UserId;
+            _stateContainer.UserId = user.UserId;
             _stateContainer.HouseholdId = user.HouseholdId;
+            _stateContainer.UserType = user.UserType;
 
             return Result.Success();
         }

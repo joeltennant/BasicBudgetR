@@ -37,7 +37,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if (_state.CurrentUserId.IsNullOrZero())
+        if (_state.UserId.IsNullOrZero())
         {
             var result = await _mediator.Send(new Login.Request());
             if (!result.IsSuccess && result.ErrorType == ErrorType.NotFound)

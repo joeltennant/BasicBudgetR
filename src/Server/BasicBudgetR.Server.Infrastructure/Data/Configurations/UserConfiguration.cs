@@ -1,4 +1,5 @@
-﻿using BasicBudgetR.Server.Domain;
+﻿using BasicBudgetR.Core.Enums;
+using BasicBudgetR.Server.Domain;
 
 namespace BasicBudgetR.Server.Infrastructure.Data.Configurations;
 public class UserConfiguration : IEntityTypeConfiguration<User>
@@ -22,6 +23,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                     AuthId = null,
                     DisplayName = "System",
                     HouseholdId = null,
+                    UserType = UserType.System,
                     BtaId = 1
                 }
             );

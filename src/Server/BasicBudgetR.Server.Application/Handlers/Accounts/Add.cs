@@ -58,7 +58,7 @@ public class Add
                 BusinessTransactionActivity = new BusinessTransactionActivity
                 {
                     ProcessName = "Accounts.Add",
-                    UserId = _stateContainer.CurrentUserId.Value,
+                    UserId = _stateContainer.UserId.Value,
                     CreatedAt = DateTime.UtcNow
                 }
             };

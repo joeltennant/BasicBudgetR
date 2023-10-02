@@ -14,8 +14,8 @@ public abstract class BaseHandler<T>
 
     protected async Task<long> CreateBta(bool addToContext = false, string process = "")
     {
-        long userId = _stateContainer.CurrentUserId.HasValue
-            ? _stateContainer.CurrentUserId.Value
+        long userId = _stateContainer.UserId.HasValue
+            ? _stateContainer.UserId.Value
             : 1;
 
         var bta = new BusinessTransactionActivity
