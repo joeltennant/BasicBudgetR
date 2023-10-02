@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
+    <Folder Include="Shared\NestedLayouts\" />
   </ItemGroup>
 
 </Project>
