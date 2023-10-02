@@ -21,6 +21,7 @@ public class AllBudgets
                     IncomeTotal = x.IncomeTotal,
                     Month = x.MonthYear.Month,
                     Year = x.MonthYear.Year,
+                    IsActive = x.MonthYear.IsActive,
                 })
                 .Take(36)
                 .OrderBy(x => x.Year)

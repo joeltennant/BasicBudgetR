@@ -14,4 +14,13 @@ public class MonthYear
 
     [Column(Order = 4)]
     public int NumberOfDays { get; set; }
+
+    [NotMapped]
+    public DateOnly EndOfMonth
+    {
+        get
+        {
+            return new DateOnly(Year, Month, NumberOfDays);
+        }
+    }
 }

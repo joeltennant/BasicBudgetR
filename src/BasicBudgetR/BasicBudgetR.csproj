@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,10 +7,6 @@
     <UserSecretsId>aspnet-BasicBudgetR-0291ab05-3e94-43a6-8977-b8c1cbb57a9f</UserSecretsId>
     <WebProject_DirectoryAccessLevelKey>0</WebProject_DirectoryAccessLevelKey>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="Pages\BudgetMonths\BudgetDetailh.razor" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Humanizer.Core" Version="2.14.1" />
@@ -33,15 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\BudgetMonths\BudgetDetailh.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\BudgetMonths\BudgetDetailh.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\BudgetMonths\BudgetDetailh.razor" />
+    <Folder Include="Configuration\" />
   </ItemGroup>
 
 </Project>
