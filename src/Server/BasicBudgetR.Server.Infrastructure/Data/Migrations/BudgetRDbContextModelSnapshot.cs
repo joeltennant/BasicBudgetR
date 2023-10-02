@@ -183,7 +183,7 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         new
                         {
                             BusinessTransactionActivityId = 1L,
-                            CreatedAt = new DateTime(2023, 9, 28, 0, 54, 53, 753, DateTimeKind.Utc).AddTicks(1877),
+                            CreatedAt = new DateTime(2023, 10, 2, 1, 34, 52, 482, DateTimeKind.Utc).AddTicks(8204),
                             ProcessName = "Initial Seeding",
                             UserId = 1L
                         });
@@ -276,6 +276,10 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                     b.Property<long>("ExpenseId")
                         .HasColumnType("bigint")
                         .HasColumnOrder(1);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(3);
 
                     b.Property<DateTime>("ModifiedAt")
                         .ValueGeneratedOnAddOrUpdate()
@@ -1454,6 +1458,10 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("ModifiedAt");
 
+                    b.Property<int>("UserType")
+                        .HasColumnType("int")
+                        .HasColumnOrder(5);
+
                     b.HasKey("UserId");
 
                     b.HasIndex("HouseholdId");
@@ -1476,7 +1484,8 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         {
                             UserId = 1L,
                             BtaId = 1L,
-                            DisplayName = "System"
+                            DisplayName = "System",
+                            UserType = 0
                         });
                 });
 
