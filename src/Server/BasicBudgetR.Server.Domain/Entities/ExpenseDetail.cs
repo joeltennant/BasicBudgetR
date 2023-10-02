@@ -13,4 +13,7 @@ public class ExpenseDetail : BaseEntity
     [Column(Order = 2)]
     public long BudgetMonthId { get; set; }
     public BudgetMonth? BudgetMonth { get; set; }
+
+    [Column(Order = 3)]
+    public bool IsActive { get; set; }
 }
