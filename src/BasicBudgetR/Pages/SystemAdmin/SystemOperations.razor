@@ -1,5 +1,30 @@
-﻿<h3>SystemOperations</h3>
+﻿@page "/SystemAdmin/"
+@using BasicBudgetR.Server.Application.Handlers.System;
+@using BasicBudgetR.Shared.ComponentTemplates
+@inject ISnackbar Snackbar
+
+<ToolBarPageTemplate BodyColums="6" ToolBarColumns="6">
+    <ToolBarTitle>System Operations Dashboard</ToolBarTitle>
+    <ToolBarLeftSide></ToolBarLeftSide>
+    <ToolBarRightSide>
+    </ToolBarRightSide>
+    @* This is the body of the page *@
+    <Body>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Edge="Edge.End" Size="Size.Small" OnClick="RunInactivatePastMonths">Run InactivatePastMonths Process</MudButton>
+    </Body>
+</ToolBarPageTemplate>
 
 @code {
-
+    private async Task RunInactivatePastMonths()
+    {
+        var result = await _mediator.Send(new InactivatePastMonths.Request());
+        if (result.IsSuccess)
+        {
+            Snackbar.Add("InactivatePastMonths Process has been run.", Severity.Success);
+        }
+        else
+        {
+            Snackbar.Add("InactivatePastMonths Process has failed.", Severity.Error);
+        }
+    }
 }

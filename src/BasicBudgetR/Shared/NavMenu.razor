@@ -1,4 +1,5 @@
-﻿<MudNavMenu>
+﻿@using BasicBudgetR.Core.Enums;
+<MudNavMenu>
     <MudNavLink Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
     <MudNavLink Href="/Accounts" Match="NavLinkMatch.All">Accounts</MudNavLink>
     <MudNavGroup Title="Budget" Expanded="true">
@@ -6,4 +7,10 @@
         <MudNavLink Href="/incomes" Match="NavLinkMatch.Prefix">Incomes</MudNavLink>
         <MudNavLink Href="/expenses" Match="NavLinkMatch.Prefix">Expenses</MudNavLink>
     </MudNavGroup>
+    @if (_state.UserType == UserType.SystemAdmin)
+    {
+        <MudNavGroup Title="Admin" Expanded="true">
+            <MudNavLink Href="/systemadmin" Match="NavLinkMatch.Prefix">System Admin</MudNavLink>
+        </MudNavGroup>
+    }
 </MudNavMenu>

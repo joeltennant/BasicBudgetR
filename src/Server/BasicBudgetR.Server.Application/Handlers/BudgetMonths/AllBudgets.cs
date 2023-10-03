@@ -12,8 +12,7 @@ public class AllBudgets
         public async Task<Result<List<BudgetMonthModel>>> Handle(Request request, CancellationToken cancellationToken)
         {
             var expenses = await _context.BudgetMonths
-                .Where(x => x.MonthYear.IsActive
-                            && x.HouseholdId == _stateContainer.HouseholdId)
+                .Where(x => x.HouseholdId == _stateContainer.HouseholdId)
                 .Select(x => new BudgetMonthModel
                 {
                     BudgetMonthId = x.BudgetMonthId,

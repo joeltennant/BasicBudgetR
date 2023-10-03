@@ -3,60 +3,62 @@
 @using BasicBudgetR.Core.Models;
 @using BasicBudgetR.Pages.Accounts.Components;
 @using BasicBudgetR.Server.Application.Handlers.Accounts;
+@using BasicBudgetR.Shared.ComponentTemplates
 @inject IDialogService DialogService
 @inject ISnackbar Snackbar
 
 <PageTitle>Add Account</PageTitle>
 
-<MudGrid>
-    <MudItem xs="5">
-        <MudText Typo="Typo.h5" Class="pr-3">My Accounts</MudText>
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/accounts/add" Edge="Edge.End" Size="Size.Small">Add Account</MudButton>
-    </MudItem>
-    <MudItem xs="12">
-        <p>Here is a list of your accounts.</p>
-    </MudItem>
-    <MudItem sm="12" lg="4">
-        <MudPaper Class="d-flex justify-center" Elevation="0"><h3>Debit Accounts</h3></MudPaper>
-        <MudTable Items="@DebitAccounts" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
-            <HeaderContent>
-                <MudTh>Name</MudTh>
-                <MudTh>Account Type</MudTh>
-                <MudTh>Balance</MudTh>
-                <MudTh>Actions</MudTh>
-            </HeaderContent>
-            <RowTemplate>
-                <MudTd DataLabel="Name">@context.Name</MudTd>
-                <MudTd DataLabel="AccountType">@context.AccountType</MudTd>
-                <MudTd DataLabel="Balance">@context.Balance</MudTd>
-                <MudTd DataLabel="Actions">
-                    <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@((e) => ModifyBalance(@context.Name,@context.AccountId,@context.Balance))">Modify</MudButton>
-                    <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="@((e) => DeleteAccount(@context.Name,@context.AccountId))">Delete</MudButton>
-                </MudTd>
-            </RowTemplate>
-        </MudTable>
-    </MudItem>
-    <MudItem sm="12" lg="4">
-        <MudPaper Class="d-flex justify-center" Elevation="0"><h3>Credit Accounts</h3></MudPaper>
-        <MudTable Items="@CreditAccounts" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
-            <HeaderContent>
-                <MudTh>Name</MudTh>
-                <MudTh>Account Type</MudTh>
-                <MudTh>Balance</MudTh>
-                <MudTh>Actions</MudTh>
-            </HeaderContent>
-            <RowTemplate>
-                <MudTd DataLabel="Name">@context.Name</MudTd>
-                <MudTd DataLabel="AccountType">@context.AccountType</MudTd>
-                <MudTd DataLabel="Balance">@context.Balance</MudTd>
-                <MudTd DataLabel="Actions">
-                    <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@((e) => ModifyBalance(@context.Name,@context.AccountId,@context.Balance))">Modify</MudButton>
-                    <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="@((e) => DeleteAccount(@context.Name,@context.AccountId))">Delete</MudButton>
-                </MudTd>
-            </RowTemplate>
-        </MudTable>
-    </MudItem>
-</MudGrid>
+<ToolBarPageTemplate BodyColums="8" ToolBarColumns="8">
+    <ToolBarTitle>My Accounts</ToolBarTitle>
+    <ToolBarLeftSide></ToolBarLeftSide>
+    <ToolBarRightSide>
+        <MudButton Variant="Variant.Text" Href="/accounts/add" Style="@($"color:{Colors.Shades.White}")" Edge="Edge.End" Size="Size.Small">Add</MudButton>
+    </ToolBarRightSide>
+    @* This is the body of the page *@
+    <Body>
+        <MudGrid>
+            <MudItem lg="6" xs="12">
+                <MudTable Items="@DebitAccounts" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+                    <HeaderContent>
+                        <MudTh>Name</MudTh>
+                        <MudTh>Account Type</MudTh>
+                        <MudTh>Balance</MudTh>
+                        <MudTh>Actions</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Name">@context.Name</MudTd>
+                        <MudTd DataLabel="AccountType">@context.AccountType</MudTd>
+                        <MudTd DataLabel="Balance">@context.Balance</MudTd>
+                        <MudTd DataLabel="Actions">
+                            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@((e) => ModifyBalance(@context.Name,@context.AccountId,@context.Balance))">Modify</MudButton>
+                            <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="@((e) => DeleteAccount(@context.Name,@context.AccountId))">Delete</MudButton>
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+            </MudItem>
+            <MudItem lg="6" xs="12">
+                <MudTable Items="@CreditAccounts" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+                    <HeaderContent>
+                        <MudTh>Name</MudTh>
+                        <MudTh>Account Type</MudTh>
+                        <MudTh>Balance</MudTh>
+                        <MudTh>Actions</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Name">@context.Name</MudTd>
+                        <MudTd DataLabel="AccountType">@context.AccountType</MudTd>
+                        <MudTd DataLabel="Balance">@context.Balance</MudTd>
+                        <MudTd DataLabel="Actions">
+                            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@((e) => ModifyBalance(@context.Name,@context.AccountId,@context.Balance))">Modify</MudButton>
+                            <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="@((e) => DeleteAccount(@context.Name,@context.AccountId))">Delete</MudButton>
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+            </MudItem>
+        </MudGrid>
+    </Body>
+</ToolBarPageTemplate>
 
 @code {
     private bool _hidePosition;

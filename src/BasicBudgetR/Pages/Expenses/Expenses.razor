@@ -1,24 +1,20 @@
 ﻿@using BasicBudgetR.Core.Models;
 @using BasicBudgetR.Pages.Expenses.Components;
 @using BasicBudgetR.Server.Application.Handlers.Expenses;
+@using BasicBudgetR.Shared.ComponentTemplates
 @inject ISnackbar Snackbar
 @inject IDialogService DialogService
 @page "/expenses"
 
-<MudGrid>
-    <MudItem xs="12">
-        <MudPaper Elevation="25" Style="@($"color:{Colors.Shades.White};background-color:{Colors.Purple.Darken4}")">
-            <MudToolBar>
-                <MudText Typo="Typo.h5" Class="pr-3">Expenses</MudText>
-                @* <MudIconButton Icon="@Icons.Material.Outlined.Edit" /> *@
-                @* <MudIconButton Icon="@Icons.Material.Outlined.Remove" Color="Color.Inherit" /> *@
-                <MudSpacer />
-                <MudIconButton Icon="@Icons.Material.Outlined.Add" Href="/expenses/add" Color="Color.Info" />
-            </MudToolBar>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="6">
-        <MudTable Items="@Expenses" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+<ToolBarPageTemplate BodyColums="8" ToolBarColumns="8">
+    <ToolBarTitle>Expenses</ToolBarTitle>
+    <ToolBarLeftSide></ToolBarLeftSide>
+    <ToolBarRightSide>
+        <MudIconButton Icon="@Icons.Material.Outlined.Add" Href="/expenses/add" Style="@($"color:{Colors.Shades.White};")" />
+    </ToolBarRightSide>
+    @* This is the body of the page *@
+    <Body>
+        <MudTable Items="@expenses" Dense="true" Striped="true" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
             <HeaderContent>
                 <MudTh>Name</MudTh>
                 <MudTh>Amount</MudTh>
@@ -36,13 +32,13 @@
                 </MudTd>
             </RowTemplate>
         </MudTable>
-    </MudItem>
-</MudGrid>
+    </Body>
+</ToolBarPageTemplate>
 
 @code {
     private bool _hidePosition;
     private bool _loading;
-    public IEnumerable<ExpenseModel> Expenses = new List<ExpenseModel>();
+    public IEnumerable<ExpenseModel> expenses = new List<ExpenseModel>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -56,7 +52,7 @@
 
         if (result.IsSuccess)
         {
-            Expenses = result.Value;
+            expenses = result.Value;
         }
         else
         {

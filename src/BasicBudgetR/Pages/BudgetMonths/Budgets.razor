@@ -5,7 +5,7 @@
 @inject ISnackbar Snackbar
 @inject NavigationManager NavigationManager
 
-<ToolBarPageTemplate BodyColums="6">
+<ToolBarPageTemplate BodyColums="6" ToolBarColumns="6">
     <ToolBarTitle>Budgets</ToolBarTitle>
     <ToolBarLeftSide></ToolBarLeftSide>
     <ToolBarRightSide>
@@ -14,7 +14,7 @@
     @* This is the body of the page *@
     <Body>
         <MudTable Items="@BudgetMonthModels" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
-                  Dense="true" Striped="true" OnRowClick="RowClickEvent" T="BudgetMonthModel">
+                  Dense="true" Striped="true" OnRowClick="RowClickEvent" Filter="new Func<BudgetMonthModel,bool>(FilterBudgets)" T="BudgetMonthModel">
             <HeaderContent>
                 <MudTh>Month</MudTh>
                 <MudTh>Year</MudTh>
@@ -65,7 +65,7 @@
     }
 
 
-    private bool FilterFunc1(BudgetMonthModel budget) => FilterFunc(budget, ShowActive);
+    private bool FilterBudgets(BudgetMonthModel budget) => FilterFunc(budget, ShowActive);
 
     private bool FilterFunc(BudgetMonthModel budget, bool ShowActive)
     {
