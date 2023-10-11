@@ -18,6 +18,7 @@ public class BudgetRDbContext : DbContext
     public DbSet<Expense> Expenses { get; set; }
     public DbSet<ExpenseDetail> ExpenseDetails { get; set; }
     public DbSet<Income> Incomes { get; set; }
+    public DbSet<IncomeDetail> IncomeDetails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
