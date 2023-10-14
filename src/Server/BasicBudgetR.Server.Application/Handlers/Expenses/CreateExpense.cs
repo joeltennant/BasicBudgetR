@@ -100,6 +100,7 @@ public class CreateExpense
                 {
                     BudgetMonthId = month,
                     BusinessTransactionActivityId = _stateContainer.BtaId,
+                    IsActive = true
                 });
             }
 

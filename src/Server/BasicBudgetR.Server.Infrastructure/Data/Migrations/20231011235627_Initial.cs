@@ -431,9 +431,60 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     IncomeId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BudgetMonthId = table.Column<long>(type: "bigint", nullable: true),
+                        .Annotation("SqlServer:Identity", "1, 1")
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    HouseholdId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    Amount = table.Column<decimal>(type: "decimal(19,2)", precision: 19, scale: 2, nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    BudgetMonthId = table.Column<long>(type: "bigint", nullable: true)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
                     BusinessTransactionActivityId = table.Column<long>(type: "bigint", nullable: true)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt")
                 },
                 constraints: table =>
                 {
@@ -448,7 +499,12 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                         column: x => x.BusinessTransactionActivityId,
                         principalTable: "BusinessTransactionActivities",
                         principalColumn: "BusinessTransactionActivityId");
-                });
+                })
+                .Annotation("SqlServer:IsTemporal", true)
+                .Annotation("SqlServer:TemporalHistoryTableName", "IncomeHistory")
+                .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt");
 
             migrationBuilder.CreateTable(
                 name: "ExpenseDetails",
@@ -525,6 +581,81 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                 .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
                 .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt");
 
+            migrationBuilder.CreateTable(
+                name: "IncomeDetails",
+                columns: table => new
+                {
+                    IncomeDetailId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeDetailHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    IncomeId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeDetailHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    BudgetMonthId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeDetailHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeDetailHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeDetailHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeDetailHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                    BusinessTransactionActivityId = table.Column<long>(type: "bigint", nullable: true)
+                        .Annotation("SqlServer:IsTemporal", true)
+                        .Annotation("SqlServer:TemporalHistoryTableName", "IncomeDetailHistory")
+                        .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                        .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                        .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IncomeDetails", x => x.IncomeDetailId);
+                    table.ForeignKey(
+                        name: "FK_IncomeDetails_BudgetMonths_BudgetMonthId",
+                        column: x => x.BudgetMonthId,
+                        principalTable: "BudgetMonths",
+                        principalColumn: "BudgetMonthId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_IncomeDetails_BusinessTransactionActivities_BusinessTransactionActivityId",
+                        column: x => x.BusinessTransactionActivityId,
+                        principalTable: "BusinessTransactionActivities",
+                        principalColumn: "BusinessTransactionActivityId");
+                    table.ForeignKey(
+                        name: "FK_IncomeDetails_Incomes_IncomeId",
+                        column: x => x.IncomeId,
+                        principalTable: "Incomes",
+                        principalColumn: "IncomeId",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("SqlServer:IsTemporal", true)
+                .Annotation("SqlServer:TemporalHistoryTableName", "IncomeDetailHistory")
+                .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt");
+
             migrationBuilder.InsertData(
                 table: "AccountTypes",
                 columns: new[] { "AccountTypeId", "Name" },
@@ -542,7 +673,7 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
             migrationBuilder.InsertData(
                 table: "BusinessTransactionActivities",
                 columns: new[] { "BusinessTransactionActivityId", "CreatedAt", "ProcessName", "UserId" },
-                values: new object[] { 1L, new DateTime(2023, 10, 2, 1, 34, 52, 482, DateTimeKind.Utc).AddTicks(8204), "Initial Seeding", 1L });
+                values: new object[] { 1L, new DateTime(2023, 10, 11, 23, 56, 27, 196, DateTimeKind.Utc).AddTicks(4038), "Initial Seeding", 1L });
 
             migrationBuilder.InsertData(
                 table: "MonthYears",
@@ -737,6 +868,21 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                 column: "BusinessTransactionActivityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_IncomeDetails_BudgetMonthId",
+                table: "IncomeDetails",
+                column: "BudgetMonthId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncomeDetails_BusinessTransactionActivityId",
+                table: "IncomeDetails",
+                column: "BusinessTransactionActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncomeDetails_IncomeId",
+                table: "IncomeDetails",
+                column: "IncomeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Incomes_BudgetMonthId",
                 table: "Incomes",
                 column: "BudgetMonthId");
@@ -772,7 +918,12 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                 .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt");
 
             migrationBuilder.DropTable(
-                name: "Incomes");
+                name: "IncomeDetails")
+                .Annotation("SqlServer:IsTemporal", true)
+                .Annotation("SqlServer:TemporalHistoryTableName", "IncomeDetailHistory")
+                .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt");
 
             migrationBuilder.DropTable(
                 name: "Users")
@@ -789,6 +940,14 @@ namespace BasicBudgetR.Server.Infrastructure.Data.Migrations
                 name: "Expenses")
                 .Annotation("SqlServer:IsTemporal", true)
                 .Annotation("SqlServer:TemporalHistoryTableName", "ExpenseHistory")
+                .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt");
+
+            migrationBuilder.DropTable(
+                name: "Incomes")
+                .Annotation("SqlServer:IsTemporal", true)
+                .Annotation("SqlServer:TemporalHistoryTableName", "IncomeHistory")
                 .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                 .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
                 .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt");

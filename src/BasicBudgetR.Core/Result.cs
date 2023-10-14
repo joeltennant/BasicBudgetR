@@ -6,7 +6,7 @@ public class Result<T>
 {
     public T? Value { get; private set; }
 
-    public bool IsSuccess { get; }
+    public bool IsSuccess { get; private set; }
     public ErrorType ErrorType { get; }
     public IList<ValidationFailure>? Errors { get; }
 
@@ -46,6 +46,11 @@ public class Result<T>
     public Result<T> Error(IList<ValidationFailure> errors)
     {
         return new Result<T>(errors);
+    }
+
+    public Result<T> Error()
+    {
+        return new Result<T>();
     }
 
     //Success Method
