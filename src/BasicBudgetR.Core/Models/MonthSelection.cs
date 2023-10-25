@@ -1,7 +1,4 @@
-﻿using BasicBudgetR.Core.Extensions;
-using System;
-
-namespace BasicBudgetR.Core.Models;
+﻿namespace BasicBudgetR.Core.Models;
 public class MonthSelection
 {
     public MonthSelection()

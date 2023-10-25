@@ -16,11 +16,5 @@ public class MonthYear
     public int NumberOfDays { get; set; }
 
     [NotMapped]
-    public DateOnly EndOfMonth
-    {
-        get
-        {
-            return new DateOnly(Year, Month, NumberOfDays);
-        }
-    }
+    public DateOnly EndOfMonth => new DateOnly(Year, Month, NumberOfDays);
 }

@@ -1,5 +1,4 @@
 ﻿using BasicBudgetR.Core.Extensions;
-using System.Linq;
 
 namespace BasicBudgetR.Server.Application;
 public class BuildMonthListFromSelection
@@ -60,7 +59,7 @@ public class BuildMonthListFromSelection
             case SelectionType.EveryOtherMonth:
                 startingMonthYearId = await GetStartingMonthYearId(StartingMonthYear);
 
-                months = await BuildMonthListByPattern(startingMonthYearId, monthSelection.Duration,2);
+                months = await BuildMonthListByPattern(startingMonthYearId, monthSelection.Duration, 2);
                 break;
             case SelectionType.EveryThreeMonths:
                 months = await BuildMonthListByPattern(startingMonthYearId, monthSelection.Duration, 3);
