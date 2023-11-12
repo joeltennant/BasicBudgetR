@@ -2,21 +2,23 @@
     <TitleContent>
         <MudText Typo="Typo.h6">
             <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-3 mb-n1" />
-            Remove Expense from @Name
+            Remove Income from @Month (@Year)
         </MudText>
     </TitleContent>
     <DialogContent>
-        <p>Are you sure you want remove the expense from @Name?</p>
+        <p>Are you sure you want remove the Income from @Month (@Year)?</p>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Error" OnClick="Delete">Delete Expense Detail</MudButton>
+        <MudButton Color="Color.Error" OnClick="Delete">Delete Income Detail</MudButton>
     </DialogActions>
 </MudDialog>
+
 @code {
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
-    [Parameter] public string Name { get; set; }
+    [Parameter] public string Year { get; set; }
+    [Parameter] public string Month { get; set; }
 
     private void Cancel()
     {
