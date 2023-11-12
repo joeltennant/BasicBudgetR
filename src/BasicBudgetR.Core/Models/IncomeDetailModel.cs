@@ -10,5 +10,6 @@ public class IncomeDetailModel
 
     public int Month { get; set; }
     public int Year { get; set; }
+    public bool IsActive { get; set; }
     public string MonthName => new DateTime(Year, Month, 1).ToString("MMMM");
 }

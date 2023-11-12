@@ -70,6 +70,12 @@ public class InactivatePastMonths
                         .SetProperty(p => p.BusinessTransactionActivityId, bta.BusinessTransactionActivityId)
                         .SetProperty(p => p.IsActive, true));
 
+                await _context.IncomeDetails
+                    .Where(x => budgetMonthIds.Contains(x.BudgetMonthId))
+                    .ExecuteUpdateAsync(a => a
+                        .SetProperty(p => p.BusinessTransactionActivityId, bta.BusinessTransactionActivityId)
+                        .SetProperty(p => p.IsActive, true));
+
                 return Result.Success(monthsChanged);
             }
             catch (Exception ex)

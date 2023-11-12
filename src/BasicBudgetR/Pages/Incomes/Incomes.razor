@@ -68,14 +68,22 @@
     {
         var parameters = new DialogParameters();
         parameters.Add("Name", name);
-        parameters.Add("IncomeId", incomeId);
 
         var dialog = DialogService.Show<DeleteIncomeDialog>("Delete Income", parameters);
         var result = await dialog.Result;
 
         if (!result.Canceled)
         {
-            await GetIncomes();
+            var deleteResult = await _mediator.Send(new Delete.Request(incomeId));
+            if (deleteResult.IsSuccess)
+            {
+                Snackbar.Add("Income deleted.", Severity.Success);
+                await GetIncomes();
+            }
+            else
+            {
+                Snackbar.Add("Income could not be deleted.", Severity.Error);
+            }
         }
     }
 }

@@ -8,11 +8,11 @@
         </MudText>
     </TitleContent>
     <DialogContent>
-        <p>Are you sure you want to delete the account @Name?</p>
+        <p>Are you sure you want to delete the expense @Name?</p>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Error" OnClick="DeleteAccount">Delete Account</MudButton>
+        <MudButton Color="Color.Error" OnClick="Delete">Delete Expense</MudButton>
     </DialogActions>
 </MudDialog>
 @code {
@@ -25,7 +25,7 @@
         MudDialog.Cancel();
     }
 
-    private void DeleteAccount()
+    private void Delete()
     {
         MudDialog.Close(DialogResult.Ok(true));
     }

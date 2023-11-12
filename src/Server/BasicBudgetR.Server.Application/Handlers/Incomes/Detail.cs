@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 
 namespace BasicBudgetR.Server.Application.Handlers.Incomes;
-public class GetIncome
+public class Detail
 {
     public record Request(long IncomeId) : IRequest<Result<IncomeModel>>;
 
@@ -47,7 +47,10 @@ public class GetIncome
                         BudgetMonthId = y.BudgetMonthId,
                         Month = y.BudgetMonth.MonthYear.Month,
                         Year = y.BudgetMonth.MonthYear.Year,
+                        IsActive = y.IsActive,
                     })
+                    .OrderBy(y => y.Year)
+                    .ThenBy(y => y.Month)
                     .ToList()
                 })
                 .AsSplitQuery()

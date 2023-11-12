@@ -1,7 +1,46 @@
 ﻿@page "/incomes/detail/{incomeId:long}"
-<h3>IncomeDetail</h3>
+@using BasicBudgetR.Core.Models;
+@using BasicBudgetR.Server.Application.Handlers.Incomes;
+@using BasicBudgetR.Shared.ComponentTemplates
+@inject ISnackbar Snackbar
+
+<ToolBarPageTemplate BodyColums="8" ToolBarColumns="8">
+    <ToolBarTitle>Income Detail</ToolBarTitle>
+    <ToolBarLeftSide></ToolBarLeftSide>
+    <ToolBarRightSide>
+
+    </ToolBarRightSide>
+    @* This is the body of the page *@
+    <Body>
+        <MudDataGrid Items="@IncomeModel.IncomeDetails" Filterable="false" SortMode="@SortMode.Multiple" Groupable="false">
+            <Columns>
+                <PropertyColumn Property="x => x.MonthName" />
+                <PropertyColumn Property="x => x.Month" />
+                <PropertyColumn Property="x => x.Year" Title="Years Employed" />
+            </Columns>
+        </MudDataGrid>
+    </Body>
+</ToolBarPageTemplate>
 
 @code {
     [Parameter]
     public long IncomeId { get; set; }
+
+    private IncomeModel IncomeModel { get; set; } = new IncomeModel();
+
+    protected override async Task OnInitializedAsync() => await GetIncome();
+
+    protected async Task GetIncome()
+    {
+        var result = await _mediator.Send(new Detail.Request(IncomeId));
+
+        if (result.IsSuccess)
+        {
+            IncomeModel = result.Value;
+        }
+        else
+        {
+            Snackbar.Add("Could not load income.", Severity.Error);
+        }
+    }
 }
