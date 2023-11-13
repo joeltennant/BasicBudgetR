@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicBudgetR", "src\BasicBudgetR\BasicBudgetR.csproj", "{2498BCF9-36F1-45CE-AE4F-BF433E6EFD67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicBudgetR", "src\BasicBudgetR\BasicBudgetR.csproj", "{F36729CD-ECC6-4B80-ACD7-8B25817A9A07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,10 +50,10 @@ Global
 		{1FA08438-B8F8-4167-9CBE-652F4109C695}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FA08438-B8F8-4167-9CBE-652F4109C695}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FA08438-B8F8-4167-9CBE-652F4109C695}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2498BCF9-36F1-45CE-AE4F-BF433E6EFD67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2498BCF9-36F1-45CE-AE4F-BF433E6EFD67}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2498BCF9-36F1-45CE-AE4F-BF433E6EFD67}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2498BCF9-36F1-45CE-AE4F-BF433E6EFD67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F36729CD-ECC6-4B80-ACD7-8B25817A9A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F36729CD-ECC6-4B80-ACD7-8B25817A9A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F36729CD-ECC6-4B80-ACD7-8B25817A9A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F36729CD-ECC6-4B80-ACD7-8B25817A9A07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
