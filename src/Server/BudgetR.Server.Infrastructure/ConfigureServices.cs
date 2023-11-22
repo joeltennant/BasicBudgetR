@@ -1,4 +1,5 @@
-﻿using BudgetR.Server.Infrastructure.Data.BudgetR;
+﻿using BudgetR.Server.Infrastructure.Data.Authentication;
+using BudgetR.Server.Infrastructure.Data.BudgetR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

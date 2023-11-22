@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BudgetR.Core.Enums;
+using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace BudgetR.Server.Application.Handlers.Users;

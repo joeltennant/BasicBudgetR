@@ -8,7 +8,7 @@ using System;
 
 #nullable disable
 
-namespace BudgetR.Migrations;
+namespace BudgetR.Server.Infrastructure.Data.Authentication;
 [DbContext(typeof(AuthenticationDbContext))]
 partial class ApplicationDbContextModelSnapshot : ModelSnapshot
 {

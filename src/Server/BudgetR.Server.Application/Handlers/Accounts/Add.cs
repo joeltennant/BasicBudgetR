@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+﻿using BudgetR.Core.Enums;
 
 namespace BudgetR.Server.Application.Handlers.Accounts;
 public class Add

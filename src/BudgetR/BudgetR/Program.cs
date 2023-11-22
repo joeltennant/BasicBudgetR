@@ -5,6 +5,8 @@ using BudgetR.Server.Application;
 using BudgetR.Server.Infrastructure;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using BudgetR.Server.Infrastructure.Data.Authentication;
+using BudgetR.Core;
 
 namespace BudgetR;
 public class Program
@@ -30,6 +32,7 @@ public class Program
             })
             .AddIdentityCookies();
 
+        builder.Services.AddScoped<StateContainer>();
         builder.Services.AddInfrastructure(builder.Configuration);
         builder.Services.AddApplication();
 

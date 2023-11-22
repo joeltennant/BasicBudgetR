@@ -1,4 +1,6 @@
-﻿using BudgetR.Server.Infrastructure.Data.BudgetR;
+﻿using BudgetR.Core.Enums;
+using BudgetR.Server.Domain.Entities;
+using BudgetR.Server.Infrastructure.Data.BudgetR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
