@@ -1,4 +1,4 @@
-﻿//namespace BasicBudgetR.Server.Application.PipelineBehaviors;
+﻿//namespace BudgetR.Server.Application.PipelineBehaviors;
 
 //public class PreRequestBehavior<TRequest> : IRequestPreProcessor<TRequest>
 //{

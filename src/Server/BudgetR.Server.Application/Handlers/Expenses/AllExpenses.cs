@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Application.Handlers.Expenses;
+﻿namespace BudgetR.Server.Application.Handlers.Expenses;
 public class AllExpenses
 {
     public record Request : IRequest<Result<List<ExpenseModel>>>;

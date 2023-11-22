@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Core.Enums;
+﻿namespace BudgetR.Core.Enums;
 
 public enum ErrorType
 {

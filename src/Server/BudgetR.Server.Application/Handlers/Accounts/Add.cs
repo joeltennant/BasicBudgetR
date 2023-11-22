@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace BasicBudgetR.Server.Application.Handlers.Accounts;
+namespace BudgetR.Server.Application.Handlers.Accounts;
 public class Add
 {
     public class Request : IRequest<Result<NoValue>>

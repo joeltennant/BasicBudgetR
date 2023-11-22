@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Application.Handlers.Accounts;
+﻿namespace BudgetR.Server.Application.Handlers.Accounts;
 public class GetAccountTypes
 {
     public record Request : IRequest<Result<IList<AccountTypeModel>>>;

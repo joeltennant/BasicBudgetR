@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Application.Handlers.BudgetMonths;
+﻿namespace BudgetR.Server.Application.Handlers.BudgetMonths;
 public class AllBudgets
 {
     public record Request : IRequest<Result<List<BudgetMonthModel>>>;

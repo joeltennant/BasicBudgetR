@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Application.Handlers.Incomes;
+﻿namespace BudgetR.Server.Application.Handlers.Incomes;
 public class All
 {
     public record Request : IRequest<Result<List<IncomeModel>>>;

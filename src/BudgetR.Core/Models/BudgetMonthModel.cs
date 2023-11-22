@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Core.Models;
+﻿namespace BudgetR.Core.Models;
 public class BudgetMonthModel
 {
     public long BudgetMonthId { get; set; }

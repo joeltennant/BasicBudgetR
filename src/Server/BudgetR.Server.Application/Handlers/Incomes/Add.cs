@@ -1,7 +1,6 @@
-﻿using BasicBudgetR.Core.Extensions;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace BasicBudgetR.Server.Application.Handlers.Incomes;
+namespace BudgetR.Server.Application.Handlers.Incomes;
 public class Add
 {
     public class Request : IRequest<Result<NoValue>>

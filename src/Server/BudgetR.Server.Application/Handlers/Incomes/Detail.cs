@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace BasicBudgetR.Server.Application.Handlers.Incomes;
+namespace BudgetR.Server.Application.Handlers.Incomes;
 public class Detail
 {
     public record Request(long IncomeId) : IRequest<Result<IncomeModel>>;

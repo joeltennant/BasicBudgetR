@@ -1,6 +1,5 @@
-﻿using BasicBudgetR.Core.Enums;
-
-namespace BasicBudgetR.Core;
+﻿
+namespace BudgetR.Core;
 public class StateContainer
 {
     private long? _currentUserId;

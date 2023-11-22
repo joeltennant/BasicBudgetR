@@ -1,7 +1,6 @@
-﻿using BasicBudgetR.Core.Enums;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 
-namespace BasicBudgetR.Core;
+namespace BudgetR.Core;
 public class Result<T>
 {
     public T? Value { get; private set; }

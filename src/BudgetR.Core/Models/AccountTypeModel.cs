@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Core.Models;
+﻿namespace BudgetR.Core.Models;
 public class AccountTypeModel
 {
     public long AccountTypeId { get; set; }

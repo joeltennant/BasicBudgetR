@@ -1,9 +1,9 @@
-﻿global using BasicBudgetR.Core;
-global using BasicBudgetR.Core.Enums;
-global using BasicBudgetR.Core.Models;
-global using BasicBudgetR.Server.Application.Common;
-global using BasicBudgetR.Server.Domain.Entities;
-global using BasicBudgetR.Server.Infrastructure.Data;
+﻿global using BudgetR.Core;
+global using BudgetR.Core.Extensions;
+global using BudgetR.Core.Models;
+global using BudgetR.Server.Application.Common;
+global using BudgetR.Server.Domain.Entities;
+global using BudgetR.Server.Infrastructure.Data.BudgetR;
 global using MediatR;
 global using Microsoft.EntityFrameworkCore;
 

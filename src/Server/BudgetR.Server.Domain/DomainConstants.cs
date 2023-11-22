@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Domain;
+﻿namespace BudgetR.Server.Domain;
 
 public class DomainConstants
 {

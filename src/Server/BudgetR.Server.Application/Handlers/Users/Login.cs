@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
-namespace BasicBudgetR.Server.Application.Handlers.Users;
+namespace BudgetR.Server.Application.Handlers.Users;
 public static class Login
 {
     public record Request() : IRequest<Result<NoValue>>;

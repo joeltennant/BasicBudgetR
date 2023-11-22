@@ -1,7 +1,6 @@
-﻿using BasicBudgetR.Server.Domain.Entities;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace BasicBudgetR.Server.Application.Handlers.Incomes;
+namespace BudgetR.Server.Application.Handlers.Incomes;
 public class RemoveIncomeDetail
 {
     public record Request(long IncomeDetailId) : IRequest<Result<NoValue>>;

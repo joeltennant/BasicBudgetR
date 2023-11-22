@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Application.Handlers.Accounts;
+﻿namespace BudgetR.Server.Application.Handlers.Accounts;
 public class GetAccounts
 {
     public class Request : IRequest<Result<List<AccountModel>>>

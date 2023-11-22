@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Core.Extensions;
+﻿namespace BudgetR.Core.Extensions;
 public static class CommonExtensions
 {
     //generic method to see if a list is null or empty

@@ -1,6 +1,4 @@
-﻿using BasicBudgetR.Core.Extensions;
-
-namespace BasicBudgetR.Server.Application;
+﻿namespace BudgetR.Server.Application;
 public class BuildMonthListFromSelection
 {
     //add db context

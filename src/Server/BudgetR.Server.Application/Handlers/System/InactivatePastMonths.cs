@@ -1,6 +1,4 @@
-﻿using BasicBudgetR.Core.Extensions;
-
-namespace BasicBudgetR.Server.Application.Handlers.System;
+﻿namespace BudgetR.Server.Application.Handlers.System;
 public class InactivatePastMonths
 {
     public record Request() : IRequest<Result<int>>;

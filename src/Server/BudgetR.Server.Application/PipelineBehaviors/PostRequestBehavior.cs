@@ -1,4 +1,4 @@
-﻿//namespace BasicBudgetR.Server.Application.PipelineBehaviors;
+﻿//namespace BudgetR.Server.Application.PipelineBehaviors;
 
 //public class PostRequestBehavior<TRequest, TResponse> : IRequestPostProcessor<TRequest, TResponse>
 //    where TRequest : IRequest<TResponse>

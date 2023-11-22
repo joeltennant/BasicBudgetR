@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Application.Handlers.Users;
+﻿namespace BudgetR.Server.Application.Handlers.Users;
 
 public static class AccessFailedCount
 {

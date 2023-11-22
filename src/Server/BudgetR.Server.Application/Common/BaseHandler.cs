@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Application.Common;
+﻿namespace BudgetR.Server.Application.Common;
 public abstract class BaseHandler<T>
 {
     protected readonly BudgetRDbContext _context;

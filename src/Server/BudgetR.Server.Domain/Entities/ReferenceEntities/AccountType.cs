@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Domain.Entities.ReferenceEntities;
+﻿namespace BudgetR.Server.Domain.Entities.ReferenceEntities;
 public class AccountType
 {
     [Key]

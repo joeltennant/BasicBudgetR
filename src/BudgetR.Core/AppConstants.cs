@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Core;
+﻿namespace BudgetR.Core;
 public static class AppConstants
 {
     public enum ExpenseType

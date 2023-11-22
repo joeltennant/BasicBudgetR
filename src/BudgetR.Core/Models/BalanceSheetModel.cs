@@ -1,6 +1,4 @@
-﻿using BasicBudgetR.Core.Enums;
-
-namespace BasicBudgetR.Core.Models;
+﻿namespace BudgetR.Core.Models;
 public class BalanceSheetModel
 {
     public IList<AccountModel>? Accounts { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Application.Handlers.Expenses;
+﻿namespace BudgetR.Server.Application.Handlers.Expenses;
 public class DeleteExpense
 {
     public record Request(long ExpenseId) : IRequest<Result<NoValue>>;

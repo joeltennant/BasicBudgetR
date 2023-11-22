@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Server.Domain.Entities;
+﻿namespace BudgetR.Server.Domain.Entities;
 
 public class Income : BaseEntity
 {

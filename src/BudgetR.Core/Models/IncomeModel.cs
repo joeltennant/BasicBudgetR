@@ -1,4 +1,4 @@
-﻿namespace BasicBudgetR.Core.Models;
+﻿namespace BudgetR.Core.Models;
 public class IncomeModel
 {
     public long IncomeId { get; set; }
