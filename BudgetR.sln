@@ -5,13 +5,11 @@ VisualStudioVersion = 17.7.33711.374
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{9B53C652-7E3A-4A4D-BE1E-01DD2C1DFA59}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicBudgetR.Core", "src\BasicBudgetR.Core\BasicBudgetR.Core.csproj", "{8373AF89-CC3F-4BE6-AA6E-65ADA0F95346}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetR.Server.Infrastructure", "src\Server\BudgetR.Server.Infrastructure\BudgetR.Server.Infrastructure.csproj", "{CB07E92D-4D8D-456F-A085-414722878D48}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicBudgetR.Server.Infrastructure", "src\Server\BasicBudgetR.Server.Infrastructure\BasicBudgetR.Server.Infrastructure.csproj", "{CB07E92D-4D8D-456F-A085-414722878D48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetR.Server.Domain", "src\Server\BudgetR.Server.Domain\BudgetR.Server.Domain.csproj", "{784F7B04-4289-44BC-B342-1F848A50DC79}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicBudgetR.Server.Domain", "src\Server\BasicBudgetR.Server.Domain\BasicBudgetR.Server.Domain.csproj", "{784F7B04-4289-44BC-B342-1F848A50DC79}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicBudgetR.Server.Application", "src\Server\BasicBudgetR.Server.Application\BasicBudgetR.Server.Application.csproj", "{C44E9D21-ACBC-4A38-B32D-BDF6547EEC76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetR.Server.Application", "src\Server\BudgetR.Server.Application\BudgetR.Server.Application.csproj", "{C44E9D21-ACBC-4A38-B32D-BDF6547EEC76}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dev Tools and Testing", "Dev Tools and Testing", "{6FD3D4F4-4F4F-448A-BAC7-594B3D8120C3}"
 EndProject
@@ -22,16 +20,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetR.Core", "src\BudgetR.Core\BudgetR.Core.csproj", "{036F8085-C0E6-4B6A-8B00-6FC5BA135530}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8373AF89-CC3F-4BE6-AA6E-65ADA0F95346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8373AF89-CC3F-4BE6-AA6E-65ADA0F95346}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8373AF89-CC3F-4BE6-AA6E-65ADA0F95346}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8373AF89-CC3F-4BE6-AA6E-65ADA0F95346}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CB07E92D-4D8D-456F-A085-414722878D48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CB07E92D-4D8D-456F-A085-414722878D48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB07E92D-4D8D-456F-A085-414722878D48}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,6 +44,10 @@ Global
 		{1FA08438-B8F8-4167-9CBE-652F4109C695}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FA08438-B8F8-4167-9CBE-652F4109C695}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FA08438-B8F8-4167-9CBE-652F4109C695}.Release|Any CPU.Build.0 = Release|Any CPU
+		{036F8085-C0E6-4B6A-8B00-6FC5BA135530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{036F8085-C0E6-4B6A-8B00-6FC5BA135530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{036F8085-C0E6-4B6A-8B00-6FC5BA135530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{036F8085-C0E6-4B6A-8B00-6FC5BA135530}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
