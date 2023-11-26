@@ -19,4 +19,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Modules\Dashboard\Components\" />
+    <Folder Include="wwwroot\Public\" />
+  </ItemGroup>
+
 </Project>

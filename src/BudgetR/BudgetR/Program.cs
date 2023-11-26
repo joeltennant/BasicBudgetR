@@ -1,5 +1,5 @@
-using BudgetR.Client.Pages;
-using BudgetR.Components;
+using BudgetR.Client.Modules;
+using BudgetR.Modules;
 using BudgetR.Components.Account;
 using BudgetR.Server.Application;
 using BudgetR.Server.Infrastructure;
