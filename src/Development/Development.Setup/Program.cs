@@ -4,7 +4,7 @@ using BudgetR.Server.Infrastructure.Data.BudgetR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
-namespace Tools.SeedSampleData;
+namespace BudgetR.Development.Setup;
 
 internal class Program
 {

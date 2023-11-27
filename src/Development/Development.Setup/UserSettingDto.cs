@@ -1,4 +1,4 @@
-﻿namespace Tools.SeedSampleData;
+﻿namespace BudgetR.Development.Setup;
 public class UserSettingDto
 {
     public string AuthId { get; set; }
