@@ -1,11 +1,11 @@
 using BudgetR.Client.Modules;
+using BudgetR.Core;
 using BudgetR.Modules;
 using BudgetR.Server.Application;
 using BudgetR.Server.Infrastructure;
+using BudgetR.Server.Infrastructure.Data.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
-using BudgetR.Server.Infrastructure.Data.Authentication;
-using BudgetR.Core;
 using MudBlazor.Services;
 
 namespace BudgetR;

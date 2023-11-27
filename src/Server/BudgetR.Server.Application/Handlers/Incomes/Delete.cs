@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace BudgetR.Server.Application.Handlers.Incomes;
+﻿namespace BudgetR.Server.Application.Handlers.Incomes;
 public class Delete
 {
     public record Request(long IncomeId) : IRequest<Result<NoValue>>;

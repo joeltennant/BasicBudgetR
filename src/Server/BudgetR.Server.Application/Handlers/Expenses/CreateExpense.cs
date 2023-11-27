@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace BudgetR.Server.Application.Handlers.Expenses;
+﻿namespace BudgetR.Server.Application.Handlers.Expenses;
 public class CreateExpense
 {
     public class Request : IRequest<Result<NoValue>>

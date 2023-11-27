@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace BudgetR.Server.Application.Handlers.Households;
+﻿namespace BudgetR.Server.Application.Handlers.Households;
 
 public class ChangeName
 {

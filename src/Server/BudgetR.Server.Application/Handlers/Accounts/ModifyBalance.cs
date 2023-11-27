@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace BudgetR.Server.Application.Handlers.Accounts;
+﻿namespace BudgetR.Server.Application.Handlers.Accounts;
 public class ModifyBalance
 {
     public record Request(long AccountId, decimal Amount) : IRequest<Result<NoValue>>;
