@@ -1,12 +1,12 @@
 using BudgetR.Client.Modules;
 using BudgetR.Modules;
-using BudgetR.Components.Account;
 using BudgetR.Server.Application;
 using BudgetR.Server.Infrastructure;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using BudgetR.Server.Infrastructure.Data.Authentication;
 using BudgetR.Core;
+using MudBlazor.Services;
 
 namespace BudgetR;
 public class Program
@@ -44,6 +44,8 @@ public class Program
             .AddDefaultTokenProviders();
 
         builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+        builder.Services.AddMudServices();
 
         var app = builder.Build();
 
