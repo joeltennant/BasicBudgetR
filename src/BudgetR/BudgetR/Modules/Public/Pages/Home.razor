@@ -1,0 +1,32 @@
+﻿@page "/"
+@using BudgetR.Modules.Layout
+@rendermode InteractiveServer
+@layout PublicLayout
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+<h3>Home</h3>
+
+<div>
+    <NavLink class="nav-link" href="Account/Register">
+        <span class="bi bi-person-nav-menu" aria-hidden="true"></span> Register
+    </NavLink>
+</div>
+<div>
+    <NavLink class="nav-link" href="Account/Login">
+        <span class="bi bi-person-badge-nav-menu" aria-hidden="true"></span> Login
+    </NavLink>
+</div>
+@code {
+    private string? currentUrl;
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/Dashboard", forceLoad: true);
+        }
+    }
+}
