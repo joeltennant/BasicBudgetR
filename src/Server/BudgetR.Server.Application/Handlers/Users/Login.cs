@@ -20,7 +20,7 @@ public static class Login
             string authId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             User? user = _context.Users
-                .Where(x => x.AuthId == authId)
+                //.Where(x => x.AuthId == authId)
                 .Select(u => new User
                 {
                     UserId = u.UserId,

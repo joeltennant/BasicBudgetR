@@ -1,0 +1,20 @@
+﻿@using BudgetR.Core
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject StateContainer StateContainer
+@code {
+    protected async override Task OnInitializedAsync()
+    {
+        // Check if the user is authenticated
+        //Check if user has household
+        //check if user is active
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/Dashboard", forceLoad: true);
+        }
+    }
+}

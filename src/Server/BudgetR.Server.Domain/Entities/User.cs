@@ -19,5 +19,9 @@ public class User
     [Column(Order = 5)]
     public UserType UserType { get; set; }
 
+    [Column(Order = 6)]
+    public bool IsActive { get; set; }
+
+    [Column(Order = 8)]
     public long BtaId { get; set; }
 }

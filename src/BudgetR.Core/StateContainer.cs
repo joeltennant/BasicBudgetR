@@ -7,6 +7,7 @@ public class StateContainer
     private long? _householdId;
     private string? _processName;
     private long? _btaId;
+    public long? ApplicationUserId { get; set; }
 
     public long? UserId
     {
