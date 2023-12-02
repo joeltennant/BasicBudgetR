@@ -1,5 +1,5 @@
 ﻿namespace BudgetR.Server.Application.Handlers.Expenses;
-public class CreateExpense
+public class Create
 {
     public class Request : IRequest<Result<NoValue>>
     {
@@ -39,7 +39,7 @@ public class CreateExpense
                 return Result.Error(validation.Errors);
             }
 
-            long BtaId = await CreateBta(true, "Expenses.AddExpense");
+            long BtaId = await CreateBta();
 
             var expense = new Expense
             {

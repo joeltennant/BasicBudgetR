@@ -7,7 +7,8 @@ public class StateContainer
     private long? _householdId;
     private string? _processName;
     private long? _btaId;
-    public long? ApplicationUserId { get; set; }
+    private bool? _isActive;
+    public string? ApplicationUserId { get; set; }
 
     public long? UserId
     {
@@ -15,6 +16,15 @@ public class StateContainer
         set
         {
             _currentUserId = value;
+            OnChange?.Invoke();
+        }
+    }
+
+    public bool? IsActive
+    {
+        get => _isActive; set
+        {
+            _isActive = value;
             OnChange?.Invoke();
         }
     }

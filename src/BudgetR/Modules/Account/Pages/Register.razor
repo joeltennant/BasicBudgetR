@@ -86,8 +86,6 @@
 
         var userId = await UserManager.GetUserIdAsync(user);
 
-        await _mediatr.Send(new CreateUser.Request(userId));
-
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         var callbackUrl = NavigationManager.GetUriWithQueryParameters(

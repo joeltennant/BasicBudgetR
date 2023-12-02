@@ -43,7 +43,7 @@ public class Add
                 return Result.Error(validation.Errors);
             }
 
-            long BtaId = await CreateBta(true, "Incomes.Add");
+            long BtaId = await CreateBta();
 
             var income = new Income
             {

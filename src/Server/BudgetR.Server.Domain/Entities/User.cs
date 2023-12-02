@@ -5,9 +5,6 @@ public class User
     [Column(Order = 0)]
     public long UserId { get; set; }
 
-    [Column(Order = 1)]
-    public string? AuthId { get; set; }
-
     [Column(Order = 2)]
     public string? DisplayName { get; set; }
 

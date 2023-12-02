@@ -1,5 +1,5 @@
 ﻿namespace BudgetR.Server.Application.Handlers.Expenses;
-public class DeleteExpense
+public class Delete
 {
     public record Request(long ExpenseId) : IRequest<Result<NoValue>>;
 
@@ -15,7 +15,7 @@ public class DeleteExpense
 
             if (expense is not null)
             {
-                long BtaId = await CreateBta(false, "Expenses.DeleteExpense");
+                long BtaId = await CreateBta();
 
                 IList<long> BudgetMonthIds = await _context.ExpenseDetails
                     .Where(x => x.ExpenseId == expense.ExpenseId)

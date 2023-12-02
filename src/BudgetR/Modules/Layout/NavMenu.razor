@@ -9,26 +9,26 @@
 
             <MudNavLink Href="/weather" Match="NavLinkMatch.Prefix">Weather</MudNavLink>
             <MudNavLink>
-                <NavLink class="nav-link" href="Account/Manage">
-                    <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> @context.User.Identity?.Name
+                <NavLink href="Account/Manage">
+                    @context.User.Identity?.Name
                 </NavLink>
             </MudNavLink>
             <MudNavLink>
                 <form action="Account/Logout" method="post">
                     <AntiforgeryToken />
                     <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                    <button type="submit" class="nav-link">
-                        <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
+                    <button type="submit">
+                        Logout
                     </button>
                 </form>
             </MudNavLink>
         </Authorized>
         <NotAuthorized>
-            <NavLink class="nav-link" href="Account/Register">
-                <span class="bi bi-person-nav-menu" aria-hidden="true"></span> Register
+            <NavLink href="Account/Register">
+                Register
             </NavLink>
-            <NavLink class="nav-link" href="Account/Login">
-                <span class="bi bi-person-badge-nav-menu" aria-hidden="true"></span> Login
+            <NavLink href="Account/Login">
+                Login
             </NavLink>
         </NotAuthorized>
     </AuthorizeView>

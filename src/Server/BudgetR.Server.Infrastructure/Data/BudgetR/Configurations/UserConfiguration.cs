@@ -17,7 +17,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 new User//system user
                 {
                     UserId = 1,
-                    AuthId = null,
+                    //AuthId = null,
                     DisplayName = "System",
                     HouseholdId = null,
                     UserType = UserType.System,

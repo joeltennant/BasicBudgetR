@@ -30,7 +30,7 @@ public class RemoveExpenseDetail
 
             if (expenseDetail is not null)
             {
-                long BtaId = await CreateBta(false, "Expenses.DeleteExpenseDetail");
+                long BtaId = await CreateBta();
 
                 await _context.ExpenseDetails
                     .Where(x => x.ExpenseDetailId == expenseDetail.ExpenseDetailId)

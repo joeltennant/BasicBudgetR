@@ -1,5 +1,5 @@
 ﻿namespace BudgetR.Server.Application.Handlers.Expenses;
-public class GetExpense
+public class Detail
 {
     public record Request(long? ExpenseId) : IRequest<Result<ExpenseModel>>;
 

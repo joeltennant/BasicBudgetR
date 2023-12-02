@@ -34,7 +34,7 @@ public class ModifyBalance
                 return Result.Error(validation.Errors);
             }
 
-            long bta_id = await CreateBta(true, "Accounts.ModifyBalance");
+            long bta_id = await CreateBta();
 
             await _context.Accounts
                 .Where(a => a.AccountId == request.AccountId)

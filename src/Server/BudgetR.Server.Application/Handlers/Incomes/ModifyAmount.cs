@@ -35,7 +35,7 @@ public class ModifyAmount
                 return Result.Error(validation.Errors);
             }
 
-            long BtaId = await CreateBta(false, "Income.ModifyAmount");
+            long BtaId = await CreateBta();
 
             //get amount from Income by income id and household id as decimal
             var currentIncome = await _context.Incomes

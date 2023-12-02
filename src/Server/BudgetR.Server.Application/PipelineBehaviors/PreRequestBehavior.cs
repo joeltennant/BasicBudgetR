@@ -1,36 +1,62 @@
-﻿//namespace BudgetR.Server.Application.PipelineBehaviors;
+﻿using BudgetR.Core.Identity;
+using MediatR.Pipeline;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
-//public class PreRequestBehavior<TRequest> : IRequestPreProcessor<TRequest>
-//{
-//    private StateContainer _stateContainer;
-//    private readonly IHttpContextAccessor _httpContextAccessor;
+namespace BudgetR.Server.Application.PipelineBehaviors;
 
-//    public PreRequestBehavior(StateContainer stateContainer
-//        , IHttpContextAccessor httpContextAccessor)
-//    {
-//        _stateContainer =stateContainer;
-//        _httpContextAccessor = httpContextAccessor;
+public class PreRequestBehavior<TRequest> : IRequestPreProcessor<TRequest>
+{
+    private StateContainer _stateContainer;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly BudgetRDbContext _budgetRDbContext;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-//    }
+    public PreRequestBehavior(StateContainer stateContainer, IHttpContextAccessor httpContextAccessor, BudgetRDbContext budgetRDbContext, UserManager<ApplicationUser> userManager)
+    {
+        _stateContainer = stateContainer;
+        _httpContextAccessor = httpContextAccessor;
+        _budgetRDbContext = budgetRDbContext;
+        _userManager = userManager;
+    }
 
-//    public Task Process(TRequest request, CancellationToken cancellationToken)
-//    {
-//        _stateContainer.ProcessName = GetHandlerName();
-//        //_stateContainer.CurrentUserId = GetUserId();
-//        //GetUserDetailId();
+    public async Task Process(TRequest request, CancellationToken cancellationToken)
+    {
+        _stateContainer.ProcessName = GetHandlerName();
+        _stateContainer.BtaId = null;
 
-//        return Task.CompletedTask;
-//    }
-//    protected string GetHandlerName()
-//    {
-//        string handlerName = typeof(TRequest).DeclaringType.Name;
-//        string folderName = typeof(TRequest).Namespace.Split(".").Last();
+        //string email = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Name).Value;
+        var userContext = _httpContextAccessor.HttpContext?.User;
+        ApplicationUser? appUser = await _userManager.GetUserAsync(userContext);
 
-//        return folderName + "." + handlerName;
-//    }
+        if (appUser != null)
+        {
+            var user = _budgetRDbContext.Users
+                .Where(x => x.UserId == appUser.UserId)
+                .Select(u => new User
+                {
+                    UserId = u.UserId,
+                    HouseholdId = u.HouseholdId,
+                    UserType = u.UserType,
+                })
+                .FirstOrDefault();
 
-//    private string GetUserId()
-//    {
+            if (user != null)
+            {
+                _stateContainer.UserId = user.UserId;
+                _stateContainer.ApplicationUserId = appUser.Id;
+                _stateContainer.HouseholdId = user.HouseholdId;
+                _stateContainer.UserType = user.UserType;
+            }
+        }
 
-//    }
-//}
+        //return ;
+    }
+    protected string GetHandlerName()
+    {
+        string handlerName = typeof(TRequest).DeclaringType.Name;
+        string folderName = typeof(TRequest).Namespace.Split(".").Last();
+
+        return folderName + "." + handlerName;
+    }
+}

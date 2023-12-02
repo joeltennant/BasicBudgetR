@@ -12,7 +12,7 @@ public abstract class BaseHandler<T>
         Result = new Result<T>();
     }
 
-    protected async Task<long> CreateBta(bool addToContext = false, string process = "")
+    protected async Task<long> CreateBta()
     {
         long userId = _stateContainer.UserId.HasValue
             ? _stateContainer.UserId.Value
@@ -20,7 +20,7 @@ public abstract class BaseHandler<T>
 
         var bta = new BusinessTransactionActivity
         {
-            ProcessName = process,
+            ProcessName = _stateContainer.ProcessName,
             UserId = userId,
             CreatedAt = DateTime.UtcNow
         };
@@ -28,10 +28,7 @@ public abstract class BaseHandler<T>
         await _context.BusinessTransactionActivities.AddAsync(bta);
         await _context.SaveChangesAsync();
 
-        if (addToContext)
-        {
-            _stateContainer.BtaId = bta.BusinessTransactionActivityId;
-        }
+        _stateContainer.BtaId = bta.BusinessTransactionActivityId;
 
         return bta.BusinessTransactionActivityId;
     }

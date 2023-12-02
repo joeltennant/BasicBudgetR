@@ -40,7 +40,7 @@ public class ChangeName
                 return Result.Error(validation.Errors);
             }
 
-            long bta_id = await CreateBta(true, "Household.ChangeName");
+            long bta_id = await CreateBta();
 
             await _context.Households
                 .Where(h => h.HouseholdId == request.HouseholdId)

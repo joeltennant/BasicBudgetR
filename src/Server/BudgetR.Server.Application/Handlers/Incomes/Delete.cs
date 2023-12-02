@@ -45,7 +45,7 @@ public class Delete
                 return Result.NotFound();
             }
 
-            long BtaId = await CreateBta(false, "Income.Delete");
+            long BtaId = await CreateBta();
 
             IList<long> BudgetMonthIds = await _context.IncomeDetails
                 .Where(x => x.IncomeId == income.IncomeId)

@@ -1,6 +1,6 @@
+using BudgetR.Core.Identity;
 using BudgetR.Modules.Account.Pages;
 using BudgetR.Modules.Account.Pages.Manage;
-using BudgetR.Core.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Primitives;
 using System.Security.Claims;
 using System.Text.Json;
 
-namespace Microsoft.AspNetCore.Routing;
+namespace BudgetR.Modules.Account;
 internal static class IdentityComponentsEndpointRouteBuilderExtensions
 {
     // These endpoints are required by the Identity Razor components defined in the /Components/Account/Pages directory of this project.

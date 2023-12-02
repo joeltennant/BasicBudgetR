@@ -46,7 +46,7 @@ internal class RemoveAllIncomeDetail
                 return Result.NotFound();
             }
 
-            long BtaId = await CreateBta(false, "Income.RemoveAllIncomeDetail");
+            long BtaId = await CreateBta();
 
             await _context.Incomes
                     .Where(x => x.IncomeId == income.IncomeId)

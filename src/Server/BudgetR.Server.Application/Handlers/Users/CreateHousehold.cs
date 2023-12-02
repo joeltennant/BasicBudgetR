@@ -1,14 +1,7 @@
 ﻿using BudgetR.Core.Enums;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BudgetR.Server.Application.Handlers.Users;
-public class CreateUser
+public class CreateHousehold
 {
     public record Request(string HouseholdName, string DisplayName) : IRequest<Result<NoValue>>;
 
@@ -21,12 +14,13 @@ public class CreateUser
 
         public async Task<Result<NoValue>> Handle(Request request, CancellationToken cancellationToken)
         {
+            string authId = "";
 
-            long BtaId = await CreateBta(true, "Users.SignUp");
+            long BtaId = await CreateBta();
 
             User user = new()
             {
-                AuthId = authId,
+                //AuthId = authId,
                 DisplayName = request.DisplayName,
                 UserType = UserType.User,
                 BtaId = BtaId,
@@ -45,9 +39,33 @@ public class CreateUser
             _stateContainer.UserId = user.UserId;
             _stateContainer.HouseholdId = user.HouseholdId;
 
+            await _context.AddRangeAsync(BuildMonthBudgetList(household.HouseholdId));
             await _context.SaveChangesAsync();
 
             return Result.Success();
+        }
+
+        private List<BudgetMonth> BuildMonthBudgetList(long HouseholdId)
+        {
+            var today = DateOnly.FromDateTime(DateTime.Now);
+
+            List<MonthYear> monthYears = _context.MonthYears
+                .Where(m => m.IsActive)
+                .OrderBy(m => m.MonthYearId)
+                .ToList();
+
+            List<BudgetMonth> monthBudgets = new();
+
+            foreach (var monthYear in monthYears)
+            {
+                monthBudgets.Add(new BudgetMonth
+                {
+                    MonthYearId = monthYear.MonthYearId,
+                    HouseholdId = HouseholdId,
+                });
+            }
+
+            return monthBudgets;
         }
     }
 }
