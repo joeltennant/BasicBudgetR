@@ -18,7 +18,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 {
                     UserId = 1,
                     //AuthId = null,
-                    DisplayName = "System",
+                    FirstName = "System",
                     HouseholdId = null,
                     UserType = UserType.System,
                     BtaId = 1

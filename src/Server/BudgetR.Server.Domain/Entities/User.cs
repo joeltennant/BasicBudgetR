@@ -5,8 +5,14 @@ public class User
     [Column(Order = 0)]
     public long UserId { get; set; }
 
+    [Column(Order = 1)]
+    public string AuthenticationId { get; set; }
+
     [Column(Order = 2)]
-    public string? DisplayName { get; set; }
+    public string? FirstName { get; set; }
+
+    [Column(Order = 3)]
+    public string? LastName { get; set; }
 
     [Column(Order = 4)]
     public long? HouseholdId { get; set; }

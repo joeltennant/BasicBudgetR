@@ -1,35 +1,40 @@
-﻿@implements IDisposable
+﻿@using BudgetR.Core
+@inject StateContainer _state
+@implements IDisposable
 
 @inject NavigationManager NavigationManager
 
 <MudNavMenu>
     <AuthorizeView>
         <Authorized>
-            <MudNavLink Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
-
-            <MudNavLink Href="/weather" Match="NavLinkMatch.Prefix">Weather</MudNavLink>
-            <MudNavLink>
-                <NavLink href="Account/Manage">
-                    @context.User.Identity?.Name
-                </NavLink>
-            </MudNavLink>
-            <MudNavLink>
-                <form action="Account/Logout" method="post">
-                    <AntiforgeryToken />
-                    <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                    <button type="submit">
-                        Logout
-                    </button>
-                </form>
-            </MudNavLink>
+            @if (_state.IsActive)
+            {
+                <MudNavLink Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
+                <MudNavLink Href="/weather" Match="NavLinkMatch.Prefix">Weather</MudNavLink>
+                <MudNavLink>
+                    <NavLink href="Account/Manage">
+                        @context.User.Identity?.Name
+                    </NavLink>
+                </MudNavLink>
+                <MudNavLink>
+                    <form action="Account/Logout" method="post">
+                        <AntiforgeryToken />
+                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                        <button type="submit">
+                            Logout
+                        </button>
+                    </form>
+                </MudNavLink>
+            }
         </Authorized>
         <NotAuthorized>
-            <NavLink href="Account/Register">
+            <MudNavLink Href="/">Home</MudNavLink>
+            <MudNavLink href="Account/Register">
                 Register
-            </NavLink>
-            <NavLink href="Account/Login">
+            </MudNavLink>
+            <MudNavLink href="Account/Login">
                 Login
-            </NavLink>
+            </MudNavLink>
         </NotAuthorized>
     </AuthorizeView>
 </MudNavMenu>

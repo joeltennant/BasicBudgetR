@@ -3,7 +3,6 @@
 @using System.Text
 @using System.Text.Encodings.Web
 @using BudgetR.Server.Application.Handlers.Users
-@using MediatR
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
 @using BudgetR.Core.Identity
@@ -15,7 +14,6 @@
 @inject ILogger<Register> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
-@inject IMediator _mediatr
 
 <PageTitle>Register</PageTitle>
 
@@ -102,7 +100,8 @@
         }
 
         await SignInManager.SignInAsync(user, isPersistent: false);
-        RedirectManager.RedirectTo(ReturnUrl);
+  
+        RedirectManager.RedirectTo("/FinishRegistration");
     }
 
     private ApplicationUser CreateUser()

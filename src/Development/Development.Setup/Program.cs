@@ -25,7 +25,7 @@ internal class Program
             User user = new()
             {
                 //AuthId = userSetting.AuthId,
-                DisplayName = userSetting.DisplayName,
+                FirstName = userSetting.DisplayName,
                 Household = new Household
                 {
                     Name = userSetting.HouseholdName

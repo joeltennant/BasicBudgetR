@@ -1,28 +1,56 @@
 ﻿using BudgetR.Core.Enums;
+using BudgetR.Core.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace BudgetR.Server.Application.Handlers.Users;
 public class CreateHousehold
 {
-    public record Request(string HouseholdName, string DisplayName) : IRequest<Result<NoValue>>;
+    public record Request(string HouseholdName, string FirstName, string LastName) : IRequest<Result<NoValue>>;
+
+    public class Validator : AbstractValidator<Request>
+    {
+        public Validator()
+        {
+            RuleFor(x => x.FirstName)
+                .NotNull()
+                .NotEmpty()
+                .MinimumLength(1);
+            RuleFor(x => x.HouseholdName)
+                .NotNull()
+                .MinimumLength(3);
+        }
+    }
 
     public class Handler : BaseHandler<NoValue>, IRequestHandler<Request, Result<NoValue>>
     {
-        public Handler(BudgetRDbContext context, StateContainer stateContainer)
+        private readonly Validator _validator = new();
+
+        private readonly UserManager<ApplicationUser> _userManager;
+        public Handler(BudgetRDbContext context, StateContainer stateContainer, UserManager<ApplicationUser> userManager)
             : base(context, stateContainer)
         {
+            _userManager = userManager;
         }
 
         public async Task<Result<NoValue>> Handle(Request request, CancellationToken cancellationToken)
         {
-            string authId = "";
+            var validation = await _validator.ValidateAsync(request);
+            if (!validation.IsValid)
+            {
+                return Result.Error(validation.Errors);
+            }
+
+            string authenticationId = _stateContainer.ApplicationUserId;
 
             long BtaId = await CreateBta();
 
             User user = new()
             {
-                //AuthId = authId,
-                DisplayName = request.DisplayName,
+                AuthenticationId = authenticationId,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
                 UserType = UserType.User,
+                IsActive = true,
                 BtaId = BtaId,
             };
 
@@ -35,9 +63,6 @@ public class CreateHousehold
 
             await _context.Households.AddAsync(household);
             await _context.SaveChangesAsync();
-
-            _stateContainer.UserId = user.UserId;
-            _stateContainer.HouseholdId = user.HouseholdId;
 
             await _context.AddRangeAsync(BuildMonthBudgetList(household.HouseholdId));
             await _context.SaveChangesAsync();

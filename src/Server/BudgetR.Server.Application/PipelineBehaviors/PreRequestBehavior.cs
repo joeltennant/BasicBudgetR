@@ -32,7 +32,7 @@ public class PreRequestBehavior<TRequest> : IRequestPreProcessor<TRequest>
         if (appUser != null)
         {
             var user = _budgetRDbContext.Users
-                .Where(x => x.UserId == appUser.UserId)
+                .Where(x => x.AuthenticationId == appUser.Id)
                 .Select(u => new User
                 {
                     UserId = u.UserId,

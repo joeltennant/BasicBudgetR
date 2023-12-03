@@ -1,8 +1,11 @@
 ﻿@using BudgetR.Core
+@using BudgetR.Server.Application.Handlers.Users
+@using MediatR
 @using Microsoft.AspNetCore.Components.Authorization
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject StateContainer StateContainer
+@inject IMediator _mediator
 @code {
     protected async override Task OnInitializedAsync()
     {
@@ -14,7 +17,24 @@
         var user = authState.User;
         if (user.Identity is not null && user.Identity.IsAuthenticated)
         {
-            NavigationManager.NavigateTo("/Dashboard", forceLoad: true);
+            // NavigationManager.NavigateTo("/Dashboard", forceLoad: true);
+            var result = await _mediator.Send(new LoadUserAction.Request());
+
+            if (result.IsSuccess)
+            {
+                if (result.Value == LoadUserAction.Action.FinishRegistration)
+                {
+                    NavigationManager.NavigateTo("/FinishRegistration", forceLoad: true);
+                }
+                else if (result.Value == LoadUserAction.Action.ReactivateAccount)
+                {
+                    NavigationManager.NavigateTo("/Reactivate", forceLoad: true);
+                }
+            }
+            else
+            {
+                NavigationManager.NavigateTo("/Error", forceLoad: true);
+            }
         }
     }
 }

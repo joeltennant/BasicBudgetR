@@ -7,7 +7,19 @@ public class StateContainer
     private long? _householdId;
     private string? _processName;
     private long? _btaId;
-    private bool? _isActive;
+    private bool _isActive;
+    private string firstName;
+
+    public string? FirstName
+    {
+        get => firstName;
+        set
+        {
+            firstName = value;
+            OnChange?.Invoke();
+        }
+    }
+
     public string? ApplicationUserId { get; set; }
 
     public long? UserId
@@ -20,7 +32,7 @@ public class StateContainer
         }
     }
 
-    public bool? IsActive
+    public bool IsActive
     {
         get => _isActive; set
         {
