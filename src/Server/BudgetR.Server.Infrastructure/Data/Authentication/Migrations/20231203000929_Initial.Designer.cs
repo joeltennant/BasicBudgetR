@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetR.Server.Infrastructure.Data.Authentication.Migrations
 {
     [DbContext(typeof(AuthenticationDbContext))]
-    [Migration("20231129175810_Initial")]
+    [Migration("20231203000929_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -72,9 +72,6 @@ namespace BudgetR.Server.Infrastructure.Data.Authentication.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)

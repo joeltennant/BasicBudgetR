@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations;
 
@@ -286,13 +288,19 @@ public partial class Initial : Migration
                     .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                     .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
                     .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
-                AuthId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                AuthenticationId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                     .Annotation("SqlServer:IsTemporal", true)
                     .Annotation("SqlServer:TemporalHistoryTableName", "UserHistory")
                     .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                     .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
                     .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
-                DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    .Annotation("SqlServer:IsTemporal", true)
+                    .Annotation("SqlServer:TemporalHistoryTableName", "UserHistory")
+                    .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                    .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                    .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                LastName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                     .Annotation("SqlServer:IsTemporal", true)
                     .Annotation("SqlServer:TemporalHistoryTableName", "UserHistory")
                     .Annotation("SqlServer:TemporalHistoryTableSchema", null)
@@ -305,12 +313,6 @@ public partial class Initial : Migration
                     .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
                     .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
                 UserType = table.Column<int>(type: "int", nullable: false)
-                    .Annotation("SqlServer:IsTemporal", true)
-                    .Annotation("SqlServer:TemporalHistoryTableName", "UserHistory")
-                    .Annotation("SqlServer:TemporalHistoryTableSchema", null)
-                    .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
-                    .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
-                IsSetup = table.Column<bool>(type: "bit", nullable: false)
                     .Annotation("SqlServer:IsTemporal", true)
                     .Annotation("SqlServer:TemporalHistoryTableName", "UserHistory")
                     .Annotation("SqlServer:TemporalHistoryTableSchema", null)
@@ -683,7 +685,7 @@ public partial class Initial : Migration
         migrationBuilder.InsertData(
             table: "BusinessTransactionActivities",
             columns: new[] { "BusinessTransactionActivityId", "CreatedAt", "ProcessName", "UserId" },
-            values: new object[] { 1L, new DateTime(2023, 11, 29, 17, 59, 7, 281, DateTimeKind.Utc).AddTicks(8126), "Initial Seeding", 1L });
+            values: new object[] { 1L, new DateTime(2023, 12, 3, 0, 11, 37, 577, DateTimeKind.Utc).AddTicks(3765), "Initial Seeding", 1L });
 
         migrationBuilder.InsertData(
             table: "MonthYears",
@@ -814,8 +816,8 @@ public partial class Initial : Migration
 
         migrationBuilder.InsertData(
             table: "Users",
-            columns: new[] { "UserId", "AuthId", "BtaId", "DisplayName", "HouseholdId", "IsActive", "IsSetup", "UserType" },
-            values: new object[] { 1L, null, 1L, "System", null, false, false, 0 });
+            columns: new[] { "UserId", "AuthenticationId", "BtaId", "FirstName", "HouseholdId", "IsActive", "LastName", "UserType" },
+            values: new object[] { 1L, "", 1L, "System", null, false, null, 0 });
 
         migrationBuilder.CreateIndex(
             name: "IX_Accounts_AccountTypeId",

@@ -21,9 +21,4 @@
     <ProjectReference Include="..\BudgetR.Server.Domain\BudgetR.Server.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\Authentication\Migrations\" />
-    <Folder Include="Data\BudgetR\Migrations\" />
-  </ItemGroup>
-
 </Project>

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
 {
     [DbContext(typeof(BudgetRDbContext))]
-    [Migration("20231129175907_Initial")]
+    [Migration("20231203001137_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -186,7 +186,7 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
                         new
                         {
                             BusinessTransactionActivityId = 1L,
-                            CreatedAt = new DateTime(2023, 11, 29, 17, 59, 7, 281, DateTimeKind.Utc).AddTicks(8126),
+                            CreatedAt = new DateTime(2023, 12, 3, 0, 11, 37, 577, DateTimeKind.Utc).AddTicks(3765),
                             ProcessName = "Initial Seeding",
                             UserId = 1L
                         });
@@ -1530,7 +1530,8 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("UserId"));
 
-                    b.Property<string>("AuthId")
+                    b.Property<string>("AuthenticationId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(1);
 
@@ -1543,7 +1544,7 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("CreatedAt");
 
-                    b.Property<string>("DisplayName")
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(2);
 
@@ -1553,11 +1554,11 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit")
-                        .HasColumnOrder(7);
-
-                    b.Property<bool>("IsSetup")
-                        .HasColumnType("bit")
                         .HasColumnOrder(6);
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(3);
 
                     b.Property<DateTime>("ModifiedAt")
                         .ValueGeneratedOnAddOrUpdate()
@@ -1589,10 +1590,10 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
                         new
                         {
                             UserId = 1L,
+                            AuthenticationId = "",
                             BtaId = 1L,
-                            DisplayName = "System",
+                            FirstName = "System",
                             IsActive = false,
-                            IsSetup = false,
                             UserType = 0
                         });
                 });
