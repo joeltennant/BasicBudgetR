@@ -1,14 +1,15 @@
 ﻿@page "/FinishRegistration"
+@using BudgetR.Core
 @using BudgetR.Core.Identity
 @using BudgetR.Server.Application.Handlers.Users
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<ApplicationUser> UserManager
 @inject IMediator _mediator
 @inject NavigationManager NavigationManager
+@inject StateContainer _state
 
 <h3>Complete your profile</h3>
-
-<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+<MudForm @ref="form" @bind-IsValid="@success">
     <MudGrid>
         <MudItem xs="12" md="6">
             <MudTextField Label="Email" @bind-Value="email" Disabled="true" />
@@ -23,28 +24,25 @@
             <MudTextField Label="Last Name" @bind-Value="finishRegistration.LastName" />
         </MudItem>
         <MudItem xs="12">
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" @OnClick="Submit()">Register</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick="@(()=>Submit())">Register</MudButton>
         </MudItem>
     </MudGrid>
 </MudForm>
+
 @code {
     /*
     * SUMMARY - This page is finishing the registration process after they sign up with a email and password
     */
     protected FinishRegistration finishRegistration = new();
-    protected string email = string.Empty;
+    protected string email = "";
     bool success;
     string[] errors = { };
     MudForm form;
 
-    [CascadingParameter]
-    public HttpContext? HttpContext { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        var user = await UserManager.GetUserAsync(HttpContext!.User);
-        email = user.Email;
-    }
+    // protected override async Task OnInitializedasync()
+    // {
+    //     // email = _state.email;
+    // }
 
     protected async Task Submit()
     {

@@ -4,10 +4,14 @@
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
 @using BudgetR.Core.Identity
+@using MediatR
+@using BudgetR.Server.Application.Handlers.Users
+
 @inject SignInManager<ApplicationUser> SignInManager
 @inject ILogger<Login> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
+@inject IMediator _mediator
 
 <PageTitle>Log in</PageTitle>
 
@@ -55,11 +59,11 @@
         </section>
     </div>
     <div class="col-md-6 col-md-offset-2">
-        <section>
+     @*    <section>
             <h3>Use another service to log in.</h3>
             <hr />
             <ExternalLoginPicker />
-        </section>
+        </section> *@
     </div>
 </div>
 
@@ -92,6 +96,20 @@
         if (result.Succeeded)
         {
             Logger.LogInformation("User logged in.");
+            var loadUser = await _mediator.Send(new LoadUserAction.Request());
+
+            if (loadUser.IsSuccess)
+            {
+                if (loadUser.Value == LoadUserAction.Action.FinishRegistration)
+                {
+                    RedirectManager.RedirectTo("FinishRegistration");
+                }
+                else if (loadUser.Value == LoadUserAction.Action.ReactivateAccount)
+                {
+                    RedirectManager.RedirectTo("Reactivate");
+                }
+            }
+
             RedirectManager.RedirectTo("Dashboard");
         }
         else if (result.RequiresTwoFactor)

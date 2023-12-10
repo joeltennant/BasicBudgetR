@@ -8,7 +8,18 @@ public class StateContainer
     private string? _processName;
     private long? _btaId;
     private bool _isActive;
-    private string firstName;
+    private string? firstName;
+    private string? email;
+
+    public string? Email
+    {
+        get => email;
+        set
+        {
+            email = value;
+            OnChange?.Invoke();
+        }
+    }
 
     public string? FirstName
     {

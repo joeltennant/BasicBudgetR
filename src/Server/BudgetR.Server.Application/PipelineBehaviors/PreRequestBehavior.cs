@@ -38,20 +38,23 @@ public class PreRequestBehavior<TRequest> : IRequestPreProcessor<TRequest>
                     UserId = u.UserId,
                     HouseholdId = u.HouseholdId,
                     UserType = u.UserType,
+                    IsActive = u.IsActive,
                 })
                 .FirstOrDefault();
+
+            _stateContainer.ApplicationUserId = appUser.Id;
+            _stateContainer.Email = appUser.Email;
 
             if (user != null)
             {
                 _stateContainer.UserId = user.UserId;
-                _stateContainer.ApplicationUserId = appUser.Id;
                 _stateContainer.HouseholdId = user.HouseholdId;
                 _stateContainer.UserType = user.UserType;
+                _stateContainer.IsActive = user.IsActive;
             }
         }
-
-        //return ;
     }
+
     protected string GetHandlerName()
     {
         string handlerName = typeof(TRequest).DeclaringType.Name;

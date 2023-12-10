@@ -7,13 +7,12 @@
 <MudNavMenu>
     <AuthorizeView>
         <Authorized>
-            @if (_state.IsActive)
-            {
-                <MudNavLink Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
+                <MudNavLink Href="/Dashboard" Match="NavLinkMatch.All">Dashboard</MudNavLink>
                 <MudNavLink Href="/weather" Match="NavLinkMatch.Prefix">Weather</MudNavLink>
                 <MudNavLink>
                     <NavLink href="Account/Manage">
-                        @context.User.Identity?.Name
+                        @* @context.User.Identity?.Name *@
+                        Manage Account
                     </NavLink>
                 </MudNavLink>
                 <MudNavLink>
@@ -25,7 +24,6 @@
                         </button>
                     </form>
                 </MudNavLink>
-            }
         </Authorized>
         <NotAuthorized>
             <MudNavLink Href="/">Home</MudNavLink>

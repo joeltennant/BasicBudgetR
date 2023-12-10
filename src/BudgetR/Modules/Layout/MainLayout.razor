@@ -1,5 +1,4 @@
-﻿@using BudgetR.Components
-@using BudgetR.Modules
+﻿@using BudgetR.Modules
 @inherits LayoutComponentBase
 
 <MudThemeProvider />
@@ -19,15 +18,11 @@
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Medium">
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="pt-4">
             @Body
         </MudContainer>
     </MudMainContent>
 </MudLayout>
-<AuthorizeView>
-   <LoadUser></LoadUser>
-</AuthorizeView>
-
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.

@@ -31,4 +31,9 @@ public static class AppConstants
         Dividend,
         Other
     }
+
+    public static class Routes
+    {
+        public const string Dashboard = "/";
+    }
 }
