@@ -1,6 +1,6 @@
 ﻿@page "/incomes"
 @using BudgetR.Core.Models
-@using BudgetR.Modules.Incomes.Components
+@using BudgetR.Modules.Application.Incomes.Components
 @using BudgetR.Modules.Layout
 @using BudgetR.Server.Application.Handlers.Incomes
 @inject ISnackbar Snackbar
@@ -18,7 +18,7 @@
             <HeaderContent>
                 <MudTh>Name</MudTh>
                 <MudTh>Amount</MudTh>
-                <MudTh>IsActive</MudTh>
+                <MudTh>Is Active</MudTh>
                 <MudTh>Actions</MudTh>
             </HeaderContent>
             <RowTemplate>
