@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\Dashboard\Components\" />
+    <Folder Include="Modules\App\Dashboard\Components\" />
   </ItemGroup>
 
 </Project>
