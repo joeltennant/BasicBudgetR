@@ -9,7 +9,7 @@
     <AuthorizeView>
         <Authorized>
             <MudNavLink Href="/Dashboard" Match="NavLinkMatch.All">Dashboard</MudNavLink>
-            <MudNavLink Href="/weather" Match="NavLinkMatch.Prefix">Weather</MudNavLink>
+            <MudNavLink Href="/accounts" Match="NavLinkMatch.Prefix">Accounts</MudNavLink>
             <MudNavGroup Title="Budget" Expanded="true">
                 <MudNavLink Href="/budgets" Match="NavLinkMatch.Prefix">Budgets</MudNavLink>
                 <MudNavLink Href="/incomes" Match="NavLinkMatch.Prefix">Incomes</MudNavLink>
@@ -30,12 +30,6 @@
                     </button>
                 </form>
             </MudNavLink>
-            @if (_state.UserType == UserType.SystemAdmin)
-            {
-                <MudNavGroup Title="Admin" Expanded="true">
-                    <MudNavLink Href="/systemadmin" Match="NavLinkMatch.Prefix">System Admin</MudNavLink>
-                </MudNavGroup>
-            }
         </Authorized>
         <NotAuthorized>
             <MudNavLink Href="/">Home</MudNavLink>

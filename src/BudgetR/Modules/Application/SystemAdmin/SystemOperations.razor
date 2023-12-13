@@ -18,19 +18,6 @@
 </ToolBarPageTemplate>
 
 @code {
-
-    protected override async Task OnInitializedAsync()
-    {
-        if (!IsAdminOrModerator())
-        {
-            NavigationManager.NavigateTo("/Dashboard");
-        }
-    }
-    
-    private bool IsAdminOrModerator()
-    {
-        return _state.UserType == UserType.SystemAdmin;
-    }
     private async Task RunInactivatePastMonths()
     {
         var result = await _mediator.Send(new InactivatePastMonths.Request());
