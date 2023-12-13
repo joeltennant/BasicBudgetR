@@ -1,4 +1,5 @@
 ﻿@using BudgetR.Core
+@using BudgetR.Core.Enums
 @inject StateContainer _state
 @implements IDisposable
 
@@ -29,6 +30,12 @@
                     </button>
                 </form>
             </MudNavLink>
+            @if (_state.UserType == UserType.SystemAdmin)
+            {
+                <MudNavGroup Title="Admin" Expanded="true">
+                    <MudNavLink Href="/systemadmin" Match="NavLinkMatch.Prefix">System Admin</MudNavLink>
+                </MudNavGroup>
+            }
         </Authorized>
         <NotAuthorized>
             <MudNavLink Href="/">Home</MudNavLink>

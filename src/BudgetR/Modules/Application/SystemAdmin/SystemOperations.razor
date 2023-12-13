@@ -1,7 +1,10 @@
 ﻿@page "/SystemAdmin/"
+@using BudgetR.Core.Enums
+@using BudgetR.Modules.Layout
 @using BudgetR.Server.Application.Handlers.System
 @inject ISnackbar Snackbar
 @inject IMediator _mediator
+@inject NavigationManager NavigationManager
 
 <ToolBarPageTemplate BodyColums="6" ToolBarColumns="6">
     <ToolBarTitle>System Operations Dashboard</ToolBarTitle>
@@ -15,6 +18,19 @@
 </ToolBarPageTemplate>
 
 @code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!IsAdminOrModerator())
+        {
+            NavigationManager.NavigateTo("/Dashboard");
+        }
+    }
+    
+    private bool IsAdminOrModerator()
+    {
+        return _state.UserType == UserType.SystemAdmin;
+    }
     private async Task RunInactivatePastMonths()
     {
         var result = await _mediator.Send(new InactivatePastMonths.Request());
