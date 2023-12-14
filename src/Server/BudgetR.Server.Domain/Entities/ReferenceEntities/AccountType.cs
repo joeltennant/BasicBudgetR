@@ -7,4 +7,7 @@ public class AccountType
 
     [Column(Order = 1)]
     public string Name { get; set; }
+
+    [Column(Order = 2)]
+    public BalanceType BalanceType { get; set; }
 }

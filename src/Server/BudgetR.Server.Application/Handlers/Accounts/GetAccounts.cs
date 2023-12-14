@@ -20,7 +20,7 @@ public class GetAccounts
                     AccountId = x.AccountId,
                     Name = x.Name,
                     Balance = x.Balance,
-                    BalanceType = x.BalanceType,
+                    BalanceType = x.AccountType.BalanceType,
                     AccountTypeId = x.AccountTypeId,
                     AccountType = x.AccountType.Name
                 })

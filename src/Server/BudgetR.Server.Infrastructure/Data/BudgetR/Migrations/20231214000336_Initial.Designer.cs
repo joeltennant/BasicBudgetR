@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
 {
     [DbContext(typeof(BudgetRDbContext))]
-    [Migration("20231203001137_Initial")]
+    [Migration("20231214000336_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -42,10 +42,6 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
                         .HasPrecision(19, 2)
                         .HasColumnType("decimal(19,2)")
                         .HasColumnOrder(2);
-
-                    b.Property<int>("BalanceType")
-                        .HasColumnType("int")
-                        .HasColumnOrder(3);
 
                     b.Property<long?>("BusinessTransactionActivityId")
                         .HasColumnType("bigint");
@@ -186,7 +182,7 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
                         new
                         {
                             BusinessTransactionActivityId = 1L,
-                            CreatedAt = new DateTime(2023, 12, 3, 0, 11, 37, 577, DateTimeKind.Utc).AddTicks(3765),
+                            CreatedAt = new DateTime(2023, 12, 14, 0, 3, 35, 805, DateTimeKind.Utc).AddTicks(3028),
                             ProcessName = "Initial Seeding",
                             UserId = 1L
                         });
@@ -1474,6 +1470,10 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("AccountTypeId"));
 
+                    b.Property<int>("BalanceType")
+                        .HasColumnType("int")
+                        .HasColumnOrder(2);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -1487,36 +1487,49 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
                         new
                         {
                             AccountTypeId = 4L,
+                            BalanceType = 0,
                             Name = "Cash"
                         },
                         new
                         {
                             AccountTypeId = 2L,
+                            BalanceType = 0,
                             Name = "Savings"
                         },
                         new
                         {
                             AccountTypeId = 1L,
+                            BalanceType = 0,
                             Name = "Checking"
                         },
                         new
                         {
                             AccountTypeId = 3L,
+                            BalanceType = 1,
                             Name = "Credit Card"
                         },
                         new
                         {
                             AccountTypeId = 5L,
+                            BalanceType = 0,
                             Name = "Investment"
                         },
                         new
                         {
+                            AccountTypeId = 8L,
+                            BalanceType = 0,
+                            Name = "Retirement"
+                        },
+                        new
+                        {
                             AccountTypeId = 6L,
+                            BalanceType = 1,
                             Name = "Loan"
                         },
                         new
                         {
                             AccountTypeId = 7L,
+                            BalanceType = 0,
                             Name = "Other"
                         });
                 });

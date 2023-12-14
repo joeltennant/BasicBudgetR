@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -18,7 +19,8 @@ public partial class Initial : Migration
             {
                 AccountTypeId = table.Column<long>(type: "bigint", nullable: false)
                     .Annotation("SqlServer:Identity", "1, 1"),
-                Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                BalanceType = table.Column<int>(type: "int", nullable: false)
             },
             constraints: table =>
             {
@@ -125,12 +127,6 @@ public partial class Initial : Migration
                     .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
                     .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
                 Balance = table.Column<decimal>(type: "decimal(19,2)", precision: 19, scale: 2, nullable: false)
-                    .Annotation("SqlServer:IsTemporal", true)
-                    .Annotation("SqlServer:TemporalHistoryTableName", "AccountHistory")
-                    .Annotation("SqlServer:TemporalHistoryTableSchema", null)
-                    .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
-                    .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
-                BalanceType = table.Column<int>(type: "int", nullable: false)
                     .Annotation("SqlServer:IsTemporal", true)
                     .Annotation("SqlServer:TemporalHistoryTableName", "AccountHistory")
                     .Annotation("SqlServer:TemporalHistoryTableSchema", null)
@@ -669,22 +665,23 @@ public partial class Initial : Migration
 
         migrationBuilder.InsertData(
             table: "AccountTypes",
-            columns: new[] { "AccountTypeId", "Name" },
+            columns: new[] { "AccountTypeId", "BalanceType", "Name" },
             values: new object[,]
             {
-                { 1L, "Checking" },
-                { 2L, "Savings" },
-                { 3L, "Credit Card" },
-                { 4L, "Cash" },
-                { 5L, "Investment" },
-                { 6L, "Loan" },
-                { 7L, "Other" }
+                { 1L, 0, "Checking" },
+                { 2L, 0, "Savings" },
+                { 3L, 1, "Credit Card" },
+                { 4L, 0, "Cash" },
+                { 5L, 0, "Investment" },
+                { 6L, 1, "Loan" },
+                { 7L, 0, "Other" },
+                { 8L, 0, "Retirement" }
             });
 
         migrationBuilder.InsertData(
             table: "BusinessTransactionActivities",
             columns: new[] { "BusinessTransactionActivityId", "CreatedAt", "ProcessName", "UserId" },
-            values: new object[] { 1L, new DateTime(2023, 12, 3, 0, 11, 37, 577, DateTimeKind.Utc).AddTicks(3765), "Initial Seeding", 1L });
+            values: new object[] { 1L, new DateTime(2023, 12, 14, 0, 3, 35, 805, DateTimeKind.Utc).AddTicks(3028), "Initial Seeding", 1L });
 
         migrationBuilder.InsertData(
             table: "MonthYears",

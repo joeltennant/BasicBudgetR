@@ -47,7 +47,6 @@ internal class Program
                     Name = account.AccountName,
                     AccountTypeId = account.AccountType,
                     Balance = account.Balance,
-                    BalanceType = balanceType,
                     HouseholdId = user.HouseholdId.Value
                 });
             }

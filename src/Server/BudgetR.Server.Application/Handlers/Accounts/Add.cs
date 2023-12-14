@@ -1,15 +1,7 @@
-﻿using BudgetR.Core.Enums;
-
-namespace BudgetR.Server.Application.Handlers.Accounts;
+﻿namespace BudgetR.Server.Application.Handlers.Accounts;
 public class Add
 {
-    public class Request : IRequest<Result<NoValue>>
-    {
-        public string? AccountName { get; set; }
-        public decimal? Balance { get; set; }
-        public BalanceType BalanceType { get; set; }
-        public long AccountTypeId { get; set; }
-    }
+    public record Request(string? AccountName, decimal? Balance, long AccountTypeId) : IRequest<Result<NoValue>>;
 
     public class Validator : AbstractValidator<Request>
     {
@@ -22,8 +14,6 @@ public class Add
             RuleFor(x => x.Balance)
                 .NotNull()
                 .GreaterThanOrEqualTo(0);
-            RuleFor(x => x.BalanceType)
-                .NotNull();
             RuleFor(x => x.AccountTypeId)
                 .NotNull()
                 .NotEmpty()
@@ -52,7 +42,6 @@ public class Add
             {
                 Name = request.AccountName,
                 Balance = request.Balance.Value,
-                BalanceType = request.BalanceType,
                 AccountTypeId = request.AccountTypeId,
                 HouseholdId = _stateContainer.HouseholdId.Value,
                 BusinessTransactionActivity = new BusinessTransactionActivity

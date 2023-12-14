@@ -15,9 +15,6 @@ public class Account : BaseEntity
     [Precision(19, 2)]
     public decimal Balance { get; set; }
 
-    [Column(Order = 3)]
-    public BalanceType BalanceType { get; set; }
-
     [Column(Order = 4)]
     public long AccountTypeId { get; set; }
 

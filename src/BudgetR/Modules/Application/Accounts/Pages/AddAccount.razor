@@ -24,13 +24,6 @@
                     </MudItem>
 
                     <MudItem xs="12">
-                        <MudSelect Label="Balance Type" @bind-Value="BalanceType" Required="true" RequiredError="Balance Type is required!" Margin="Margin.Dense">
-                            <MudSelectItem Value="BalanceType.Debit">Debit</MudSelectItem>
-                            <MudSelectItem Value="BalanceType.Credit">Credit</MudSelectItem>
-                        </MudSelect>
-                    </MudItem>
-
-                    <MudItem xs="12">
                         <MudSelect Label="Account Type" @bind-Value="AccountTypeId" Required="true" RequiredError="Account Type is required!" Margin="Margin.Dense">
                             @foreach (var accountType in AccountTypeModels)
                             {
@@ -75,13 +68,7 @@
 
     protected async Task Add()
     {
-        var result = await _mediator.Send(new Add.Request
-            {
-                AccountName = AccountName,
-                Balance = Balance,
-                BalanceType = BalanceType,
-                AccountTypeId = AccountTypeId
-            });
+        var result = await _mediator.Send(new Add.Request(AccountName = AccountName, Balance = Balance, AccountTypeId = AccountTypeId));
 
         if (result.IsSuccess)
         {
