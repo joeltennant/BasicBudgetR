@@ -23,7 +23,7 @@ public class ModifyAmount
     {
         private readonly Validator _validator = new();
 
-        public Handler(BudgetRDbContext dbContext, StateContainer stateContainer) : base(dbContext, stateContainer)
+        public Handler(BudgetRDbContext dbContext, ServerContainer stateContainer) : base(dbContext, stateContainer)
         {
         }
 

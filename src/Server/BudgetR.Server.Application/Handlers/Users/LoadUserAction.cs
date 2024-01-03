@@ -8,7 +8,7 @@ public static class LoadUserAction
     public class Handler : BaseHandler<Action>, IRequestHandler<Request, Result<Action>>
     {
         protected readonly IHttpContextAccessor _httpContextAccessor;
-        public Handler(BudgetRDbContext context, StateContainer stateContainer, IHttpContextAccessor httpContextAccessor)
+        public Handler(BudgetRDbContext context, ServerContainer stateContainer, IHttpContextAccessor httpContextAccessor)
             : base(context, stateContainer)
         {
             _httpContextAccessor = httpContextAccessor;

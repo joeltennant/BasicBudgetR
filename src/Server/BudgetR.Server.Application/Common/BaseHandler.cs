@@ -2,10 +2,10 @@
 public abstract class BaseHandler<T>
 {
     protected readonly BudgetRDbContext _context;
-    protected readonly StateContainer _stateContainer;
+    protected readonly ServerContainer _stateContainer;
     protected Result<T> Result;
 
-    protected BaseHandler(BudgetRDbContext dbContext, StateContainer stateContainer)
+    protected BaseHandler(BudgetRDbContext dbContext, ServerContainer stateContainer)
     {
         _context = dbContext;
         _stateContainer = stateContainer;

@@ -7,7 +7,7 @@ public class GetAccounts
 
     public class Handler : BaseHandler<List<AccountModel>>, IRequestHandler<Request, Result<List<AccountModel>>>
     {
-        public Handler(BudgetRDbContext dbContext, StateContainer stateContainer) : base(dbContext, stateContainer)
+        public Handler(BudgetRDbContext dbContext, ServerContainer stateContainer) : base(dbContext, stateContainer)
         {
         }
 

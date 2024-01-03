@@ -5,7 +5,7 @@ public class AllBudgets
 
     public class Handler : BaseHandler<List<BudgetMonthModel>>, IRequestHandler<Request, Result<List<BudgetMonthModel>>>
     {
-        public Handler(BudgetRDbContext dbContext, StateContainer stateContainer) : base(dbContext, stateContainer)
+        public Handler(BudgetRDbContext dbContext, ServerContainer stateContainer) : base(dbContext, stateContainer)
         {
         }
 

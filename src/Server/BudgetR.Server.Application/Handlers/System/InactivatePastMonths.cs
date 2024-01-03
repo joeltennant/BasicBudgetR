@@ -7,7 +7,7 @@ public class InactivatePastMonths
     {
         private BusinessTransactionActivity bta;
 
-        public Handler(BudgetRDbContext context, StateContainer stateContainer)
+        public Handler(BudgetRDbContext context, ServerContainer stateContainer)
             : base(context, stateContainer)
         {
         }

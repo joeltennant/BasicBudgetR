@@ -7,7 +7,7 @@ public class RemoveExpenseDetail
     public class Handler : BaseHandler<NoValue>, IRequestHandler<Request, Result<NoValue>>
     {
         private int result;
-        public Handler(BudgetRDbContext dbContext, StateContainer stateContainer) : base(dbContext, stateContainer)
+        public Handler(BudgetRDbContext dbContext, ServerContainer stateContainer) : base(dbContext, stateContainer)
         {
         }
 

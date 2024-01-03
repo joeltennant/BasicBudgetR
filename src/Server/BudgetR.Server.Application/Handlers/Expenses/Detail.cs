@@ -5,7 +5,7 @@ public class Detail
 
     public class Handler : BaseHandler<ExpenseModel>, IRequestHandler<Request, Result<ExpenseModel>>
     {
-        public Handler(BudgetRDbContext dbContext, StateContainer stateContainer) : base(dbContext, stateContainer)
+        public Handler(BudgetRDbContext dbContext, ServerContainer stateContainer) : base(dbContext, stateContainer)
         {
         }
 

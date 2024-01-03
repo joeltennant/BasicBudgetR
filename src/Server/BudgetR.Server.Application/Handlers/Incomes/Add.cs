@@ -30,7 +30,7 @@ public class Add
         private readonly Validator _validator = new();
         private BuildMonthListFromSelection _buildMonthListFromSelection { get; set; }
 
-        public Handler(BudgetRDbContext dbContext, StateContainer stateContainer) : base(dbContext, stateContainer)
+        public Handler(BudgetRDbContext dbContext, ServerContainer stateContainer) : base(dbContext, stateContainer)
         {
             _buildMonthListFromSelection = new BuildMonthListFromSelection(dbContext);
         }

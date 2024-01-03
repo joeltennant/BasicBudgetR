@@ -5,7 +5,7 @@ public class All
 
     public class Handler : BaseHandler<List<IncomeModel>>, IRequestHandler<Request, Result<List<IncomeModel>>>
     {
-        public Handler(BudgetRDbContext dbContext, StateContainer stateContainer) : base(dbContext, stateContainer)
+        public Handler(BudgetRDbContext dbContext, ServerContainer stateContainer) : base(dbContext, stateContainer)
         {
         }
 

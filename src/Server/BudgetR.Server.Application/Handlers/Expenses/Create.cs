@@ -26,7 +26,7 @@ public class Create
     {
         private readonly Validator _validator = new();
 
-        public Handler(BudgetRDbContext context, StateContainer stateContainer)
+        public Handler(BudgetRDbContext context, ServerContainer stateContainer)
             : base(context, stateContainer)
         {
         }

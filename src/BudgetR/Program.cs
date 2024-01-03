@@ -34,7 +34,7 @@ public class Program
             })
             .AddIdentityCookies();
 
-        builder.Services.AddScoped<StateContainer>();
+        builder.Services.AddScoped<ServerContainer>();
         builder.Services.AddInfrastructure(builder.Configuration);
         builder.Services.AddApplication();
 

@@ -8,7 +8,7 @@ public static class AccessFailedCount
 
     public class Handler : BaseHandler<long>, IRequestHandler<Request, Result<long>>
     {
-        public Handler(BudgetRDbContext context, StateContainer stateContainer)
+        public Handler(BudgetRDbContext context, ServerContainer stateContainer)
             : base(context, stateContainer)
         {
         }

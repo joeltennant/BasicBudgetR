@@ -7,12 +7,12 @@ namespace BudgetR.Server.Application.PipelineBehaviors;
 
 public class PreRequestBehavior<TRequest> : IRequestPreProcessor<TRequest>
 {
-    private StateContainer _stateContainer;
+    private ServerContainer _stateContainer;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly BudgetRDbContext _budgetRDbContext;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public PreRequestBehavior(StateContainer stateContainer, IHttpContextAccessor httpContextAccessor, BudgetRDbContext budgetRDbContext, UserManager<ApplicationUser> userManager)
+    public PreRequestBehavior(ServerContainer stateContainer, IHttpContextAccessor httpContextAccessor, BudgetRDbContext budgetRDbContext, UserManager<ApplicationUser> userManager)
     {
         _stateContainer = stateContainer;
         _httpContextAccessor = httpContextAccessor;

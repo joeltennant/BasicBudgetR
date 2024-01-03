@@ -26,7 +26,7 @@ public class CreateHousehold
         private readonly Validator _validator = new();
 
         private readonly UserManager<ApplicationUser> _userManager;
-        public Handler(BudgetRDbContext context, StateContainer stateContainer, UserManager<ApplicationUser> userManager)
+        public Handler(BudgetRDbContext context, ServerContainer stateContainer, UserManager<ApplicationUser> userManager)
             : base(context, stateContainer)
         {
             _userManager = userManager;
