@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
 
 namespace BudgetR.Server.Application.Handlers.Users;
 public static class LoadUserAction

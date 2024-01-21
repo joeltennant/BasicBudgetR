@@ -5,7 +5,7 @@ public class ClientContext
 {
     public ClientContext()
     {
-            
+
     }
 
     private MonthSelection? _monthSelection;

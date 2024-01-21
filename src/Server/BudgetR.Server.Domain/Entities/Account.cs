@@ -12,6 +12,9 @@ public class Account : BaseEntity
     public string? Name { get; set; }
 
     [Column(Order = 2)]
+    public string? LongName { get; set; }
+
+    [Column(Order = 3)]
     [Precision(19, 2)]
     public decimal Balance { get; set; }
 

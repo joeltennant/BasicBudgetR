@@ -1,6 +1,5 @@
 ﻿using BudgetR.Core.Identity;
 using MediatR.Pipeline;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace BudgetR.Server.Application.PipelineBehaviors;

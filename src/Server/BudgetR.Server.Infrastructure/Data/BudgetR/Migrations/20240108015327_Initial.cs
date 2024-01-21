@@ -2,7 +2,6 @@
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
 namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations;
 
@@ -58,6 +57,20 @@ public partial class Initial : Migration
             });
 
         migrationBuilder.CreateTable(
+            name: "TransactionCategories",
+            columns: table => new
+            {
+                TransactionCategoryId = table.Column<long>(type: "bigint", nullable: false)
+                    .Annotation("SqlServer:Identity", "1, 1"),
+                CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                HouseholdId = table.Column<long>(type: "bigint", nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_TransactionCategories", x => x.TransactionCategoryId);
+            });
+
+        migrationBuilder.CreateTable(
             name: "Households",
             columns: table => new
             {
@@ -109,6 +122,61 @@ public partial class Initial : Migration
             .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt");
 
         migrationBuilder.CreateTable(
+            name: "TransactionBatches",
+            columns: table => new
+            {
+                TransactionBatchId = table.Column<long>(type: "bigint", nullable: false)
+                    .Annotation("SqlServer:Identity", "1, 1"),
+                StartedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                CompletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                RecordCount = table.Column<int>(type: "int", nullable: true),
+                Source = table.Column<int>(type: "int", nullable: true),
+                BusinessTransactionActivityId = table.Column<long>(type: "bigint", nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_TransactionBatches", x => x.TransactionBatchId);
+                table.ForeignKey(
+                    name: "FK_TransactionBatches_BusinessTransactionActivities_BusinessTransactionActivityId",
+                    column: x => x.BusinessTransactionActivityId,
+                    principalTable: "BusinessTransactionActivities",
+                    principalColumn: "BusinessTransactionActivityId");
+            });
+
+        migrationBuilder.CreateTable(
+            name: "TransactionRules",
+            columns: table => new
+            {
+                TransactionRuleId = table.Column<long>(type: "bigint", nullable: false)
+                    .Annotation("SqlServer:Identity", "1, 1"),
+                CategoryRuleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                CategoryId = table.Column<long>(type: "bigint", nullable: true),
+                HasCategory = table.Column<long>(type: "bigint", nullable: true),
+                NumericRule = table.Column<long>(type: "bigint", nullable: true),
+                StringRule = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                ComparisonType = table.Column<int>(type: "int", nullable: false),
+                RuleLevel = table.Column<int>(type: "int", nullable: false),
+                TransactionType = table.Column<int>(type: "int", nullable: true),
+                TransactionCategoryId = table.Column<long>(type: "bigint", nullable: true),
+                RuleType = table.Column<int>(type: "int", nullable: true),
+                BusinessTransactionActivityId = table.Column<long>(type: "bigint", nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_TransactionRules", x => x.TransactionRuleId);
+                table.ForeignKey(
+                    name: "FK_TransactionRules_BusinessTransactionActivities_BusinessTransactionActivityId",
+                    column: x => x.BusinessTransactionActivityId,
+                    principalTable: "BusinessTransactionActivities",
+                    principalColumn: "BusinessTransactionActivityId");
+                table.ForeignKey(
+                    name: "FK_TransactionRules_TransactionCategories_TransactionCategoryId",
+                    column: x => x.TransactionCategoryId,
+                    principalTable: "TransactionCategories",
+                    principalColumn: "TransactionCategoryId");
+            });
+
+        migrationBuilder.CreateTable(
             name: "Accounts",
             columns: table => new
             {
@@ -120,6 +188,12 @@ public partial class Initial : Migration
                     .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
                     .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
                 Name = table.Column<string>(type: "nvarchar(125)", maxLength: 125, nullable: true)
+                    .Annotation("SqlServer:IsTemporal", true)
+                    .Annotation("SqlServer:TemporalHistoryTableName", "AccountHistory")
+                    .Annotation("SqlServer:TemporalHistoryTableSchema", null)
+                    .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
+                    .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt"),
+                LongName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                     .Annotation("SqlServer:IsTemporal", true)
                     .Annotation("SqlServer:TemporalHistoryTableName", "AccountHistory")
                     .Annotation("SqlServer:TemporalHistoryTableSchema", null)
@@ -351,6 +425,69 @@ public partial class Initial : Migration
             .Annotation("SqlServer:TemporalHistoryTableSchema", null)
             .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
             .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt");
+
+        migrationBuilder.CreateTable(
+            name: "ProcessedFiles",
+            columns: table => new
+            {
+                ProcessedFileId = table.Column<long>(type: "bigint", nullable: false)
+                    .Annotation("SqlServer:Identity", "1, 1"),
+                RunOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                TransactionBatchId = table.Column<long>(type: "bigint", nullable: true),
+                BusinessTransactionActivityId = table.Column<long>(type: "bigint", nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_ProcessedFiles", x => x.ProcessedFileId);
+                table.ForeignKey(
+                    name: "FK_ProcessedFiles_BusinessTransactionActivities_BusinessTransactionActivityId",
+                    column: x => x.BusinessTransactionActivityId,
+                    principalTable: "BusinessTransactionActivities",
+                    principalColumn: "BusinessTransactionActivityId");
+                table.ForeignKey(
+                    name: "FK_ProcessedFiles_TransactionBatches_TransactionBatchId",
+                    column: x => x.TransactionBatchId,
+                    principalTable: "TransactionBatches",
+                    principalColumn: "TransactionBatchId");
+            });
+
+        migrationBuilder.CreateTable(
+            name: "Transactions",
+            columns: table => new
+            {
+                TransactionId = table.Column<long>(type: "bigint", nullable: false)
+                    .Annotation("SqlServer:Identity", "1, 1"),
+                Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                AccountId = table.Column<long>(type: "bigint", nullable: true),
+                TransactionType = table.Column<int>(type: "int", nullable: true),
+                Amount = table.Column<decimal>(type: "decimal(19,2)", precision: 19, scale: 2, nullable: false),
+                TransactionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                TransactionMonth = table.Column<int>(type: "int", maxLength: 2, nullable: false),
+                TransactionYear = table.Column<int>(type: "int", maxLength: 4, nullable: false),
+                TransactionCategoryId = table.Column<long>(type: "bigint", nullable: true),
+                TransactionBatchId = table.Column<long>(type: "bigint", nullable: true),
+                HouseholdId = table.Column<long>(type: "bigint", nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_Transactions", x => x.TransactionId);
+                table.ForeignKey(
+                    name: "FK_Transactions_Households_HouseholdId",
+                    column: x => x.HouseholdId,
+                    principalTable: "Households",
+                    principalColumn: "HouseholdId");
+                table.ForeignKey(
+                    name: "FK_Transactions_TransactionBatches_TransactionBatchId",
+                    column: x => x.TransactionBatchId,
+                    principalTable: "TransactionBatches",
+                    principalColumn: "TransactionBatchId");
+                table.ForeignKey(
+                    name: "FK_Transactions_TransactionCategories_TransactionCategoryId",
+                    column: x => x.TransactionCategoryId,
+                    principalTable: "TransactionCategories",
+                    principalColumn: "TransactionCategoryId");
+            });
 
         migrationBuilder.CreateTable(
             name: "Expenses",
@@ -680,7 +817,7 @@ public partial class Initial : Migration
         migrationBuilder.InsertData(
             table: "BusinessTransactionActivities",
             columns: new[] { "BusinessTransactionActivityId", "CreatedAt", "ProcessName", "UserId" },
-            values: new object[] { 1L, new DateTime(2023, 12, 14, 0, 3, 35, 805, DateTimeKind.Utc).AddTicks(3028), "Initial Seeding", 1L });
+            values: new object[] { 1L, new DateTime(2024, 1, 8, 1, 53, 27, 171, DateTimeKind.Utc).AddTicks(665), "Initial Seeding", 1L });
 
         migrationBuilder.InsertData(
             table: "MonthYears",
@@ -900,6 +1037,51 @@ public partial class Initial : Migration
             column: "BusinessTransactionActivityId");
 
         migrationBuilder.CreateIndex(
+            name: "IX_ProcessedFiles_BusinessTransactionActivityId",
+            table: "ProcessedFiles",
+            column: "BusinessTransactionActivityId");
+
+        migrationBuilder.CreateIndex(
+            name: "IX_ProcessedFiles_TransactionBatchId",
+            table: "ProcessedFiles",
+            column: "TransactionBatchId");
+
+        migrationBuilder.CreateIndex(
+            name: "IX_TransactionBatches_BusinessTransactionActivityId",
+            table: "TransactionBatches",
+            column: "BusinessTransactionActivityId");
+
+        migrationBuilder.CreateIndex(
+            name: "IX_TransactionRules_BusinessTransactionActivityId",
+            table: "TransactionRules",
+            column: "BusinessTransactionActivityId");
+
+        migrationBuilder.CreateIndex(
+            name: "IX_TransactionRules_TransactionCategoryId",
+            table: "TransactionRules",
+            column: "TransactionCategoryId");
+
+        migrationBuilder.CreateIndex(
+            name: "IX_Transactions_HouseholdId",
+            table: "Transactions",
+            column: "HouseholdId");
+
+        migrationBuilder.CreateIndex(
+            name: "IX_Transactions_TransactionBatchId",
+            table: "Transactions",
+            column: "TransactionBatchId");
+
+        migrationBuilder.CreateIndex(
+            name: "IX_Transactions_TransactionCategoryId",
+            table: "Transactions",
+            column: "TransactionCategoryId");
+
+        migrationBuilder.CreateIndex(
+            name: "IX_Transactions_TransactionMonth_TransactionYear",
+            table: "Transactions",
+            columns: new[] { "TransactionMonth", "TransactionYear" });
+
+        migrationBuilder.CreateIndex(
             name: "IX_Users_HouseholdId",
             table: "Users",
             column: "HouseholdId");
@@ -933,6 +1115,15 @@ public partial class Initial : Migration
             .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt");
 
         migrationBuilder.DropTable(
+            name: "ProcessedFiles");
+
+        migrationBuilder.DropTable(
+            name: "TransactionRules");
+
+        migrationBuilder.DropTable(
+            name: "Transactions");
+
+        migrationBuilder.DropTable(
             name: "Users")
             .Annotation("SqlServer:IsTemporal", true)
             .Annotation("SqlServer:TemporalHistoryTableName", "UserHistory")
@@ -958,6 +1149,12 @@ public partial class Initial : Migration
             .Annotation("SqlServer:TemporalHistoryTableSchema", null)
             .Annotation("SqlServer:TemporalPeriodEndColumnName", "ModifiedAt")
             .Annotation("SqlServer:TemporalPeriodStartColumnName", "CreatedAt");
+
+        migrationBuilder.DropTable(
+            name: "TransactionBatches");
+
+        migrationBuilder.DropTable(
+            name: "TransactionCategories");
 
         migrationBuilder.DropTable(
             name: "BudgetMonths")

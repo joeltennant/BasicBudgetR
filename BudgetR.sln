@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetR", "src\BudgetR\Budg
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicBudgetR", "src\BasicBudgetR.Deprecated\BasicBudgetR.csproj", "{A9272896-F338-4009-9F14-837314F6BB5D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetR.Server.BusinessRules", "src\Server\BudgetR.Server.BusinessRules\BudgetR.Server.BusinessRules.csproj", "{89D82F11-881B-45C1-BF35-0C8F9985688E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{A9272896-F338-4009-9F14-837314F6BB5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9272896-F338-4009-9F14-837314F6BB5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9272896-F338-4009-9F14-837314F6BB5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89D82F11-881B-45C1-BF35-0C8F9985688E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89D82F11-881B-45C1-BF35-0C8F9985688E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89D82F11-881B-45C1-BF35-0C8F9985688E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89D82F11-881B-45C1-BF35-0C8F9985688E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +77,7 @@ Global
 		{784F7B04-4289-44BC-B342-1F848A50DC79} = {9B53C652-7E3A-4A4D-BE1E-01DD2C1DFA59}
 		{C44E9D21-ACBC-4A38-B32D-BDF6547EEC76} = {9B53C652-7E3A-4A4D-BE1E-01DD2C1DFA59}
 		{5A3B2A38-E1A6-4718-B8D7-67E47645652D} = {6FD3D4F4-4F4F-448A-BAC7-594B3D8120C3}
+		{89D82F11-881B-45C1-BF35-0C8F9985688E} = {9B53C652-7E3A-4A4D-BE1E-01DD2C1DFA59}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA943D4C-48D2-4CF1-9C55-9CDE0C695431}

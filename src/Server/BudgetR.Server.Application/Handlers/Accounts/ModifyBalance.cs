@@ -34,6 +34,16 @@ public class ModifyBalance
                 return Result.Error(validation.Errors);
             }
 
+            var currentAmount = await _context.Accounts
+                .Where(a => a.AccountId == request.AccountId)
+                .Select(a => a.Balance)
+                .FirstOrDefaultAsync();
+
+            if (currentAmount == request.Amount)
+            {
+                return Result.Success();
+            }
+
             long bta_id = await CreateBta();
 
             await _context.Accounts

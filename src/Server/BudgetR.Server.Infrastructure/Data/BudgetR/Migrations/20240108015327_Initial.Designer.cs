@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
 {
     [DbContext(typeof(BudgetRDbContext))]
-    [Migration("20231214000336_Initial")]
+    [Migration("20240108015327_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -41,7 +41,7 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
                     b.Property<decimal>("Balance")
                         .HasPrecision(19, 2)
                         .HasColumnType("decimal(19,2)")
-                        .HasColumnOrder(2);
+                        .HasColumnOrder(3);
 
                     b.Property<long?>("BusinessTransactionActivityId")
                         .HasColumnType("bigint");
@@ -54,6 +54,10 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
                     b.Property<long>("HouseholdId")
                         .HasColumnType("bigint")
                         .HasColumnOrder(5);
+
+                    b.Property<string>("LongName")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(2);
 
                     b.Property<DateTime>("ModifiedAt")
                         .ValueGeneratedOnAddOrUpdate()
@@ -182,7 +186,7 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
                         new
                         {
                             BusinessTransactionActivityId = 1L,
-                            CreatedAt = new DateTime(2023, 12, 14, 0, 3, 35, 805, DateTimeKind.Utc).AddTicks(3028),
+                            CreatedAt = new DateTime(2024, 1, 8, 1, 53, 27, 171, DateTimeKind.Utc).AddTicks(665),
                             ProcessName = "Initial Seeding",
                             UserId = 1L
                         });
@@ -1534,6 +1538,215 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BudgetR.Server.Domain.Entities.TransactionRule", b =>
+                {
+                    b.Property<long>("TransactionRuleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("TransactionRuleId"));
+
+                    b.Property<long?>("BusinessTransactionActivityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("CategoryId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(2);
+
+                    b.Property<string>("CategoryRuleName")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(1);
+
+                    b.Property<int>("ComparisonType")
+                        .HasColumnType("int")
+                        .HasColumnOrder(6);
+
+                    b.Property<long?>("HasCategory")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(3);
+
+                    b.Property<long?>("NumericRule")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(4);
+
+                    b.Property<int>("RuleLevel")
+                        .HasColumnType("int")
+                        .HasColumnOrder(7);
+
+                    b.Property<int?>("RuleType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StringRule")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(5);
+
+                    b.Property<long?>("TransactionCategoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("TransactionType")
+                        .HasColumnType("int")
+                        .HasColumnOrder(8);
+
+                    b.HasKey("TransactionRuleId");
+
+                    b.HasIndex("BusinessTransactionActivityId");
+
+                    b.HasIndex("TransactionCategoryId");
+
+                    b.ToTable("TransactionRules");
+                });
+
+            modelBuilder.Entity("BudgetR.Server.Domain.Entities.Transactions.ProcessedFile", b =>
+                {
+                    b.Property<long>("ProcessedFileId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ProcessedFileId"));
+
+                    b.Property<long?>("BusinessTransactionActivityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(2);
+
+                    b.Property<DateTime?>("RunOn")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(1);
+
+                    b.Property<long?>("TransactionBatchId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(3);
+
+                    b.HasKey("ProcessedFileId");
+
+                    b.HasIndex("BusinessTransactionActivityId");
+
+                    b.HasIndex("TransactionBatchId");
+
+                    b.ToTable("ProcessedFiles");
+                });
+
+            modelBuilder.Entity("BudgetR.Server.Domain.Entities.Transactions.Transaction", b =>
+                {
+                    b.Property<long>("TransactionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("TransactionId"));
+
+                    b.Property<long?>("AccountId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(2);
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(19, 2)
+                        .HasColumnType("decimal(19,2)")
+                        .HasColumnOrder(4);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(1);
+
+                    b.Property<long?>("HouseholdId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(10);
+
+                    b.Property<long?>("TransactionBatchId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(9);
+
+                    b.Property<long?>("TransactionCategoryId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(8);
+
+                    b.Property<DateTime?>("TransactionDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(5);
+
+                    b.Property<int>("TransactionMonth")
+                        .HasMaxLength(2)
+                        .HasColumnType("int")
+                        .HasColumnOrder(6);
+
+                    b.Property<int?>("TransactionType")
+                        .HasColumnType("int")
+                        .HasColumnOrder(3);
+
+                    b.Property<int>("TransactionYear")
+                        .HasMaxLength(4)
+                        .HasColumnType("int")
+                        .HasColumnOrder(7);
+
+                    b.HasKey("TransactionId");
+
+                    b.HasIndex("HouseholdId");
+
+                    b.HasIndex("TransactionBatchId");
+
+                    b.HasIndex("TransactionCategoryId");
+
+                    b.HasIndex("TransactionMonth", "TransactionYear");
+
+                    b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("BudgetR.Server.Domain.Entities.Transactions.TransactionBatch", b =>
+                {
+                    b.Property<long>("TransactionBatchId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("TransactionBatchId"));
+
+                    b.Property<long?>("BusinessTransactionActivityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("RecordCount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Source")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("StartedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("TransactionBatchId");
+
+                    b.HasIndex("BusinessTransactionActivityId");
+
+                    b.ToTable("TransactionBatches");
+                });
+
+            modelBuilder.Entity("BudgetR.Server.Domain.Entities.Transactions.TransactionCategory", b =>
+                {
+                    b.Property<long>("TransactionCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("TransactionCategoryId"));
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(1);
+
+                    b.Property<long?>("HouseholdId")
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(2);
+
+                    b.HasKey("TransactionCategoryId");
+
+                    b.ToTable("TransactionCategories");
+                });
+
             modelBuilder.Entity("BudgetR.Server.Domain.Entities.User", b =>
                 {
                     b.Property<long>("UserId")
@@ -1746,6 +1959,64 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
                     b.Navigation("Income");
                 });
 
+            modelBuilder.Entity("BudgetR.Server.Domain.Entities.TransactionRule", b =>
+                {
+                    b.HasOne("BudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
+                        .WithMany()
+                        .HasForeignKey("BusinessTransactionActivityId");
+
+                    b.HasOne("BudgetR.Server.Domain.Entities.Transactions.TransactionCategory", "TransactionCategory")
+                        .WithMany()
+                        .HasForeignKey("TransactionCategoryId");
+
+                    b.Navigation("BusinessTransactionActivity");
+
+                    b.Navigation("TransactionCategory");
+                });
+
+            modelBuilder.Entity("BudgetR.Server.Domain.Entities.Transactions.ProcessedFile", b =>
+                {
+                    b.HasOne("BudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
+                        .WithMany()
+                        .HasForeignKey("BusinessTransactionActivityId");
+
+                    b.HasOne("BudgetR.Server.Domain.Entities.Transactions.TransactionBatch", "TransactionBatch")
+                        .WithMany("ProcessedFiles")
+                        .HasForeignKey("TransactionBatchId");
+
+                    b.Navigation("BusinessTransactionActivity");
+
+                    b.Navigation("TransactionBatch");
+                });
+
+            modelBuilder.Entity("BudgetR.Server.Domain.Entities.Transactions.Transaction", b =>
+                {
+                    b.HasOne("BudgetR.Server.Domain.Entities.Household", "Household")
+                        .WithMany()
+                        .HasForeignKey("HouseholdId");
+
+                    b.HasOne("BudgetR.Server.Domain.Entities.Transactions.TransactionBatch", null)
+                        .WithMany("Transactions")
+                        .HasForeignKey("TransactionBatchId");
+
+                    b.HasOne("BudgetR.Server.Domain.Entities.Transactions.TransactionCategory", "TransactionCategory")
+                        .WithMany()
+                        .HasForeignKey("TransactionCategoryId");
+
+                    b.Navigation("Household");
+
+                    b.Navigation("TransactionCategory");
+                });
+
+            modelBuilder.Entity("BudgetR.Server.Domain.Entities.Transactions.TransactionBatch", b =>
+                {
+                    b.HasOne("BudgetR.Server.Domain.Entities.BusinessTransactionActivity", "BusinessTransactionActivity")
+                        .WithMany()
+                        .HasForeignKey("BusinessTransactionActivityId");
+
+                    b.Navigation("BusinessTransactionActivity");
+                });
+
             modelBuilder.Entity("BudgetR.Server.Domain.Entities.User", b =>
                 {
                     b.HasOne("BudgetR.Server.Domain.Entities.Household", "Household")
@@ -1775,6 +2046,13 @@ namespace BudgetR.Server.Infrastructure.Data.BudgetR.Migrations
             modelBuilder.Entity("BudgetR.Server.Domain.Entities.Income", b =>
                 {
                     b.Navigation("IncomeDetails");
+                });
+
+            modelBuilder.Entity("BudgetR.Server.Domain.Entities.Transactions.TransactionBatch", b =>
+                {
+                    b.Navigation("ProcessedFiles");
+
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }
